@@ -9,10 +9,12 @@ const Product = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const BASE_URL = 'http://127.0.0.1:8000';
+
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:8000/api/products/${id}`);
+                const response = await axios.get(`${BASE_URL}/api/products/${id}`);
                 setProduct(response.data);
                 setLoading(false);
             } catch (err) {
@@ -33,7 +35,7 @@ const Product = () => {
             <Card
                 name={product.name}
                 description={product.description}
-                image={product.image}
+                image={`${BASE_URL}${product.image}`}
                 price={product.price}
                 stock={product.stock}
             />

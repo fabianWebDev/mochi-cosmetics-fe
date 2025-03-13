@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Card from '../components/ui/Card'
 
+const BASE_URL = 'http://127.0.0.1:8000';
+
 const Products = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -12,7 +14,7 @@ const Products = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/products/');
+                const response = await axios.get(`${BASE_URL}/api/products/`);
                 setProducts(response.data);
                 setLoading(false);
             } catch (err) {
@@ -40,7 +42,7 @@ const Products = () => {
                         <Card
                             name={product.name}
                             description={product.description}
-                            image={product.image}
+                            image={product.image ? `${BASE_URL}${product.image}` : ''}
                             price={product.price}
                             stock={product.stock}
                         />
