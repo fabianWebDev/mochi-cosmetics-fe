@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const Products = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -22,6 +24,10 @@ const Products = () => {
         fetchProducts();
     }, []);
 
+    const handleViewDetails = (productId) => {
+        navigate(`/product/${productId}`);
+    };
+
     if (loading) return <div>Loading...</div>;
     if (error) return <div>{error}</div>;
 
@@ -31,8 +37,15 @@ const Products = () => {
             <div className="products-grid">
                 {products.map((product) => (
                     <div key={product.id} className="product-card">
+                        <img src={product.image} alt={product.name} className="product-thumbnail" />
                         <h3>{product.name}</h3>
-                        {/* Add more product details as needed */}
+                        <p className="product-price">${product.price}</p>
+                        <button 
+                            onClick={() => handleViewDetails(product.id)}
+                            className="view-details-btn"
+                        >
+                            View Details
+                        </button>
                     </div>
                 ))}
             </div>
