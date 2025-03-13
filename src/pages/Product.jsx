@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Card from '../components/ui/Card';
 
 const Product = () => {
     const { id } = useParams();
@@ -29,15 +30,13 @@ const Product = () => {
 
     return (
         <div className="product-detail">
-            <h1>{product.name}</h1>
-            <div className="product-info">
-                <img src={product.image} alt={product.name} className="product-image" />
-                <div className="product-details">
-                    <p className="product-description">{product.description}</p>
-                    <p className="product-price">Price: ${product.price}</p>
-                    <p className="product-stock">Stock: {product.stock}</p>
-                </div>
-            </div>
+            <Card
+                name={product.name}
+                description={product.description}
+                image={product.image}
+                price={product.price}
+                stock={product.stock}
+            />
         </div>
     );
 };

@@ -5,6 +5,7 @@ import Products from './pages/Products'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Navbar from './components/layout/Navbar'
+import Contact from './pages/Contact'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </Router>
   )

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import Card from '../components/ui/Card'
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -13,7 +14,6 @@ const Products = () => {
             try {
                 const response = await axios.get('http://127.0.0.1:8000/api/products/');
                 setProducts(response.data);
-                console.log(response.data);
                 setLoading(false);
             } catch (err) {
                 setError('Error fetching products');
@@ -36,16 +36,14 @@ const Products = () => {
             <h1>Products</h1>
             <div className="products-grid">
                 {products.map((product) => (
-                    <div key={product.id} className="product-card">
-                        <img src={product.image} alt={product.name} className="product-thumbnail" />
-                        <h3>{product.name}</h3>
-                        <p className="product-price">${product.price}</p>
-                        <button 
-                            onClick={() => handleViewDetails(product.id)}
-                            className="view-details-btn"
-                        >
-                            View Details
-                        </button>
+                    <div key={product.id} onClick={() => handleViewDetails(product.id)} style={{ cursor: 'pointer' }}>
+                        <Card
+                            name={product.name}
+                            description={product.description}
+                            image={product.image}
+                            price={product.price}
+                            stock={product.stock}
+                        />
                     </div>
                 ))}
             </div>
