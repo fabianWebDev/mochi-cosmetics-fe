@@ -12,14 +12,14 @@ function Home() {
                         <Link to="/" className="text-white hover:text-gray-300">
                             Inicio
                         </Link>
-                        <Link to="/productos" className="text-white hover:text-gray-300">
+                        <Link to="/products" className="text-white hover:text-gray-300">
                             Productos
                         </Link>
-                        <Link to="/carrito" className="text-white hover:text-gray-300">
-                            Carrito
+                        <Link to="/login" className="text-white hover:text-gray-300">
+                            Iniciar Sesión
                         </Link>
-                        <Link to="/contacto" className="text-white hover:text-gray-300">
-                            Contacto
+                        <Link to="/register" className="text-white hover:text-gray-300">
+                            Registrarse
                         </Link>
                     </div>
                 </div>
