@@ -30,15 +30,15 @@ const Products = () => {
         navigate(`/product/${productId}`);
     };
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>{error}</div>;
+    if (loading) return <div className="container mt-4">Loading...</div>;
+    if (error) return <div className="container mt-4">{error}</div>;
 
     return (
-        <div>
-            <h1>Products</h1>
-            <div className="products-grid">
+        <div className="container mt-4">
+            <h1 className="mb-4">Products</h1>
+            <div className="row row-cols-1 row-cols-md-3 g-4">
                 {products.map((product) => (
-                    <div key={product.id} onClick={() => handleViewDetails(product.id)} style={{ cursor: 'pointer' }}>
+                    <div key={product.id} className="col" onClick={() => handleViewDetails(product.id)} style={{ cursor: 'pointer' }}>
                         <Card
                             name={product.name}
                             description={product.description}
