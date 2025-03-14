@@ -126,7 +126,7 @@ const OrderConfirmation = () => {
                         <Link to="/products" className="btn btn-primary me-3">
                             Continue Shopping
                         </Link>
-                        <Link to="/my-orders" className="btn btn-outline-primary">
+                        <Link to="/orders" className="btn btn-outline-primary">
                             View All Orders
                         </Link>
                     </div>

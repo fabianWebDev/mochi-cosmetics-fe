@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { cartService } from '../services/cartService';
 
 const BASE_URL = 'http://127.0.0.1:8000';
 
@@ -96,8 +97,40 @@ const Checkout = () => {
 
             console.log('Response from backend:', JSON.stringify(response.data, null, 2));
 
-            // Limpiar el carrito
-            localStorage.removeItem('cart');
+            // Actualizar el stock de los productos
+            for (const item of cart.items) {
+                try {
+                    await axios.put(
+                        `${BASE_URL}/api/products/${item.product.id}/update-stock/`,
+                        {
+                            quantity: item.quantity,
+                            operation: 'decrease'
+                        },
+                        {
+                            headers: {
+                                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                                'Content-Type': 'application/json'
+                            }
+                        }
+                    );
+                } catch (error) {
+                    console.error(`Error updating stock for product ${item.product.id}:`, error);
+                    toast.error(`Error updating stock for ${item.product.name}`);
+                    // Revertir la orden si hay error al actualizar el stock
+                    await axios.delete(
+                        `${BASE_URL}/api/orders/${response.data.order_id}/`,
+                        {
+                            headers: {
+                                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                            }
+                        }
+                    );
+                    return;
+                }
+            }
+
+            // Limpiar el carrito usando el servicio
+            await cartService.clearCart();
             
             // Mostrar mensaje de éxito
             toast.success('Order placed successfully!');
