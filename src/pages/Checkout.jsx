@@ -3,13 +3,27 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { cartService } from '../services/cartService';
+import { orderService } from '../services/orderService';
 
-const BASE_URL = 'http://127.0.0.1:8000';
+const ORDER_STATUS = {
+    PENDING: 'pending',
+    PROCESSING: 'processing',
+    SHIPPED: 'shipped',
+    DELIVERED: 'delivered',
+    CANCELLED: 'cancelled'
+};
+
+const PROGRESS_STEPS = {
+    CREATING: 1,
+    PROCESSING: 2,
+    COMPLETED: 3
+};
 
 const Checkout = () => {
     const navigate = useNavigate();
     const [cart, setCart] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [shippingInfo, setShippingInfo] = useState({
         shipping_address: '',
         shipping_city: '',
@@ -58,11 +72,46 @@ const Checkout = () => {
         }));
     };
 
+    const validateShippingInfo = () => {
+        const errors = [];
+        if (!shippingInfo.full_name.trim()) errors.push('Full name is required');
+        if (!shippingInfo.shipping_address.trim()) errors.push('Shipping address is required');
+        if (!shippingInfo.shipping_city.trim()) errors.push('City is required');
+        if (!shippingInfo.shipping_postal_code.trim()) errors.push('Postal code is required');
+        if (!shippingInfo.shipping_phone.trim()) errors.push('Phone number is required');
+        return errors;
+    };
+
+    const validateCart = () => {
+        if (!cart || !cart.items || cart.items.length === 0) {
+            return ['Cart is empty'];
+        }
+        return [];
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsSubmitting(true);
         
+        // Validar información de envío
+        const shippingErrors = validateShippingInfo();
+        if (shippingErrors.length > 0) {
+            shippingErrors.forEach(error => toast.error(error));
+            setIsSubmitting(false);
+            return;
+        }
+
+        // Validar carrito
+        const cartErrors = validateCart();
+        if (cartErrors.length > 0) {
+            cartErrors.forEach(error => toast.error(error));
+            setIsSubmitting(false);
+            return;
+        }
+
         if (!userId) {
             toast.error('User information not loaded');
+            setIsSubmitting(false);
             return;
         }
 
@@ -70,7 +119,7 @@ const Checkout = () => {
             // Crear el objeto de orden
             const orderData = {
                 user: userId,
-                status: 'pending',
+                status: ORDER_STATUS.PENDING,
                 total_price: calculateTotal(),
                 shipping_address: `${shippingInfo.full_name}\n${shippingInfo.shipping_address}\n${shippingInfo.shipping_city}, ${shippingInfo.shipping_postal_code}\nPhone: ${shippingInfo.shipping_phone}`,
                 items: cart.items.map(item => ({
@@ -80,51 +129,25 @@ const Checkout = () => {
                 }))
             };
 
-            console.log('Sending order data to backend:', JSON.stringify(orderData, null, 2));
-            console.log('Items being sent:', JSON.stringify(orderData.items, null, 2));
+            console.log('Submitting order with data:', JSON.stringify(orderData, null, 2));
 
-            // Enviar la orden al backend
-            const response = await axios.post(
-                `${BASE_URL}/api/orders/`,
-                orderData,
-                {
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-                        'Content-Type': 'application/json'
-                    }
-                }
-            );
-
-            console.log('Response from backend:', JSON.stringify(response.data, null, 2));
+            // Enviar la orden al backend usando el servicio
+            const response = await orderService.createOrder(orderData);
 
             // Actualizar el stock de los productos
             for (const item of cart.items) {
                 try {
-                    await axios.put(
-                        `${BASE_URL}/api/products/${item.product.id}/update-stock/`,
-                        {
-                            quantity: item.quantity,
-                            operation: 'decrease'
-                        },
-                        {
-                            headers: {
-                                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-                                'Content-Type': 'application/json'
-                            }
-                        }
+                    await orderService.updateProductStock(
+                        item.product.id,
+                        item.quantity,
+                        'decrease'
                     );
                 } catch (error) {
                     console.error(`Error updating stock for product ${item.product.id}:`, error);
                     toast.error(`Error updating stock for ${item.product.name}`);
                     // Revertir la orden si hay error al actualizar el stock
-                    await axios.delete(
-                        `${BASE_URL}/api/orders/${response.data.order_id}/`,
-                        {
-                            headers: {
-                                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-                            }
-                        }
-                    );
+                    await orderService.deleteOrder(response.data.order_id);
+                    setIsSubmitting(false);
                     return;
                 }
             }
@@ -139,27 +162,9 @@ const Checkout = () => {
             navigate(`/order-confirmation/${response.data.order_id}`);
 
         } catch (error) {
-            console.error('Error creating order:', error);
-            console.error('Error details:', {
-                message: error.message,
-                response: error.response?.data,
-                status: error.response?.status
-            });
-            
-            let errorMessage = 'Error placing order';
-            
-            if (error.response?.data) {
-                if (typeof error.response.data === 'object') {
-                    // Si es un objeto de errores, formatear cada campo
-                    errorMessage = Object.entries(error.response.data)
-                        .map(([field, errors]) => `${field}: ${Array.isArray(errors) ? errors.join(', ') : errors}`)
-                        .join('\n');
-                } else if (typeof error.response.data === 'string') {
-                    errorMessage = error.response.data;
-                }
-            }
-            
-            toast.error(errorMessage);
+            handleError(error);
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -169,7 +174,67 @@ const Checkout = () => {
         ) || 0;
     };
 
-    if (loading) return <div className="container mt-4">Loading...</div>;
+    const handleError = (error) => {
+        console.error('Checkout error:', error);
+        
+        if (error.response) {
+            const errorData = error.response.data;
+            console.error('Error response data:', errorData);
+            
+            switch (error.response.status) {
+                case 400:
+                    // Manejar errores de validación
+                    if (typeof errorData === 'object') {
+                        Object.entries(errorData).forEach(([field, messages]) => {
+                            toast.error(`${field}: ${Array.isArray(messages) ? messages.join(', ') : messages}`);
+                        });
+                    } else {
+                        toast.error(errorData);
+                    }
+                    break;
+                case 401:
+                    toast.error('Session expired. Please login again.');
+                    navigate('/login');
+                    break;
+                case 403:
+                    toast.error('You do not have permission to perform this action.');
+                    break;
+                case 404:
+                    toast.error('Order not found.');
+                    break;
+                case 500:
+                    toast.error('Server error. Please try again later.');
+                    break;
+                default:
+                    toast.error('Error processing your request.');
+            }
+        } else if (error.request) {
+            toast.error('Could not connect to the server.');
+        } else {
+            toast.error('Error processing your request.');
+        }
+    };
+
+    const retryOperation = async (operation, maxRetries = 3) => {
+        for (let i = 0; i < maxRetries; i++) {
+            try {
+                return await operation();
+            } catch (error) {
+                if (i === maxRetries - 1) throw error;
+                await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)));
+            }
+        }
+    };
+
+    const validateOrder = (order) => {
+        const errors = [];
+        if (!order.order_id) errors.push('ID de orden requerido');
+        if (!order.total_amount || order.total_amount <= 0) errors.push('Total inválido');
+        if (!order.status) errors.push('Estado requerido');
+        return errors;
+    };
+
+    if (loading) return <LoadingState />;
 
     return (
         <div className="container mt-4">
@@ -243,8 +308,19 @@ const Checkout = () => {
                                         required
                                     />
                                 </div>
-                                <button type="submit" className="btn btn-primary w-100">
-                                    Place Order
+                                <button 
+                                    type="submit" 
+                                    className="btn btn-primary w-100"
+                                    disabled={isSubmitting}
+                                >
+                                    {isSubmitting ? (
+                                        <>
+                                            <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                            Processing...
+                                        </>
+                                    ) : (
+                                        'Place Order'
+                                    )}
                                 </button>
                             </form>
                         </div>
@@ -256,11 +332,12 @@ const Checkout = () => {
                     <div className="card shadow-sm">
                         <div className="card-body">
                             <h3 className="card-title mb-4">Order Summary</h3>
-                            {cart.items.map((item) => (
+                            {cart?.items.map((item) => (
                                 <div key={item.product.id} className="d-flex justify-content-between mb-2">
-                                    <span>
-                                        {item.product.name} x {item.quantity}
-                                    </span>
+                                    <div>
+                                        <h6 className="mb-0">{item.product.name}</h6>
+                                        <small className="text-muted">Quantity: {item.quantity}</small>
+                                    </div>
                                     <span>${(item.product.price * item.quantity).toFixed(2)}</span>
                                 </div>
                             ))}
@@ -275,6 +352,68 @@ const Checkout = () => {
             </div>
         </div>
     );
+};
+
+const LoadingState = () => (
+    <div className="container mt-4">
+        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '200px' }}>
+            <div className="spinner-border text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+);
+
+const OrderDetails = ({ order }) => (
+    <tr key={order.id}>
+        <td>{order.order_id}</td>
+        <td>{new Date(order.created_at).toLocaleDateString()}</td>
+        <td>${order.total_amount}</td>
+        <td>
+            <span className={`badge bg-${getStatusColor(order.status)}`}>
+                {order.status}
+            </span>
+        </td>
+        <td>
+            <button
+                className="btn btn-outline-primary btn-sm"
+                onClick={() => handleViewDetails(order.id)}
+            >
+                Ver Detalles
+            </button>
+        </td>
+    </tr>
+);
+
+const getStatusColor = (status) => {
+    const colors = {
+        [ORDER_STATUS.PENDING]: 'warning',
+        [ORDER_STATUS.PROCESSING]: 'info',
+        [ORDER_STATUS.SHIPPED]: 'primary',
+        [ORDER_STATUS.DELIVERED]: 'success',
+        [ORDER_STATUS.CANCELLED]: 'danger'
+    };
+    return colors[status] || 'secondary';
+};
+
+const useOrders = () => {
+    const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    const fetchOrders = async () => {
+        try {
+            setLoading(true);
+            const response = await orderService.getOrders();
+            setOrders(response.data);
+        } catch (error) {
+            setError(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return { orders, loading, error, fetchOrders };
 };
 
 export default Checkout;
