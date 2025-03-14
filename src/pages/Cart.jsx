@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Cart = () => {
     const [cart, setCart] = useState(null);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Get cart from localStorage
@@ -44,6 +45,17 @@ const Cart = () => {
             items: prevCart.items.filter(item => item.product.id !== productId)
         }));
         toast.success('Item removed from cart');
+    };
+
+    const handleCheckout = () => {
+        const token = localStorage.getItem('accessToken');
+        if (token) {
+            // Usuario logueado, redirigir a checkout
+            navigate('/checkout');
+        } else {
+            // Usuario no logueado, redirigir a login
+            navigate('/login');
+        }
     };
 
     if (loading) return <div className="container mt-4">Loading...</div>;
@@ -123,9 +135,12 @@ const Cart = () => {
                     <hr />
                     <div className="d-flex justify-content-between align-items-center">
                         <h4>Total: ${calculateTotal().toFixed(2)}</h4>
-                        <Link to="/login" className="btn btn-primary">
+                        <button 
+                            className="btn btn-primary"
+                            onClick={handleCheckout}
+                        >
                             Proceed to Checkout
-                        </Link>
+                        </button>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,139 @@
+import { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+
+const BASE_URL = 'http://127.0.0.1:8000';
+
+const OrderConfirmation = () => {
+    const { orderId } = useParams();
+    const [order, setOrder] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchOrder = async () => {
+            try {
+                const response = await axios.get(
+                    `${BASE_URL}/api/orders/${orderId}/`,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                        }
+                    }
+                );
+                console.log('Full order data:', response.data);
+                console.log('Items array:', response.data.items);
+                if (response.data.items && response.data.items.length > 0) {
+                    console.log('Number of items:', response.data.items.length);
+                    console.log('First item full details:', response.data.items[0]);
+                    console.log('Available fields in first item:', Object.keys(response.data.items[0]));
+                } else {
+                    console.log('No items found in order');
+                }
+                setOrder(response.data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching order - Full error:', error);
+                if (error.response) {
+                    console.error('Error status:', error.response.status);
+                    console.error('Error data:', error.response.data);
+                    console.error('Error headers:', error.response.headers);
+                } else if (error.request) {
+                    console.error('No response received:', error.request);
+                } else {
+                    console.error('Error setting up request:', error.message);
+                }
+                toast.error(
+                    error.response?.data?.detail || 
+                    error.response?.data?.error || 
+                    'Error fetching order details'
+                );
+                setLoading(false);
+            }
+        };
+
+        fetchOrder();
+    }, [orderId]);
+
+    if (loading) return <div className="container mt-4">Loading...</div>;
+    if (!order) return <div className="container mt-4">Order not found</div>;
+
+    // Extraer información de envío del campo shipping_address
+    const shippingLines = order.shipping_address.split('\n');
+    const fullName = shippingLines[0];
+    const address = shippingLines[1];
+    const cityPostal = shippingLines[2].split(',');
+    const city = cityPostal[0].trim();
+    const postalCode = cityPostal[1]?.trim() || '';
+    const phone = shippingLines[3]?.replace('Phone:', '').trim() || '';
+
+    return (
+        <div className="container mt-4">
+            <div className="card shadow-sm">
+                <div className="card-body">
+                    <div className="text-center mb-4">
+                        <i className="bi bi-check-circle text-success" style={{ fontSize: '4rem' }}></i>
+                        <h1 className="mt-3">Thank You for Your Order!</h1>
+                        <p className="lead">Order #{order.order_id}</p>
+                    </div>
+
+                    <div className="row">
+                        <div className="col-md-6">
+                            <h3>Shipping Information</h3>
+                            <p><strong>Name:</strong> {fullName}</p>
+                            <p><strong>Address:</strong> {address}</p>
+                            <p><strong>City:</strong> {city}</p>
+                            <p><strong>Postal Code:</strong> {postalCode}</p>
+                            <p><strong>Phone:</strong> {phone}</p>
+                        </div>
+                        <div className="col-md-6">
+                            <h3>Order Details</h3>
+                            <p><strong>Order Status:</strong> {order.status}</p>
+                            <p><strong>Order Date:</strong> {new Date(order.created_at).toLocaleDateString()}</p>
+                            <p><strong>Total Amount:</strong> ${Number(order.total_price).toFixed(2)}</p>
+                        </div>
+                    </div>
+
+                    {order.items && order.items.length > 0 && (
+                        <div className="mt-4">
+                            <h3>Order Items</h3>
+                            <div className="table-responsive">
+                                <table className="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {order.items?.map((item) => (
+                                            <tr key={item?.id || Math.random()}>
+                                                <td>{item?.product_name || 'N/A'}</td>
+                                                <td>{item?.quantity || 0}</td>
+                                                <td>${Number(item?.price_at_time || 0).toFixed(2)}</td>
+                                                <td>${((item?.quantity || 0) * Number(item?.price_at_time || 0)).toFixed(2)}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="text-center mt-4">
+                        <Link to="/products" className="btn btn-primary me-3">
+                            Continue Shopping
+                        </Link>
+                        <Link to="/my-orders" className="btn btn-outline-primary">
+                            View All Orders
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default OrderConfirmation; 
