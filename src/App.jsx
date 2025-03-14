@@ -7,11 +7,15 @@ import Register from './pages/Register'
 import Navbar from './components/layout/Navbar'
 import Contact from './pages/Contact'
 import Product from './pages/Product'
+import Cart from './pages/Cart'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   return (
     <Router>
       <Navbar />
+      <ToastContainer position="top-right" />
       <div className='container'>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -20,6 +24,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </div>
     </Router>

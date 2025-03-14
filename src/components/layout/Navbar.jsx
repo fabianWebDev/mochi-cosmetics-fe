@@ -7,7 +7,7 @@ function Navbar() {
                 <Link to="/" className="font-bold text-xl">
                     Mi Tienda
                 </Link>
-                <div className="flex space-x-4">
+                <div className="flex space-x-4 items-center">
                     <Link to="/" className="hover:text-gray-300">
                         Inicio
                     </Link>
@@ -22,6 +22,10 @@ function Navbar() {
                     </Link>
                     <Link to="/contact" className="hover:text-gray-300">
                         Contacto
+                    </Link>
+                    <Link to="/cart" className="hover:text-gray-300 flex items-center">
+                        <i className="bi bi-cart me-1"></i>
+                        Carrito
                     </Link>
                 </div>
             </div>
