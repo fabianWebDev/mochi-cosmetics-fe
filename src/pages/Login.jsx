@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import '../styles/Login.css';
 
 const Login = () => {
@@ -10,6 +10,7 @@ const Login = () => {
     });
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     const handleChange = (e) => {
         setFormData({
@@ -22,21 +23,12 @@ const Login = () => {
         e.preventDefault();
         setError('');
         
-        try {
-            const response = await axios.post('http://127.0.0.1:8000/api/users/login/', formData);
-            
-            // Store tokens in localStorage
-            localStorage.setItem('accessToken', response.data.access);
-            localStorage.setItem('refreshToken', response.data.refresh);
-            localStorage.setItem('userData', JSON.stringify(response.data.user));
-
-            // Configure axios default header for future requests
-            axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
-            
-            // Redirect to products page or dashboard
+        const result = await login(formData.email, formData.password);
+        
+        if (result.success) {
             navigate('/products');
-        } catch (err) {
-            setError(err.response?.data?.error || 'Error al iniciar sesión');
+        } else {
+            setError(result.error);
         }
     };
 

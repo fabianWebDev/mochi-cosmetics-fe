@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Card from '../components/ui/Card'
 import { toast } from 'react-toastify'
+import { cartService } from '../services/cartService'
 
 const BASE_URL = 'http://127.0.0.1:8000';
 
@@ -31,31 +32,18 @@ const Products = () => {
         navigate(`/product/${productId}`);
     };
 
-    const handleAddToCart = (product) => {
-        const savedCart = localStorage.getItem('cart');
-        const cart = savedCart ? JSON.parse(savedCart) : { items: [] };
-        
-        const existingItem = cart.items.find(item => item.product.id === product.id);
-        
-        if (existingItem) {
-            // If item exists and adding one more wouldn't exceed stock
-            if (existingItem.quantity < product.stock) {
-                existingItem.quantity += 1;
-                toast.success('Added one more to cart!');
-            } else {
-                toast.warning('Maximum stock reached for this item');
-                return;
-            }
-        } else {
-            // Add new item
-            cart.items.push({
-                product: product,
-                quantity: 1
-            });
+    const handleAddToCart = async (product) => {
+        try {
+            await cartService.addToCart(product.id, 1);
             toast.success('Product added to cart!');
+        } catch (error) {
+            if (error.response?.data?.error === 'Not enough stock available') {
+                toast.error('Sorry, this product is out of stock');
+            } else {
+                toast.error('Error adding product to cart');
+            }
+            console.error('Error adding to cart:', error);
         }
-        
-        localStorage.setItem('cart', JSON.stringify(cart));
     };
 
     if (loading) return <div className="container mt-4">Loading...</div>;

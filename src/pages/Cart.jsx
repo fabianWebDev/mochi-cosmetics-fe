@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { cartService } from '../services/cartService';
 
 const Cart = () => {
     const [cart, setCart] = useState(null);
@@ -9,51 +9,65 @@ const Cart = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Get cart from localStorage
-        const savedCart = localStorage.getItem('cart');
-        setCart(savedCart ? JSON.parse(savedCart) : { items: [] });
-        setLoading(false);
+        const loadCart = async () => {
+            try {
+                // Intentar sincronizar con el backend si el usuario está autenticado
+                await cartService.syncWithBackend();
+                
+                // Cargar carrito del localStorage
+                const cartData = cartService.loadCartFromLocalStorage();
+                setCart(cartData);
+                setLoading(false);
+            } catch (error) {
+                // Solo mostrar error toast si no es un 404
+                if (!error.response || error.response.status !== 404) {
+                    console.error('Error loading cart:', error);
+                    toast.error('Error loading cart');
+                }
+                // En cualquier caso, cargar el carrito local
+                const cartData = cartService.loadCartFromLocalStorage();
+                setCart(cartData);
+                setLoading(false);
+            }
+        };
+
+        loadCart();
     }, []);
 
-    // Save cart to localStorage whenever it changes
-    useEffect(() => {
-        if (cart) {
-            localStorage.setItem('cart', JSON.stringify(cart));
+    const handleUpdateQuantity = async (productId, newQuantity) => {
+        try {
+            if (newQuantity <= 0) {
+                await cartService.removeFromCart(productId);
+                toast.success('Item removed from cart');
+            } else {
+                await cartService.updateQuantity(productId, newQuantity);
+                toast.success('Cart updated successfully');
+            }
+            
+            // Actualizar el estado del carrito
+            setCart(cartService.loadCartFromLocalStorage());
+        } catch (error) {
+            console.error('Error updating cart:', error);
+            toast.error('Error updating cart');
         }
-    }, [cart]);
-
-    const handleUpdateQuantity = (productId, newQuantity) => {
-        if (newQuantity <= 0) {
-            handleRemoveItem(productId);
-            return;
-        }
-
-        setCart(prevCart => {
-            const updatedItems = prevCart.items.map(item => 
-                item.product.id === productId 
-                    ? { ...item, quantity: Math.min(newQuantity, item.product.stock) }
-                    : item
-            );
-            return { ...prevCart, items: updatedItems };
-        });
-        toast.success('Cart updated successfully');
     };
 
-    const handleRemoveItem = (productId) => {
-        setCart(prevCart => ({
-            ...prevCart,
-            items: prevCart.items.filter(item => item.product.id !== productId)
-        }));
-        toast.success('Item removed from cart');
+    const handleRemoveItem = async (productId) => {
+        try {
+            await cartService.removeFromCart(productId);
+            setCart(cartService.loadCartFromLocalStorage());
+            toast.success('Item removed from cart');
+        } catch (error) {
+            console.error('Error removing item:', error);
+            toast.error('Error removing item from cart');
+        }
     };
 
     const handleCheckout = () => {
         const token = localStorage.getItem('accessToken');
         if (token) {
-            // Usuario logueado, redirigir a checkout
             navigate('/checkout');
         } else {
-            // Usuario no logueado, redirigir a login
             navigate('/login');
         }
     };
@@ -71,7 +85,9 @@ const Cart = () => {
     }
 
     const calculateTotal = () => {
-        return cart.items.reduce((total, item) => total + (item.product.price * item.quantity), 0);
+        return cart.items.reduce((total, item) => 
+            total + (item.product.price * item.quantity), 0
+        );
     };
 
     return (

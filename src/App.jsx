@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import Home from './pages/Home'
 import Products from './pages/Products'
@@ -10,14 +10,13 @@ import Product from './pages/Product'
 import Cart from './pages/Cart'
 import Checkout from './pages/Checkout'
 import OrderConfirmation from './pages/OrderConfirmation'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import Orders from './pages/Orders'
+import { AuthProvider } from './context/AuthContext'
 
 function App() {
   return (
-    <Router>
+    <AuthProvider>
       <Navbar />
-      <ToastContainer position="top-right" />
       <div className='container'>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -28,10 +27,11 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/orders" element={<Orders />} />
           <Route path="/order-confirmation/:orderId" element={<OrderConfirmation />} />
         </Routes>
       </div>
-    </Router>
+    </AuthProvider>
   )
 }
 
