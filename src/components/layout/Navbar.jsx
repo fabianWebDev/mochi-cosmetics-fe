@@ -47,10 +47,10 @@ function Navbar() {
                             <Link to="/orders" className="hover:text-gray-300">
                                 Mis Órdenes
                             </Link>
-                            <span className="text-white">
+                            <span className=" ">
                                 {user.first_name || user.username}
                             </span>
-                            <button 
+                            <button
                                 onClick={handleLogout}
                                 className="hover:text-gray-300 cursor-pointer"
                             >
