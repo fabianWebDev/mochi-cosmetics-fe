@@ -12,8 +12,6 @@ import Checkout from './pages/Checkout'
 import OrderConfirmation from './pages/OrderConfirmation'
 import Orders from './pages/Orders'
 import { AuthProvider } from './context/AuthContext'
-import ErrorNotification from './components/ErrorNotification'
-import './styles/ErrorNotification.css'
 import Footer from './components/layout/Footer'
 import About from './pages/About'
 
@@ -21,7 +19,6 @@ function App() {
   return (
     <AuthProvider>
       <Navbar />
-      <ErrorNotification />
       <div className='container'>
         <Routes>
           <Route path="/" element={<Home />} />
