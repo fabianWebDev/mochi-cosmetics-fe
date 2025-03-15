@@ -1,24 +1,10 @@
-import { Button as MuiButton } from '@mui/material';
-import { styled } from '@mui/material/styles';
-
-const StyledButton = styled(MuiButton)(({ theme }) => ({
-  borderRadius: theme.shape.borderRadius,
-  textTransform: 'none',
-  fontWeight: 600,
-  padding: theme.spacing(1, 3),
-  '&.MuiButton-contained': {
-    boxShadow: 'none',
-    '&:hover': {
-      boxShadow: 'none',
-    },
-  },
-}));
-
-const Button = ({ children, variant = 'contained', color = 'primary', ...props }) => {
+const Button = ({ children, variant = 'primary', className = '', ...props }) => {
+  const buttonClass = `btn btn-${variant} ${className}`;
+  
   return (
-    <StyledButton variant={variant} color={color} {...props}>
+    <button className={buttonClass} {...props}>
       {children}
-    </StyledButton>
+    </button>
   );
 };
 

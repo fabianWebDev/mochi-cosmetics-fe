@@ -1,6 +1,7 @@
 export const APP_NAME = 'Store FE';
 
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
+export const MEDIA_BASE_URL = import.meta.env.VITE_MEDIA_BASE_URL || 'http://localhost:8000';
 
 export const ROUTES = {
   HOME: '/',
@@ -16,9 +17,10 @@ export const ROUTES = {
 };
 
 export const STORAGE_KEYS = {
-  TOKEN: 'auth_token',
+  TOKEN: 'access_token',
+  REFRESH_TOKEN: 'refresh_token',
   USER: 'user_data',
-  CART: 'cart_items',
+  CART: 'cart_data',
 };
 
 export const TOAST_DURATION = 3000;

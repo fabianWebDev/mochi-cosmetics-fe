@@ -1,14 +1,16 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
+import { authService } from '../../services/authService';
 
 function Navbar() {
-    const { user, logout } = useAuth();
     const navigate = useNavigate();
+    const user = authService.getUser();
 
     const handleLogout = async () => {
-        const result = await logout();
-        if (result.success) {
+        try {
+            await authService.logout();
             navigate('/');
+        } catch (error) {
+            console.error('Error logging out:', error);
         }
     };
 
@@ -16,45 +18,47 @@ function Navbar() {
         <nav className="bg-gray-800 p-4">
             <div className="container mx-auto flex justify-between items-center">
                 <Link to="/" className="font-bold text-xl">
-                    Mi Tienda
+                    My Store
                 </Link>
                 <div className="flex space-x-4 items-center">
                     <Link to="/" className="hover:text-gray-300">
-                        Inicio
+                        Home
                     </Link>
                     <Link to="/products" className="hover:text-gray-300">
-                        Productos
+                        Products
                     </Link>
-
                     <Link to="/contact" className="hover:text-gray-300">
-                        Contacto
+                        Contact
                     </Link>
                     <Link to="/cart" className="hover:text-gray-300 flex items-center">
                         <i className="bi bi-cart me-1"></i>
-                        Carrito
+                        Cart
+                    </Link>
+                    <Link to="/about" className="hover:text-gray-300">
+                        About
                     </Link>
                     {!user ? (
                         <>
                             <Link to="/login" className="hover:text-gray-300">
-                                Iniciar Sesión
+                                Login
                             </Link>
                             <Link to="/register" className="hover:text-gray-300">
-                                Registrarse
+                                Register
                             </Link>
                         </>
                     ) : (
                         <>
                             <Link to="/orders" className="hover:text-gray-300">
-                                Mis Órdenes
+                                My Orders
                             </Link>
-                            <span className=" ">
+                            <span className="text-gray-300">
                                 {user.first_name || user.username}
                             </span>
                             <button
                                 onClick={handleLogout}
                                 className="hover:text-gray-300 cursor-pointer"
                             >
-                                Cerrar Sesión
+                                Logout
                             </button>
                         </>
                     )}

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { toast } from 'react-toastify';
 import { cartService } from '../services/cartService';
 import { orderService } from '../services/orderService';
+import { authService } from '../services/authService';
 
 const ORDER_STATUS = {
     PENDING: 'pending',
@@ -35,32 +35,28 @@ const Checkout = () => {
 
     useEffect(() => {
         // Verificar autenticación y obtener información del usuario
-        const token = localStorage.getItem('accessToken');
-        if (!token) {
+        if (!authService.isAuthenticated()) {
             toast.error('Please login to proceed with checkout');
             navigate('/login');
             return;
         }
 
-        // Obtener ID del usuario del token JWT
-        try {
-            const tokenPayload = JSON.parse(atob(token.split('.')[1]));
-            setUserId(tokenPayload.user_id);
-        } catch (error) {
-            console.error('Error decoding token:', error);
+        const user = authService.getUser();
+        if (!user || !user.id) {
             toast.error('Error loading user data');
             navigate('/login');
             return;
         }
+        setUserId(user.id);
 
-        // Cargar carrito
-        const savedCart = localStorage.getItem('cart');
-        if (!savedCart || JSON.parse(savedCart).items.length === 0) {
+        // Cargar carrito usando el servicio
+        const cartItems = cartService.getCartItems();
+        if (!cartItems || cartItems.length === 0) {
             toast.error('Your cart is empty');
             navigate('/cart');
             return;
         }
-        setCart(JSON.parse(savedCart));
+        setCart({ items: cartItems });
         setLoading(false);
     }, [navigate]);
 
@@ -132,7 +128,11 @@ const Checkout = () => {
             console.log('Submitting order with data:', JSON.stringify(orderData, null, 2));
 
             // Enviar la orden al backend usando el servicio
-            const response = await orderService.createOrder(orderData);
+            const order = await orderService.createOrder(orderData);
+
+            if (!order || !order.order_id) {
+                throw new Error('Invalid order response from server');
+            }
 
             // Actualizar el stock de los productos
             for (const item of cart.items) {
@@ -146,7 +146,7 @@ const Checkout = () => {
                     console.error(`Error updating stock for product ${item.product.id}:`, error);
                     toast.error(`Error updating stock for ${item.product.name}`);
                     // Revertir la orden si hay error al actualizar el stock
-                    await orderService.deleteOrder(response.data.order_id);
+                    await orderService.deleteOrder(order.order_id);
                     setIsSubmitting(false);
                     return;
                 }
@@ -159,7 +159,7 @@ const Checkout = () => {
             toast.success('Order placed successfully!');
             
             // Redirigir a la página de confirmación
-            navigate(`/order-confirmation/${response.data.order_id}`);
+            navigate(`/order-confirmation/${order.order_id}`);
 
         } catch (error) {
             handleError(error);
@@ -215,26 +215,7 @@ const Checkout = () => {
         }
     };
 
-    const retryOperation = async (operation, maxRetries = 3) => {
-        for (let i = 0; i < maxRetries; i++) {
-            try {
-                return await operation();
-            } catch (error) {
-                if (i === maxRetries - 1) throw error;
-                await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)));
-            }
-        }
-    };
-
-    const validateOrder = (order) => {
-        const errors = [];
-        if (!order.order_id) errors.push('ID de orden requerido');
-        if (!order.total_amount || order.total_amount <= 0) errors.push('Total inválido');
-        if (!order.status) errors.push('Estado requerido');
-        return errors;
-    };
-
-    if (loading) return <LoadingState />;
+    if (loading) return <div className="container mt-4">Loading...</div>;
 
     return (
         <div className="container mt-4">
@@ -270,8 +251,8 @@ const Checkout = () => {
                                         required
                                     />
                                 </div>
-                                <div className="row mb-3">
-                                    <div className="col">
+                                <div className="row">
+                                    <div className="col-md-6 mb-3">
                                         <label htmlFor="shipping_city" className="form-label">City</label>
                                         <input
                                             type="text"
@@ -283,7 +264,7 @@ const Checkout = () => {
                                             required
                                         />
                                     </div>
-                                    <div className="col">
+                                    <div className="col-md-6 mb-3">
                                         <label htmlFor="shipping_postal_code" className="form-label">Postal Code</label>
                                         <input
                                             type="text"
@@ -297,7 +278,7 @@ const Checkout = () => {
                                     </div>
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="shipping_phone" className="form-label">Phone Number</label>
+                                    <label htmlFor="shipping_phone" className="form-label">Phone</label>
                                     <input
                                         type="tel"
                                         className="form-control"
@@ -308,19 +289,12 @@ const Checkout = () => {
                                         required
                                     />
                                 </div>
-                                <button 
-                                    type="submit" 
-                                    className="btn btn-primary w-100"
+                                <button
+                                    type="submit"
+                                    className="btn btn-primary"
                                     disabled={isSubmitting}
                                 >
-                                    {isSubmitting ? (
-                                        <>
-                                            <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                                            Processing...
-                                        </>
-                                    ) : (
-                                        'Place Order'
-                                    )}
+                                    {isSubmitting ? 'Processing...' : 'Place Order'}
                                 </button>
                             </form>
                         </div>
@@ -334,17 +308,14 @@ const Checkout = () => {
                             <h3 className="card-title mb-4">Order Summary</h3>
                             {cart?.items.map((item) => (
                                 <div key={item.product.id} className="d-flex justify-content-between mb-2">
-                                    <div>
-                                        <h6 className="mb-0">{item.product.name}</h6>
-                                        <small className="text-muted">Quantity: {item.quantity}</small>
-                                    </div>
+                                    <span>{item.product.name} x {item.quantity}</span>
                                     <span>${(item.product.price * item.quantity).toFixed(2)}</span>
                                 </div>
                             ))}
                             <hr />
                             <div className="d-flex justify-content-between">
-                                <h5>Total:</h5>
-                                <h5>${calculateTotal().toFixed(2)}</h5>
+                                <strong>Total</strong>
+                                <strong>${calculateTotal().toFixed(2)}</strong>
                             </div>
                         </div>
                     </div>
@@ -352,68 +323,6 @@ const Checkout = () => {
             </div>
         </div>
     );
-};
-
-const LoadingState = () => (
-    <div className="container mt-4">
-        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '200px' }}>
-            <div className="spinner-border text-primary" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </div>
-        </div>
-    </div>
-);
-
-const OrderDetails = ({ order }) => (
-    <tr key={order.id}>
-        <td>{order.order_id}</td>
-        <td>{new Date(order.created_at).toLocaleDateString()}</td>
-        <td>${order.total_amount}</td>
-        <td>
-            <span className={`badge bg-${getStatusColor(order.status)}`}>
-                {order.status}
-            </span>
-        </td>
-        <td>
-            <button
-                className="btn btn-outline-primary btn-sm"
-                onClick={() => handleViewDetails(order.id)}
-            >
-                Ver Detalles
-            </button>
-        </td>
-    </tr>
-);
-
-const getStatusColor = (status) => {
-    const colors = {
-        [ORDER_STATUS.PENDING]: 'warning',
-        [ORDER_STATUS.PROCESSING]: 'info',
-        [ORDER_STATUS.SHIPPED]: 'primary',
-        [ORDER_STATUS.DELIVERED]: 'success',
-        [ORDER_STATUS.CANCELLED]: 'danger'
-    };
-    return colors[status] || 'secondary';
-};
-
-const useOrders = () => {
-    const [orders, setOrders] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    const fetchOrders = async () => {
-        try {
-            setLoading(true);
-            const response = await orderService.getOrders();
-            setOrders(response.data);
-        } catch (error) {
-            setError(error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    return { orders, loading, error, fetchOrders };
 };
 
 export default Checkout;

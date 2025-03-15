@@ -8,6 +8,7 @@ const axiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true // Importante para manejar cookies si es necesario
 });
 
 // Interceptor para agregar el token a las peticiones
@@ -26,12 +27,20 @@ axiosInstance.interceptors.request.use(
 
 // Interceptor para manejar errores de respuesta
 axiosInstance.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    // Log de la respuesta para depuración
+    console.log('API Response:', response.data);
+    return response;
+  },
   (error) => {
+    console.error('API Error:', error.response?.data || error.message);
+    
     if (error.response) {
       const { status, data } = error.response;
+      
+      // Crear un error de API con la información disponible
       const apiError = new ApiError(
-        data.message || 'Error en la petición',
+        data.message || data.error || 'Error en la petición',
         status,
         data.code,
         data.details

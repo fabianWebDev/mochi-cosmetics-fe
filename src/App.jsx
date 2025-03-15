@@ -14,6 +14,8 @@ import Orders from './pages/Orders'
 import { AuthProvider } from './context/AuthContext'
 import ErrorNotification from './components/ErrorNotification'
 import './styles/ErrorNotification.css'
+import Footer from './components/layout/Footer'
+import About from './pages/About'
 
 function App() {
   return (
@@ -32,8 +34,10 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/order-confirmation/:orderId" element={<OrderConfirmation />} />
+          <Route path="/about" element={<About />} />
         </Routes>
       </div>
+      <Footer />
     </AuthProvider>
   )
 }

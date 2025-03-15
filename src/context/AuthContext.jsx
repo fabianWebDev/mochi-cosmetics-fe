@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import { authService } from '../services/authService';
 
 const AuthContext = createContext(null);
 
@@ -8,83 +8,57 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Verificar si hay un usuario autenticado al cargar la aplicación
-        const userDataString = localStorage.getItem('userData');
-        const accessToken = localStorage.getItem('accessToken');
-        
-        if (userDataString && accessToken) {
-            const userData = JSON.parse(userDataString);
-            setUser(userData);
-            axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-        }
-        setLoading(false);
+        const initializeAuth = async () => {
+            try {
+                if (authService.isAuthenticated()) {
+                    const userData = authService.getUser();
+                    if (userData) {
+                        setUser(userData);
+                        // Configurar el token en axiosInstance
+                        const token = authService.getToken();
+                        if (token) {
+                            authService.axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                        }
+                    } else {
+                        // Si no hay datos de usuario, limpiar la autenticación
+                        await authService.logout();
+                    }
+                }
+            } catch (error) {
+                console.error('Error initializing auth:', error);
+                await authService.logout();
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        initializeAuth();
     }, []);
 
-    const login = async (email, password) => {
+    const login = async (credentials) => {
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/users/login/', {
-                email,
-                password
-            });
-
-            const { access, refresh, user } = response.data;
-
-            // Guardar datos en localStorage
-            localStorage.setItem('accessToken', access);
-            localStorage.setItem('refreshToken', refresh);
-            localStorage.setItem('userData', JSON.stringify(user));
-
-            // Configurar header de axios
-            axios.defaults.headers.common['Authorization'] = `Bearer ${access}`;
-
-            // Actualizar estado
-            setUser(user);
-
+            console.log('Login attempt in AuthContext');
+            const userData = await authService.login(credentials);
+            console.log('Login successful, user data:', userData);
+            setUser(userData);
             return { success: true };
         } catch (error) {
+            console.error('Login error in AuthContext:', error);
             return {
                 success: false,
-                error: error.response?.data?.error || 'Error al iniciar sesión'
+                error: error.message || 'Error al iniciar sesión'
             };
         }
     };
 
     const logout = async () => {
         try {
-            const refreshToken = localStorage.getItem('refreshToken');
-            const accessToken = localStorage.getItem('accessToken');
-
-            if (refreshToken && accessToken) {
-                await axios.post('http://127.0.0.1:8000/api/users/logout/', {
-                    refresh: refreshToken
-                }, {
-                    headers: {
-                        'Authorization': `Bearer ${accessToken}`
-                    }
-                });
-            }
-
-            // Limpiar localStorage
-            localStorage.removeItem('userData');
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('refreshToken');
-
-            // Limpiar header de axios
-            delete axios.defaults.headers.common['Authorization'];
-
-            // Actualizar estado
+            await authService.logout();
             setUser(null);
-
             return { success: true };
         } catch (error) {
             console.error('Error during logout:', error);
-            // Limpiar todo incluso si hay error
-            localStorage.removeItem('userData');
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('refreshToken');
-            delete axios.defaults.headers.common['Authorization'];
-            setUser(null);
-            return { success: true };
+            return { success: false, error: 'Error al cerrar sesión' };
         }
     };
 
@@ -92,7 +66,8 @@ export const AuthProvider = ({ children }) => {
         user,
         loading,
         login,
-        logout
+        logout,
+        isAuthenticated: authService.isAuthenticated
     };
 
     return (
@@ -102,10 +77,12 @@ export const AuthProvider = ({ children }) => {
     );
 };
 
-export const useAuth = () => {
+const useAuth = () => {
     const context = useContext(AuthContext);
     if (!context) {
         throw new Error('useAuth debe ser usado dentro de un AuthProvider');
     }
     return context;
-}; 
+};
+
+export { useAuth }; 

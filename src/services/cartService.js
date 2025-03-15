@@ -1,40 +1,32 @@
-import axios from 'axios';
-
-const BASE_URL = 'http://127.0.0.1:8000';
+import axiosInstance from './axios';
+import { API_BASE_URL } from '../constants';
+import { authService } from './authService';
+import { STORAGE_KEYS } from '../constants';
 
 class CartService {
     constructor() {
         this.cart = this.loadCartFromLocalStorage();
     }
 
-    getAuthHeaders() {
-        const token = localStorage.getItem('accessToken');
-        return {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-        };
-    }
-
     loadCartFromLocalStorage() {
-        const savedCart = localStorage.getItem('cart');
+        const savedCart = localStorage.getItem(STORAGE_KEYS.CART);
         return savedCart ? JSON.parse(savedCart) : { items: [] };
     }
 
     saveCartToLocalStorage(cart) {
-        localStorage.setItem('cart', JSON.stringify(cart));
+        localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
     }
 
     async syncWithBackend() {
-        const token = localStorage.getItem('accessToken');
-        if (!token) return;
+        if (!authService.isAuthenticated()) {
+            return this.loadCartFromLocalStorage().items;
+        }
 
         try {
             console.log('Iniciando sincronización con el backend');
             
             // Obtener el carrito del backend
-            const response = await axios.get(`${BASE_URL}/api/cart/`, {
-                headers: this.getAuthHeaders()
-            });
+            const response = await axiosInstance.get('/cart/');
 
             // Transformar la respuesta del backend al formato local
             const cartData = {
@@ -47,7 +39,7 @@ class CartService {
                         stock: item.product.stock
                     },
                     quantity: item.quantity,
-                    cartItemId: item.id // Guardamos el ID del CartItem para actualizaciones
+                    cartItemId: item.id
                 }))
             };
 
@@ -55,7 +47,7 @@ class CartService {
             return cartData.items;
         } catch (error) {
             console.error('Error syncing cart:', error);
-            if (error.response && error.response.status === 404) {
+            if (error.response?.status === 404) {
                 console.log('No active cart found, using local cart');
                 return this.loadCartFromLocalStorage().items;
             }
@@ -64,21 +56,13 @@ class CartService {
     }
 
     async addToCart(productId, quantity = 1, updateLocal = true) {
-        const token = localStorage.getItem('accessToken');
-
         try {
-            if (token) {
-                // Si está autenticado, agregar al backend
-                const response = await axios.post(
-                    `${BASE_URL}/api/cart/`,
-                    {
-                        product_id: productId,
-                        quantity: quantity
-                    },
-                    {
-                        headers: this.getAuthHeaders()
-                    }
-                );
+            if (authService.isAuthenticated()) {
+                // Si está autenticado, intentar agregar al backend
+                const response = await axiosInstance.post('/cart/', {
+                    product_id: productId,
+                    quantity: quantity
+                });
 
                 if (updateLocal) {
                     await this.syncWithBackend();
@@ -86,14 +70,14 @@ class CartService {
 
                 return response.data;
             } else {
-                // Si no está autenticado, solo actualizar localStorage
+                // Si no está autenticado, usar localStorage
                 const cart = this.loadCartFromLocalStorage();
                 const existingItem = cart.items.find(item => item.product.id === productId);
 
                 if (existingItem) {
                     existingItem.quantity += quantity;
                 } else {
-                    const productResponse = await axios.get(`${BASE_URL}/api/products/${productId}/`);
+                    const productResponse = await axiosInstance.get(`/products/${productId}/`);
                     cart.items.push({
                         product: productResponse.data,
                         quantity: quantity
@@ -104,26 +88,41 @@ class CartService {
                 return cart;
             }
         } catch (error) {
-            console.error('Error adding to cart:', error);
+            if (error.response?.status === 401) {
+                // Si falla la autenticación, usar localStorage
+                const cart = this.loadCartFromLocalStorage();
+                const existingItem = cart.items.find(item => item.product.id === productId);
+
+                if (existingItem) {
+                    existingItem.quantity += quantity;
+                } else {
+                    const productResponse = await axiosInstance.get(`/products/${productId}/`);
+                    cart.items.push({
+                        product: productResponse.data,
+                        quantity: quantity
+                    });
+                }
+
+                this.saveCartToLocalStorage(cart);
+                return cart;
+            }
             throw error;
         }
     }
 
     async updateQuantity(productId, newQuantity) {
-        const token = localStorage.getItem('accessToken');
         const cart = this.loadCartFromLocalStorage();
 
         try {
-            if (token) {
+            if (authService.isAuthenticated()) {
                 // Encontrar el cartItemId correspondiente al productId
                 const cartItem = cart.items.find(item => item.product.id === productId);
                 if (!cartItem) throw new Error('Item not found in cart');
 
                 // Actualizar en el backend usando el cartItemId
-                const response = await axios.put(
-                    `${BASE_URL}/api/cart/item/${cartItem.cartItemId}/`,
-                    { quantity: newQuantity },
-                    { headers: this.getAuthHeaders() }
+                const response = await axiosInstance.put(
+                    `/cart/item/${cartItem.cartItemId}/`,
+                    { quantity: newQuantity }
                 );
 
                 await this.syncWithBackend();
@@ -138,26 +137,30 @@ class CartService {
                 return cart;
             }
         } catch (error) {
-            console.error('Error updating quantity:', error);
+            if (error.response?.status === 401) {
+                // Si falla la autenticación, actualizar localStorage
+                const item = cart.items.find(item => item.product.id === productId);
+                if (item) {
+                    item.quantity = newQuantity;
+                    this.saveCartToLocalStorage(cart);
+                }
+                return cart;
+            }
             throw error;
         }
     }
 
     async removeFromCart(productId) {
-        const token = localStorage.getItem('accessToken');
         const cart = this.loadCartFromLocalStorage();
 
         try {
-            if (token) {
+            if (authService.isAuthenticated()) {
                 // Encontrar el cartItemId correspondiente al productId
                 const cartItem = cart.items.find(item => item.product.id === productId);
                 if (!cartItem) throw new Error('Item not found in cart');
 
                 // Eliminar del backend usando el cartItemId
-                await axios.delete(
-                    `${BASE_URL}/api/cart/item/${cartItem.cartItemId}/`,
-                    { headers: this.getAuthHeaders() }
-                );
+                await axiosInstance.delete(`/cart/item/${cartItem.cartItemId}/`);
 
                 await this.syncWithBackend();
             } else {
@@ -166,30 +169,49 @@ class CartService {
                 this.saveCartToLocalStorage(cart);
             }
         } catch (error) {
-            console.error('Error removing from cart:', error);
-            throw error;
+            if (error.response?.status === 401) {
+                // Si falla la autenticación, eliminar de localStorage
+                cart.items = cart.items.filter(item => item.product.id !== productId);
+                this.saveCartToLocalStorage(cart);
+            } else {
+                throw error;
+            }
         }
     }
 
     async clearCart() {
-        const token = localStorage.getItem('accessToken');
-        
         try {
-            if (token) {
-                // Si está autenticado, eliminar todos los items uno por uno
+            if (authService.isAuthenticated()) {
+                // Intentar limpiar el carrito en el backend
                 const cart = this.loadCartFromLocalStorage();
                 for (const item of cart.items) {
                     await this.removeFromCart(item.product.id);
                 }
+            } else {
+                // Limpiar localStorage
+                localStorage.removeItem(STORAGE_KEYS.CART);
+                this.cart = { items: [] };
             }
-            
-            // Limpiar localStorage
-            localStorage.removeItem('cart');
-            this.cart = { items: [] };
         } catch (error) {
-            console.error('Error clearing cart:', error);
-            throw error;
+            if (error.response?.status === 401) {
+                // Si falla la autenticación, limpiar localStorage
+                localStorage.removeItem(STORAGE_KEYS.CART);
+                this.cart = { items: [] };
+            } else {
+                throw error;
+            }
         }
+    }
+
+    getCartItems() {
+        return this.loadCartFromLocalStorage().items;
+    }
+
+    getCartTotal() {
+        const cart = this.loadCartFromLocalStorage();
+        return cart.items.reduce((total, item) => {
+            return total + (item.product.price * item.quantity);
+        }, 0);
     }
 }
 

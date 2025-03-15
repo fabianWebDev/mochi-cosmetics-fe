@@ -1,36 +1,36 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
-const BASE_URL = 'http://127.0.0.1:8000';
+import { authService } from '../services/authService';
+import { orderService } from '../services/orderService';
 
 const OrderConfirmation = () => {
     const { orderId } = useParams();
+    const navigate = useNavigate();
     const [order, setOrder] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchOrder = async () => {
             try {
-                const response = await axios.get(
-                    `${BASE_URL}/api/orders/${orderId}/`,
-                    {
-                        headers: {
-                            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-                        }
-                    }
-                );
-                console.log('Full order data:', response.data);
-                console.log('Items array:', response.data.items);
-                if (response.data.items && response.data.items.length > 0) {
-                    console.log('Number of items:', response.data.items.length);
-                    console.log('First item full details:', response.data.items[0]);
-                    console.log('Available fields in first item:', Object.keys(response.data.items[0]));
+                // Verificar autenticación
+                if (!authService.isAuthenticated()) {
+                    toast.error('Please login to view order details');
+                    navigate('/login');
+                    return;
+                }
+
+                const orderData = await orderService.getOrderById(orderId);
+                console.log('Full order data:', orderData);
+                console.log('Items array:', orderData.items);
+                if (orderData.items && orderData.items.length > 0) {
+                    console.log('Number of items:', orderData.items.length);
+                    console.log('First item full details:', orderData.items[0]);
+                    console.log('Available fields in first item:', Object.keys(orderData.items[0]));
                 } else {
                     console.log('No items found in order');
                 }
-                setOrder(response.data);
+                setOrder(orderData);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching order - Full error:', error);
@@ -38,6 +38,12 @@ const OrderConfirmation = () => {
                     console.error('Error status:', error.response.status);
                     console.error('Error data:', error.response.data);
                     console.error('Error headers:', error.response.headers);
+                    
+                    if (error.response.status === 401) {
+                        toast.error('Session expired. Please login again.');
+                        navigate('/login');
+                        return;
+                    }
                 } else if (error.request) {
                     console.error('No response received:', error.request);
                 } else {
@@ -53,7 +59,7 @@ const OrderConfirmation = () => {
         };
 
         fetchOrder();
-    }, [orderId]);
+    }, [orderId, navigate]);
 
     if (loading) return <div className="container mt-4">Loading...</div>;
     if (!order) return <div className="container mt-4">Order not found</div>;

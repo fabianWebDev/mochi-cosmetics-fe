@@ -12,37 +12,8 @@ import {
   TableHead,
   TableRow
 } from '@mui/material';
-import axios from 'axios';
-
-const BASE_URL = 'http://localhost:8000';
-
-const orderService = {
-  async createOrder(orderData) {
-    return axios.post(
-      `${BASE_URL}/api/orders/`,
-      orderData,
-      {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-          'Content-Type': 'application/json'
-        }
-      }
-    );
-  },
-  
-  async updateProductStock(productId, quantity, operation) {
-    return axios.put(
-      `${BASE_URL}/api/products/${productId}/update-stock/`,
-      { quantity, operation },
-      {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-          'Content-Type': 'application/json'
-        }
-      }
-    );
-  }
-};
+import { authService } from '../services/authService';
+import { orderService } from '../services/orderService';
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -58,35 +29,24 @@ const Orders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const accessToken = localStorage.getItem('accessToken');
-        if (!accessToken) {
+        // Verificar autenticación
+        if (!authService.isAuthenticated()) {
+          toast.error('Please login to view your orders');
           navigate('/login');
           return;
         }
 
-        const response = await fetch('http://localhost:8000/api/my-orders/', {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
-          }
-        });
-
-        if (!response.ok) {
-          if (response.status === 401) {
-            toast.error('Sesión expirada. Por favor, inicia sesión nuevamente.');
-            navigate('/login');
-            return;
-          }
-          throw new Error('Error al cargar las órdenes');
-        }
-
-        const data = await response.json();
+        const data = await orderService.getOrders();
         console.log('Fetched orders:', data);
         setOrders(data);
       } catch (error) {
-        console.error('Error al cargar las órdenes:', error);
-        toast.error('Error al cargar las órdenes. Por favor, intenta nuevamente.');
+        console.error('Error loading orders:', error);
+        if (error.response?.status === 401) {
+          toast.error('Session expired. Please login again.');
+          navigate('/login');
+          return;
+        }
+        toast.error('Error loading orders. Please try again.');
       } finally {
         setLoading(false);
       }
@@ -125,24 +85,10 @@ const Orders = () => {
     localStorage.removeItem('pendingOrder');
   };
 
-  // Verificar la validez del token
-  const checkTokenValidity = () => {
-    const token = localStorage.getItem('accessToken');
-    if (!token) return false;
-    
-    try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        const expiration = payload.exp * 1000; // Convertir a milisegundos
-        return Date.now() < expiration;
-    } catch (error) {
-        return false;
-    }
-  };
-
   if (loading) {
     return (
       <Container>
-        <Typography variant="h6">Cargando órdenes...</Typography>
+        <Typography variant="h6">Loading orders...</Typography>
       </Container>
     );
   }
@@ -150,25 +96,25 @@ const Orders = () => {
   return (
     <Container sx={{ py: 4 }}>
       <Typography variant="h4" gutterBottom>
-        Mis Órdenes
+        My Orders
       </Typography>
       
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>ID de Orden</TableCell>
-              <TableCell>Fecha</TableCell>
+              <TableCell>Order ID</TableCell>
+              <TableCell>Date</TableCell>
               <TableCell>Total</TableCell>
-              <TableCell>Estado</TableCell>
-              <TableCell>Productos</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell>Products</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {orders.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={5} align="center">
-                  No hay órdenes para mostrar
+                  No orders to display
                 </TableCell>
               </TableRow>
             ) : (
@@ -179,7 +125,7 @@ const Orders = () => {
                   <TableCell>${order.total_price}</TableCell>
                   <TableCell>{order.status}</TableCell>
                   <TableCell>
-                    {order.items?.length || 0} productos
+                    {order.items?.length || 0} products
                   </TableCell>
                 </TableRow>
               ))

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { cartService } from '../services/cartService';
+import { authService } from '../services/authService';
 
 const Cart = () => {
     const [cart, setCart] = useState(null);
@@ -11,28 +12,40 @@ const Cart = () => {
     useEffect(() => {
         const loadCart = async () => {
             try {
-                // Intentar sincronizar con el backend si el usuario está autenticado
-                await cartService.syncWithBackend();
+                // Cargar carrito usando el servicio
+                const cartItems = cartService.getCartItems();
+                setCart({ items: cartItems });
                 
-                // Cargar carrito del localStorage
-                const cartData = cartService.loadCartFromLocalStorage();
-                setCart(cartData);
+                // Intentar sincronizar con el backend si el usuario está autenticado
+                if (authService.isAuthenticated()) {
+                    try {
+                        await cartService.syncWithBackend();
+                        setCart({ items: cartService.getCartItems() });
+                    } catch (error) {
+                        console.error('Error syncing cart with backend:', error);
+                        // Si hay error de autenticación, redirigir al login
+                        if (error.response?.status === 401) {
+                            toast.error('Session expired. Please login again.');
+                            navigate('/login');
+                            return;
+                        }
+                        // Para otros errores, mantener el carrito local
+                        toast.error('Error syncing cart with server. Using local cart.');
+                    }
+                }
+                
                 setLoading(false);
             } catch (error) {
-                // Solo mostrar error toast si no es un 404
-                if (!error.response || error.response.status !== 404) {
-                    console.error('Error loading cart:', error);
-                    toast.error('Error loading cart');
-                }
-                // En cualquier caso, cargar el carrito local
-                const cartData = cartService.loadCartFromLocalStorage();
-                setCart(cartData);
+                console.error('Error loading cart:', error);
+                // En caso de error, asegurarnos de mostrar el carrito local
+                const cartItems = cartService.getCartItems();
+                setCart({ items: cartItems });
                 setLoading(false);
             }
         };
 
         loadCart();
-    }, []);
+    }, [navigate]);
 
     const handleUpdateQuantity = async (productId, newQuantity) => {
         try {
@@ -45,9 +58,14 @@ const Cart = () => {
             }
             
             // Actualizar el estado del carrito
-            setCart(cartService.loadCartFromLocalStorage());
+            setCart({ items: cartService.getCartItems() });
         } catch (error) {
             console.error('Error updating cart:', error);
+            if (error.response?.status === 401) {
+                toast.error('Session expired. Please login again.');
+                navigate('/login');
+                return;
+            }
             toast.error('Error updating cart');
         }
     };
@@ -55,19 +73,24 @@ const Cart = () => {
     const handleRemoveItem = async (productId) => {
         try {
             await cartService.removeFromCart(productId);
-            setCart(cartService.loadCartFromLocalStorage());
+            setCart({ items: cartService.getCartItems() });
             toast.success('Item removed from cart');
         } catch (error) {
             console.error('Error removing item:', error);
+            if (error.response?.status === 401) {
+                toast.error('Session expired. Please login again.');
+                navigate('/login');
+                return;
+            }
             toast.error('Error removing item from cart');
         }
     };
 
     const handleCheckout = () => {
-        const token = localStorage.getItem('accessToken');
-        if (token) {
+        if (authService.isAuthenticated()) {
             navigate('/checkout');
         } else {
+            toast.info('Please log in to proceed with checkout');
             navigate('/login');
         }
     };
@@ -93,6 +116,12 @@ const Cart = () => {
     return (
         <div className="container mt-4">
             <h1 className="mb-4">Shopping Cart</h1>
+            {!authService.isAuthenticated() && (
+                <div className="alert alert-warning">
+                    <i className="bi bi-info-circle me-2"></i>
+                    Please <Link to="/login" className="alert-link">log in</Link> to save your cart and proceed with checkout.
+                </div>
+            )}
             <div className="card shadow-sm">
                 <div className="card-body">
                     {cart.items.map((item) => (
@@ -155,7 +184,7 @@ const Cart = () => {
                             className="btn btn-primary"
                             onClick={handleCheckout}
                         >
-                            Proceed to Checkout
+                            {authService.isAuthenticated() ? 'Proceed to Checkout' : 'Log in to Checkout'}
                         </button>
                     </div>
                 </div>
