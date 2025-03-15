@@ -1,7 +1,4 @@
-import { Link } from 'react-router-dom';
-import Navbar from '../components/layout/Navbar';
-
-function Home() {
+const Home = () => {
     return (
         <>
             <div className="container mx-auto mt-8">

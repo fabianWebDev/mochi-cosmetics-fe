@@ -62,49 +62,44 @@ class CartService {
                     product_id: productId,
                     quantity: quantity
                 });
-
+    
                 if (updateLocal) {
                     await this.syncWithBackend();
                 }
-
+    
                 return response.data;
             } else {
-                // Si no está autenticado, usar localStorage
-                const cart = this.loadCartFromLocalStorage();
-                const existingItem = cart.items.find(item => item.product.id === productId);
-
-                if (existingItem) {
-                    existingItem.quantity += quantity;
-                } else {
-                    const productResponse = await axiosInstance.get(`/products/${productId}/`);
-                    cart.items.push({
-                        product: productResponse.data,
-                        quantity: quantity
-                    });
-                }
-
-                this.saveCartToLocalStorage(cart);
-                return cart;
+                // Si no está autenticado, agregar al carrito local
+                return await this.addToLocalCart(productId, quantity);
             }
         } catch (error) {
             if (error.response?.status === 401) {
-                // Si falla la autenticación, usar localStorage
-                const cart = this.loadCartFromLocalStorage();
-                const existingItem = cart.items.find(item => item.product.id === productId);
-
-                if (existingItem) {
-                    existingItem.quantity += quantity;
-                } else {
-                    const productResponse = await axiosInstance.get(`/products/${productId}/`);
-                    cart.items.push({
-                        product: productResponse.data,
-                        quantity: quantity
-                    });
-                }
-
-                this.saveCartToLocalStorage(cart);
-                return cart;
+                // Si falla la autenticación, manejarlo con el carrito local
+                return await this.addToLocalCart(productId, quantity);
             }
+            throw error;
+        }
+    }
+
+    async addToLocalCart(productId, quantity) {
+        try {
+            const cart = this.loadCartFromLocalStorage();
+            const existingItem = cart.items.find(item => item.product.id === productId);
+    
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                const productResponse = await axiosInstance.get(`/products/${productId}/`);
+                cart.items.push({
+                    product: productResponse.data,
+                    quantity: quantity
+                });
+            }
+    
+            this.saveCartToLocalStorage(cart);
+            return cart;
+        } catch (error) {
+            console.error("Error adding to cart:", error);
             throw error;
         }
     }
