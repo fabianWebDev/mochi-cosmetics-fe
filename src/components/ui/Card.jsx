@@ -1,9 +1,12 @@
 import React from 'react';
 
 const Card = ({ name, description, image, price, stock, onAddToCart, onClick }) => {
-  const handleAddToCart = (e) => {
-    e.stopPropagation(); // Prevent triggering the card click event
-    onAddToCart();
+  const handleAddToCart = () => {
+    if (typeof onAddToCart === 'function') {
+      onAddToCart();
+    } else {
+      console.error('onAddToCart no es una función');
+    }
   };
 
   return (

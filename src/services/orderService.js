@@ -1,6 +1,4 @@
-import { API_CONFIG, getApiUrl } from '../config/config';
 import axiosInstance from './axios';
-import { STORAGE_KEYS } from '../constants';
 
 const logError = (error, operation) => {
     console.error(`Error in ${operation}:`, {

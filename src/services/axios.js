@@ -32,28 +32,44 @@ axiosInstance.interceptors.response.use(
     console.log('API Response:', response.data);
     return response;
   },
-  (error) => {
+  async (error) => {
     console.error('API Error:', error.response?.data || error.message);
     
     if (error.response) {
-      const { status, data } = error.response;
+      const { status, config } = error.response;
+      
+      // Si el error es 401, intentar refrescar el token
+      if (status === 401 && !config._retry) {
+        config._retry = true;
+        try {
+          const refreshToken = localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN);
+          const response = await axiosInstance.post('/token/refresh/', { refresh: refreshToken });
+          const { access } = response.data;
+          
+          // Guardar el nuevo access token
+          localStorage.setItem(STORAGE_KEYS.TOKEN, access);
+          axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${access}`;
+          
+          // Reintentar la solicitud original
+          config.headers['Authorization'] = `Bearer ${access}`;
+          return axiosInstance(config);
+        } catch (refreshError) {
+          console.error('Error refreshing token:', refreshError);
+          removeToken();
+          removeUser();
+          window.location.href = '/login';
+        }
+      }
       
       // Crear un error de API con la información disponible
       const apiError = new ApiError(
-        data.message || data.error || 'Error en la petición',
+        error.response.data.message || error.response.data.error || 'Error en la petición',
         status,
-        data.code,
-        data.details
+        error.response.data.code,
+        error.response.data.details
       );
       
       const handledError = errorHandler.handle(apiError);
-      
-      // Manejar casos especiales
-      if (handledError.type === 'auth') {
-        removeToken();
-        removeUser();
-        window.location.href = '/login';
-      }
       
       // Emitir evento para notificar a los componentes
       window.dispatchEvent(new CustomEvent('apiError', {

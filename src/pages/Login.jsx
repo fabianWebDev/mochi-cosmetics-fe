@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { authService } from '../services/authService';
+import { cartService } from '../services/cartService';
 import '../styles/Login.css';
 
 const Login = () => {
@@ -37,7 +38,9 @@ const Login = () => {
         try {
             console.log('Submitting login form with:', formData);
             await authService.login(formData);
-            console.log('Login successful');
+            console.log('Login successful, calling mergeLocalCartWithBackend...');
+            await cartService.mergeLocalCartWithBackend();
+            console.log('mergeLocalCartWithBackend called successfully.');
             
             // Redirigir a la página anterior o a /products por defecto
             const from = location.state?.from?.pathname || '/products';

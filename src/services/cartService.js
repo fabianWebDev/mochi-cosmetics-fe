@@ -1,5 +1,4 @@
 import axiosInstance from './axios';
-import { API_BASE_URL } from '../constants';
 import { authService } from './authService';
 import { STORAGE_KEYS } from '../constants';
 
@@ -212,6 +211,48 @@ class CartService {
         return cart.items.reduce((total, item) => {
             return total + (item.product.price * item.quantity);
         }, 0);
+    }
+
+    async mergeLocalCartWithBackend() {
+        if (!authService.isAuthenticated()) {
+            return;
+        }
+
+        const localCart = this.loadCartFromLocalStorage();
+        const backendCartItems = await this.syncWithBackend();
+
+        console.log('Merging local cart with backend...');
+        console.log('Local cart items:', localCart.items);
+        console.log('Backend cart items before merge:', backendCartItems);
+
+        // Merge local cart items with backend cart items
+        for (const localItem of localCart.items) {
+            const backendItem = backendCartItems.find(item => item.product.id === localItem.product.id);
+            if (backendItem) {
+                // Check if the new quantity exceeds stock
+                const newQuantity = backendItem.quantity + localItem.quantity;
+                if (newQuantity > localItem.product.stock) {
+                    console.warn(`Not enough stock for product ID ${localItem.product.id}. Available: ${localItem.product.stock}, Requested: ${newQuantity}`);
+                    // Adjust to maximum available stock
+                    await this.updateQuantity(localItem.product.id, localItem.product.stock);
+                } else {
+                    // Update quantity in backend
+                    await this.updateQuantity(localItem.product.id, newQuantity);
+                }
+            } else {
+                // Add new item to backend
+                if (localItem.quantity > localItem.product.stock) {
+                    console.warn(`Not enough stock for product ID ${localItem.product.id}. Available: ${localItem.product.stock}, Requested: ${localItem.quantity}`);
+                    // Adjust to maximum available stock
+                    await this.addToCart(localItem.product.id, localItem.product.stock, false);
+                } else {
+                    await this.addToCart(localItem.product.id, localItem.quantity, false);
+                }
+            }
+        }
+
+        // Sync again to ensure local storage is updated
+        await this.syncWithBackend();
     }
 }
 

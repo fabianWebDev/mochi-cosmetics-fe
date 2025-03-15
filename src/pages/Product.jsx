@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import Card from '../components/ui/Card';
+import { cartService } from '../services/cartService';
+import { toast } from 'react-toastify';
+import { productService } from '../services/productService';
+import { MEDIA_BASE_URL } from '../constants'
 
 const Product = () => {
     const { id } = useParams();
@@ -9,13 +12,11 @@ const Product = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const BASE_URL = 'http://127.0.0.1:8000';
-
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await axios.get(`${BASE_URL}/api/products/${id}`);
-                setProduct(response.data);
+                const data = await productService.getProductById(id);
+                setProduct(data);
                 setLoading(false);
             } catch (err) {
                 setError('Error fetching product details');
@@ -26,6 +27,20 @@ const Product = () => {
         fetchProduct();
     }, [id]);
 
+    const handleAddToCart = async () => {
+        try {
+            await cartService.addToCart(product.id, 1);
+            toast.success('Producto agregado al carrito!');
+        } catch (error) {
+            if (error.response?.data?.error === 'Not enough stock available') {
+                toast.error('Lo sentimos, este producto está agotado');
+            } else {
+                toast.error('Error al agregar el producto al carrito');
+            }
+            console.error('Error adding to cart:', error);
+        }
+    };
+
     if (loading) return <div>Loading...</div>;
     if (error) return <div>{error}</div>;
     if (!product) return <div>Product not found</div>;
@@ -35,9 +50,10 @@ const Product = () => {
             <Card
                 name={product.name}
                 description={product.description}
-                image={`${BASE_URL}${product.image}`}
+                image={`${MEDIA_BASE_URL}${product.image}`}
                 price={product.price}
                 stock={product.stock}
+                onAddToCart={handleAddToCart}
             />
         </div>
     );

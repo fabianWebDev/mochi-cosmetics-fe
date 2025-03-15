@@ -4,30 +4,20 @@ import { STORAGE_KEYS } from '../constants';
 export const authService = {
     async login(credentials) {
         try {
-            console.log('Attempting login with:', credentials);
             const response = await axiosInstance.post('/users/login/', credentials);
-            console.log('Login response:', response.data);
             
-            // Verificar la estructura de la respuesta
             if (!response.data) {
                 throw new Error('No response data from server');
             }
 
-            // Extraer tokens y datos del usuario
             const { access, refresh, user } = response.data;
 
             if (!access || !refresh) {
-                console.error('Missing tokens in response:', response.data);
                 throw new Error('Invalid response structure from server');
             }
             
             // Guardar tokens y datos del usuario
-            localStorage.setItem(STORAGE_KEYS.TOKEN, access);
-            localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, refresh);
-            localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
-            
-            // Configurar el token de acceso en axiosInstance
-            axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${access}`;
+            this.setAuthData(access, refresh, user);
             
             return user;
         } catch (error) {
@@ -42,8 +32,6 @@ export const authService = {
     async register(userData) {
         try {
             const response = await axiosInstance.post('/users/register/', userData);
-            console.log('Register response:', response.data);
-
             const { access, refresh, user } = response.data;
 
             if (!access || !refresh) {
@@ -51,12 +39,7 @@ export const authService = {
             }
             
             // Guardar tokens y datos del usuario
-            localStorage.setItem(STORAGE_KEYS.TOKEN, access);
-            localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, refresh);
-            localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
-            
-            // Configurar el token de acceso en axiosInstance
-            axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${access}`;
+            this.setAuthData(access, refresh, user);
             
             return user;
         } catch (error) {
@@ -69,39 +52,52 @@ export const authService = {
 
     async logout() {
         try {
-            const refreshToken = localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN);
+            const refreshToken = this.getRefreshToken();
             if (refreshToken) {
                 await axiosInstance.post('/users/logout/', { refresh: refreshToken });
             }
         } catch (error) {
             console.error('Error during logout:', error);
         } finally {
-            // Limpiar datos de autenticación
-            localStorage.removeItem(STORAGE_KEYS.TOKEN);
-            localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
-            localStorage.removeItem(STORAGE_KEYS.USER);
-            // Limpiar el header de autorización
-            delete axiosInstance.defaults.headers.common['Authorization'];
-            window.location.href = '/login';
+            this.clearAuthData();
         }
+    },
+
+    setAuthData(accessToken, refreshToken, user) {
+        localStorage.setItem(STORAGE_KEYS.TOKEN, accessToken);
+        localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, refreshToken);
+        localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
+        axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+    },
+
+    clearAuthData() {
+        localStorage.removeItem(STORAGE_KEYS.TOKEN);
+        localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
+        localStorage.removeItem(STORAGE_KEYS.USER);
+        delete axiosInstance.defaults.headers.common['Authorization'];
+        window.location.href = '/login';
     },
 
     async getCurrentUser() {
         try {
-            const response = await axiosInstance.get('/users/me/');
-            return response.data;
+            // Usar el usuario almacenado en localStorage en lugar de hacer una llamada al backend
+            const user = this.getUser();
+            if (!user) {
+                throw new Error('No user data found');
+            }
+            return user;
         } catch (error) {
             if (error.response?.status === 401) {
-                // Si no está autenticado, limpiar datos y redirigir
-                this.logout();
+                this.clearAuthData();
             }
             throw error;
         }
     },
 
     isAuthenticated() {
-        const token = localStorage.getItem(STORAGE_KEYS.TOKEN);
-        return !!token;
+        const token = this.getToken();
+        const user = this.getUser();
+        return !!(token && user);
     },
 
     getToken() {
