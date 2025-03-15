@@ -1,7 +1,5 @@
 import axios from 'axios';
-import { API_BASE_URL } from '../constants';
-import { getToken, removeToken, removeUser } from '../utils';
-import { ApiError, errorHandler } from '../utils/errorHandler';
+import { API_BASE_URL, STORAGE_KEYS } from '../constants';
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -14,69 +12,52 @@ const axiosInstance = axios.create({
 // Interceptor para agregar el token a las peticiones
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = getToken();
+    const token = localStorage.getItem(STORAGE_KEYS.TOKEN);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
-// Interceptor para manejar errores de respuesta
+// Interceptor para manejar errores y refresh token
 axiosInstance.interceptors.response.use(
-  (response) => {
-    // Log de la respuesta para depuración
-    console.log('API Response:', response.data);
-    return response;
-  },
+  (response) => response,
   async (error) => {
-    console.error('API Error:', error.response?.data || error.message);
+    const originalRequest = error.config;
     
-    if (error.response) {
-      const { status, config } = error.response;
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
       
-      // Si el error es 401, intentar refrescar el token
-      if (status === 401 && !config._retry) {
-        config._retry = true;
-        try {
-          const refreshToken = localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN);
-          const response = await axiosInstance.post('/token/refresh/', { refresh: refreshToken });
-          const { access } = response.data;
-          
-          // Guardar el nuevo access token
-          localStorage.setItem(STORAGE_KEYS.TOKEN, access);
-          axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${access}`;
-          
-          // Reintentar la solicitud original
-          config.headers['Authorization'] = `Bearer ${access}`;
-          return axiosInstance(config);
-        } catch (refreshError) {
-          console.error('Error refreshing token:', refreshError);
-          removeToken();
-          removeUser();
-          window.location.href = '/login';
+      try {
+        const refreshToken = localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN);
+        if (!refreshToken) {
+          throw new Error('No refresh token available');
         }
+
+        const response = await axiosInstance.post('/users/token/refresh/', {
+          refresh: refreshToken
+        });
+
+        const { access: newToken } = response.data;
+        localStorage.setItem(STORAGE_KEYS.TOKEN, newToken);
+        axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
+        originalRequest.headers['Authorization'] = `Bearer ${newToken}`;
+        
+        return axiosInstance(originalRequest);
+      } catch (refreshError) {
+        // Limpiar datos de autenticación y redirigir al login
+        localStorage.removeItem(STORAGE_KEYS.TOKEN);
+        localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
+        localStorage.removeItem(STORAGE_KEYS.USER);
+        delete axiosInstance.defaults.headers.common['Authorization'];
+        window.location.href = '/login';
+        return Promise.reject(refreshError);
       }
-      
-      // Crear un error de API con la información disponible
-      const apiError = new ApiError(
-        error.response.data.message || error.response.data.error || 'Error en la petición',
-        status,
-        error.response.data.code,
-        error.response.data.details
-      );
-      
-      const handledError = errorHandler.handle(apiError);
-      
-      // Emitir evento para notificar a los componentes
-      window.dispatchEvent(new CustomEvent('apiError', {
-        detail: handledError
-      }));
     }
-    
+
+    // Si es otro tipo de error, simplemente lo rechazamos
     return Promise.reject(error);
   }
 );

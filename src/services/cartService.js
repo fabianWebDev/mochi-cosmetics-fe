@@ -23,7 +23,7 @@ class CartService {
 
         try {
             console.log('Iniciando sincronización con el backend');
-            
+
             // Obtener el carrito del backend
             const response = await axiosInstance.get('/cart/');
 
@@ -219,41 +219,42 @@ class CartService {
         }
 
         const localCart = this.loadCartFromLocalStorage();
-        const backendCartItems = await this.syncWithBackend();
+        let backendCartItems = await this.syncWithBackend();
 
-        console.log('Merging local cart with backend...');
-        console.log('Local cart items:', localCart.items);
-        console.log('Backend cart items before merge:', backendCartItems);
-
-        // Merge local cart items with backend cart items
         for (const localItem of localCart.items) {
             const backendItem = backendCartItems.find(item => item.product.id === localItem.product.id);
+
             if (backendItem) {
-                // Check if the new quantity exceeds stock
-                const newQuantity = backendItem.quantity + localItem.quantity;
+                // Establecer la cantidad máxima en lugar de sumarla cada vez
+                const newQuantity = Math.max(backendItem.quantity, localItem.quantity);
+
                 if (newQuantity > localItem.product.stock) {
                     console.warn(`Not enough stock for product ID ${localItem.product.id}. Available: ${localItem.product.stock}, Requested: ${newQuantity}`);
-                    // Adjust to maximum available stock
                     await this.updateQuantity(localItem.product.id, localItem.product.stock);
-                } else {
-                    // Update quantity in backend
+                } else if (backendItem.quantity !== newQuantity) { // Evitar actualización innecesaria
                     await this.updateQuantity(localItem.product.id, newQuantity);
                 }
             } else {
-                // Add new item to backend
-                if (localItem.quantity > localItem.product.stock) {
-                    console.warn(`Not enough stock for product ID ${localItem.product.id}. Available: ${localItem.product.stock}, Requested: ${localItem.quantity}`);
-                    // Adjust to maximum available stock
-                    await this.addToCart(localItem.product.id, localItem.product.stock, false);
-                } else {
-                    await this.addToCart(localItem.product.id, localItem.quantity, false);
+                // Agregar nuevo producto si no está en el backend
+                const quantityToAdd = Math.min(localItem.quantity, localItem.product.stock);
+                if (quantityToAdd > 0) {
+                    await this.addToCart(localItem.product.id, quantityToAdd, false);
                 }
             }
         }
 
-        // Sync again to ensure local storage is updated
-        await this.syncWithBackend();
+        // Limpiar el carrito local después de la fusión
+        this.clearLocalCart();
+
+        // Sincronizar nuevamente con el backend para reflejar los cambios
+        backendCartItems = await this.syncWithBackend();
     }
+
+    clearLocalCart() {
+        localStorage.removeItem('cart');
+        console.log('Local cart has been cleared.');
+    }
+
 }
 
 export const cartService = new CartService(); 

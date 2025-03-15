@@ -16,12 +16,9 @@ export const authService = {
                 throw new Error('Invalid response structure from server');
             }
             
-            // Guardar tokens y datos del usuario
             this.setAuthData(access, refresh, user);
-            
             return user;
         } catch (error) {
-            console.error('Login error:', error);
             if (error.response?.status === 401) {
                 throw new Error('Credenciales inválidas');
             }
@@ -38,9 +35,7 @@ export const authService = {
                 throw new Error('Invalid response structure from server');
             }
             
-            // Guardar tokens y datos del usuario
             this.setAuthData(access, refresh, user);
-            
             return user;
         } catch (error) {
             if (error.response?.status === 400) {
@@ -67,31 +62,13 @@ export const authService = {
         localStorage.setItem(STORAGE_KEYS.TOKEN, accessToken);
         localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, refreshToken);
         localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
-        axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
     },
 
     clearAuthData() {
         localStorage.removeItem(STORAGE_KEYS.TOKEN);
         localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
         localStorage.removeItem(STORAGE_KEYS.USER);
-        delete axiosInstance.defaults.headers.common['Authorization'];
         window.location.href = '/login';
-    },
-
-    async getCurrentUser() {
-        try {
-            // Usar el usuario almacenado en localStorage en lugar de hacer una llamada al backend
-            const user = this.getUser();
-            if (!user) {
-                throw new Error('No user data found');
-            }
-            return user;
-        } catch (error) {
-            if (error.response?.status === 401) {
-                this.clearAuthData();
-            }
-            throw error;
-        }
     },
 
     isAuthenticated() {
