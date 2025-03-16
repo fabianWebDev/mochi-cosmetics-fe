@@ -143,7 +143,6 @@ const Checkout = () => {
                         'decrease'
                     );
                 } catch (error) {
-                    console.error(`Error updating stock for product ${item.product.id}:`, error);
                     toast.error(`Error updating stock for ${item.product.name}`);
                     // Revertir la orden si hay error al actualizar el stock
                     await orderService.deleteOrder(order.order_id);
