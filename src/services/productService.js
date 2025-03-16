@@ -29,10 +29,10 @@ export const productService = {
         }
     },
 
-    async searchProducts(query) {
+    async searchProducts(filters) {
         try {
             const response = await axiosInstance.get('/products/', {
-                params: { name: query } // Parámetro de búsqueda para nombre de producto
+                params: filters
             });
             return response.data;
         } catch (error) {

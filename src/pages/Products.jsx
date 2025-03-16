@@ -21,7 +21,9 @@ const Products = () => {
             try {
                 let data;
                 if (searchTerm) {
-                    data = await productService.searchProducts(searchTerm);
+                    data = await productService.searchProducts({
+                        search: searchTerm,
+                    });
                 } else {
                     data = await productService.getProducts();
                 }

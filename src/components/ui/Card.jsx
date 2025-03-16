@@ -11,7 +11,16 @@ const Card = ({ name, description, image, price, stock, onAddToCart, onClick }) 
 
   return (
     <div className="card h-100 shadow-sm" onClick={onClick}>
-      <img src={image} alt={name} className="card-img-top img-fluid p-3" style={{ width: '200px' }} />
+      <img 
+        src={image} 
+        alt={name} 
+        className="card-img-top img-fluid p-3" 
+        style={{ 
+          width: '200px',
+          height: '200px',
+          objectFit: 'contain'
+        }} 
+      />
       <div className="card-body">
         <h2 className="card-title h5 mb-3">{name}</h2>
         <p className="card-text text-muted">{description}</p>
