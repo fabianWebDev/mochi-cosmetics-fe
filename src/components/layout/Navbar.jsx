@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { authService } from '../../services/authService';
-
+import SearchBar from './SearchBar';
 function Navbar() {
     const navigate = useNavigate();
     const user = authService.getUser();
@@ -64,6 +64,7 @@ function Navbar() {
                     )}
                 </div>
             </div>
+            <SearchBar />
         </nav>
     );
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import Card from '../components/ui/Card'
 import { toast } from 'react-toastify'
 import { cartService } from '../services/cartService'
@@ -11,11 +11,20 @@ const Products = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         const fetchProducts = async () => {
+            const searchParams = new URLSearchParams(location.search);
+            const searchTerm = searchParams.get('search');
+
             try {
-                const data = await productService.getProducts();
+                let data;
+                if (searchTerm) {
+                    data = await productService.searchProducts(searchTerm);
+                } else {
+                    data = await productService.getProducts();
+                }
                 setProducts(data);
                 setLoading(false);
             } catch (err) {
@@ -26,7 +35,7 @@ const Products = () => {
         };
 
         fetchProducts();
-    }, []);
+    }, [location.search]);
 
     const handleViewDetails = (productId) => {
         navigate(`/product/${productId}`);

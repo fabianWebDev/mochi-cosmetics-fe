@@ -31,17 +31,13 @@ export const productService = {
 
     async searchProducts(query) {
         try {
-            const response = await axiosInstance.get('/products/search/', {
-                params: { q: query }
+            const response = await axiosInstance.get('/products/', {
+                params: { name: query } // Parámetro de búsqueda para nombre de producto
             });
             return response.data;
         } catch (error) {
             if (error.response?.status === 401) {
-                // Si no está autenticado, intentar búsqueda sin autenticación
-                const response = await axiosInstance.get('/products/search/public/', {
-                    params: { q: query }
-                });
-                return response.data;
+                console.error('Unauthorized: No JWT token available.');
             }
             throw error;
         }
