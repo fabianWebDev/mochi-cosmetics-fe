@@ -23,13 +23,14 @@ const Checkout = () => {
     const navigate = useNavigate();
     const [cart, setCart] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [currentStep, setCurrentStep] = useState(1);
     const [shippingInfo, setShippingInfo] = useState({
         shipping_address: '',
         shipping_city: '',
         shipping_postal_code: '',
         shipping_phone: '',
-        full_name: ''
+        full_name: '',
+        pickup: false // Nuevo campo para recoger en tienda
     });
     const [userId, setUserId] = useState(null);
 
@@ -61,20 +62,29 @@ const Checkout = () => {
     }, [navigate]);
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value, type, checked } = e.target;
         setShippingInfo(prev => ({
             ...prev,
-            [name]: value
+            [name]: type === 'checkbox' ? checked : value
         }));
+    };
+
+    const handleNextStep = () => {
+        if (currentStep === 1) {
+            // Validar información de envío
+            const errors = validateShippingInfo();
+            if (errors.length > 0) {
+                errors.forEach(error => toast.error(error));
+                return;
+            }
+        }
+        setCurrentStep(prev => prev + 1);
     };
 
     const validateShippingInfo = () => {
         const errors = [];
         if (!shippingInfo.full_name.trim()) errors.push('Full name is required');
-        if (!shippingInfo.shipping_address.trim()) errors.push('Shipping address is required');
-        if (!shippingInfo.shipping_city.trim()) errors.push('City is required');
-        if (!shippingInfo.shipping_postal_code.trim()) errors.push('Postal code is required');
-        if (!shippingInfo.shipping_phone.trim()) errors.push('Phone number is required');
+        if (!shippingInfo.shipping_address.trim() && !shippingInfo.pickup) errors.push('Shipping address is required if not picking up');
         return errors;
     };
 
@@ -87,13 +97,11 @@ const Checkout = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsSubmitting(true);
-        
+
         // Validar información de envío
         const shippingErrors = validateShippingInfo();
         if (shippingErrors.length > 0) {
             shippingErrors.forEach(error => toast.error(error));
-            setIsSubmitting(false);
             return;
         }
 
@@ -101,13 +109,11 @@ const Checkout = () => {
         const cartErrors = validateCart();
         if (cartErrors.length > 0) {
             cartErrors.forEach(error => toast.error(error));
-            setIsSubmitting(false);
             return;
         }
 
         if (!userId) {
             toast.error('User information not loaded');
-            setIsSubmitting(false);
             return;
         }
 
@@ -146,7 +152,6 @@ const Checkout = () => {
                     toast.error(`Error updating stock for ${item.product.name}`);
                     // Revertir la orden si hay error al actualizar el stock
                     await orderService.deleteOrder(order.order_id);
-                    setIsSubmitting(false);
                     return;
                 }
             }
@@ -162,8 +167,6 @@ const Checkout = () => {
 
         } catch (error) {
             handleError(error);
-        } finally {
-            setIsSubmitting(false);
         }
     };
 
@@ -219,107 +222,76 @@ const Checkout = () => {
     return (
         <div className="container mt-4">
             <h1 className="mb-4">Checkout</h1>
-            <div className="row">
-                {/* Formulario de envío */}
-                <div className="col-md-8">
-                    <div className="card shadow-sm mb-4">
-                        <div className="card-body">
-                            <h3 className="card-title mb-4">Shipping Information</h3>
-                            <form onSubmit={handleSubmit}>
-                                <div className="mb-3">
-                                    <label htmlFor="full_name" className="form-label">Full Name</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="full_name"
-                                        name="full_name"
-                                        value={shippingInfo.full_name}
-                                        onChange={handleInputChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="shipping_address" className="form-label">Address</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="shipping_address"
-                                        name="shipping_address"
-                                        value={shippingInfo.shipping_address}
-                                        onChange={handleInputChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="row">
-                                    <div className="col-md-6 mb-3">
-                                        <label htmlFor="shipping_city" className="form-label">City</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            id="shipping_city"
-                                            name="shipping_city"
-                                            value={shippingInfo.shipping_city}
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                    </div>
-                                    <div className="col-md-6 mb-3">
-                                        <label htmlFor="shipping_postal_code" className="form-label">Postal Code</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            id="shipping_postal_code"
-                                            name="shipping_postal_code"
-                                            value={shippingInfo.shipping_postal_code}
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                    </div>
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="shipping_phone" className="form-label">Phone</label>
-                                    <input
-                                        type="tel"
-                                        className="form-control"
-                                        id="shipping_phone"
-                                        name="shipping_phone"
-                                        value={shippingInfo.shipping_phone}
-                                        onChange={handleInputChange}
-                                        required
-                                    />
-                                </div>
-                                <button
-                                    type="submit"
-                                    className="btn btn-primary"
-                                    disabled={isSubmitting}
-                                >
-                                    {isSubmitting ? 'Processing...' : 'Place Order'}
-                                </button>
-                            </form>
+            {currentStep === 1 && (
+                <div>
+                    <h3>Shipping Information</h3>
+                    <form onSubmit={handleNextStep}>
+                        <div className="mb-3">
+                            <label htmlFor="full_name" className="form-label">Full Name</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="full_name"
+                                name="full_name"
+                                value={shippingInfo.full_name}
+                                onChange={handleInputChange}
+                                required
+                            />
                         </div>
-                    </div>
-                </div>
-
-                {/* Resumen del pedido */}
-                <div className="col-md-4">
-                    <div className="card shadow-sm">
-                        <div className="card-body">
-                            <h3 className="card-title mb-4">Order Summary</h3>
-                            {cart?.items.map((item) => (
-                                <div key={item.product.id} className="d-flex justify-content-between mb-2">
-                                    <span>{item.product.name} x {item.quantity}</span>
-                                    <span>${(item.product.price * item.quantity).toFixed(2)}</span>
-                                </div>
-                            ))}
-                            <hr />
-                            <div className="d-flex justify-content-between">
-                                <strong>Total</strong>
-                                <strong>${calculateTotal().toFixed(2)}</strong>
-                            </div>
+                        <div className="mb-3">
+                            <label htmlFor="shipping_address" className="form-label">Address</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="shipping_address"
+                                name="shipping_address"
+                                value={shippingInfo.shipping_address}
+                                onChange={handleInputChange}
+                                required={!shippingInfo.pickup} // Requerido solo si no recoge
+                            />
                         </div>
-                    </div>
+                        <div className="mb-3">
+                            <label htmlFor="pickup" className="form-label">
+                                <input
+                                    type="checkbox"
+                                    id="pickup"
+                                    name="pickup"
+                                    checked={shippingInfo.pickup}
+                                    onChange={handleInputChange}
+                                />
+                                Pick up in store
+                            </label>
+                        </div>
+                        <button type="submit" className="btn btn-primary">Next</button>
+                    </form>
                 </div>
-            </div>
+            )}
+            {currentStep === 2 && (
+                <div>
+                    <h3>Order Summary</h3>
+                    {cart?.items.map((item) => (
+                        <div key={item.product.id} className="d-flex justify-content-between mb-2">
+                            <span>{item.product.name} x {item.quantity}</span>
+                            <span>${(item.product.price * item.quantity).toFixed(2)}</span>
+                        </div>
+                    ))}
+                    <hr />
+                    <div className="d-flex justify-content-between">
+                        <strong>Total</strong>
+                        <strong>${calculateTotal().toFixed(2)}</strong>
+                    </div>
+                    <button onClick={() => setCurrentStep(1)} className="btn btn-secondary">Back</button>
+                    <button onClick={handleNextStep} className="btn btn-primary">Next</button>
+                </div>
+            )}
+            {currentStep === 3 && (
+                <div>
+                    <h3>Payment Method</h3>
+                    <p>Currently, the only payment method available is SINPE Móvil.</p>
+                    <button onClick={handleSubmit} className="btn btn-primary">Place Order</button>
+                    <button onClick={() => setCurrentStep(2)} className="btn btn-secondary">Back</button>
+                </div>
+            )}
         </div>
     );
 };
