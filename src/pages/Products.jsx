@@ -5,11 +5,16 @@ import { toast } from 'react-toastify'
 import { cartService } from '../services/cartService'
 import { productService } from '../services/productService'
 import { MEDIA_BASE_URL } from '../constants'
+import ProductFilter from '../components/layout/ProductFilter'
 
 const Products = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [sortOrder, setSortOrder] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalProducts, setTotalProducts] = useState(0);
+    const productsPerPage = 3; // Número de productos por página
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -28,6 +33,7 @@ const Products = () => {
                     data = await productService.getProducts();
                 }
                 setProducts(data);
+                setTotalProducts(data.length); // Suponiendo que el servicio devuelve todos los productos
                 setLoading(false);
             } catch (err) {
                 setError('Error al cargar los productos');
@@ -38,6 +44,22 @@ const Products = () => {
 
         fetchProducts();
     }, [location.search]);
+
+    const handleSortChange = (e) => {
+        setSortOrder(e.target.value);
+    };
+
+    const sortedProducts = () => {
+        let sorted = [...products];
+        if (sortOrder === 'alphabetical') {
+            sorted.sort((a, b) => a.name.localeCompare(b.name));
+        } else if (sortOrder === 'price_asc') {
+            sorted.sort((a, b) => a.price - b.price);
+        } else if (sortOrder === 'price_desc') {
+            sorted.sort((a, b) => b.price - a.price);
+        }
+        return sorted;
+    };
 
     const handleViewDetails = (productId) => {
         navigate(`/product/${productId}`);
@@ -57,26 +79,52 @@ const Products = () => {
         }
     };
 
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const totalPages = Math.ceil(totalProducts / productsPerPage);
+    const paginatedProducts = sortedProducts().slice((currentPage - 1) * productsPerPage, currentPage * productsPerPage);
+
     if (loading) return <div className="container mt-4">Cargando...</div>;
     if (error) return <div className="container mt-4">{error}</div>;
 
     return (
-        <div className="container mt-4">
+        <div className="mt-4">
             <h1 className="mb-4">Productos</h1>
-            <div className="row row-cols-1 row-cols-md-3 g-4">
-                {products.map((product) => (
-                    <div key={product.id} className="col">
-                        <Card
-                            name={product.name}
-                            description={product.description}
-                            image={product.image ? `${MEDIA_BASE_URL}${product.image}` : ''}
-                            price={product.price}
-                            stock={product.stock}
-                            onClick={() => handleViewDetails(product.id)}
-                            onAddToCart={() => handleAddToCart(product)}
-                        />
+            <div className="row">
+                <div className="col-md-3">
+                    <ProductFilter onSortChange={handleSortChange} />
+                </div>
+                <div className="col-md-9">
+                    <div className="row row-cols-1 row-cols-md-3 g-4">
+                        {paginatedProducts.map((product) => (
+                            <div key={product.id} className="col">
+                                <Card
+                                    name={product.name}
+                                    description={product.description}
+                                    image={product.image ? `${MEDIA_BASE_URL}${product.image}` : ''}
+                                    price={product.price}
+                                    stock={product.stock}
+                                    onClick={() => handleViewDetails(product.id)}
+                                    onAddToCart={() => handleAddToCart(product)}
+                                />
+                            </div>
+                        ))}
                     </div>
-                ))}
+                    {/* Paginación */}
+                    <div className="pagination">
+                        {Array.from({ length: totalPages }, (_, index) => (
+                            <button
+                                key={index + 1}
+                                onClick={() => handlePageChange(index + 1)}
+                                className={`page-button ${currentPage === index + 1 ? 'active' : ''}`}
+                            >
+                                {index + 1}
+                            </button>
+                        ))}
+                    </div>
+                </div>
             </div>
         </div>
     );
