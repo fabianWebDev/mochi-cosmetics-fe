@@ -41,5 +41,14 @@ export const productService = {
             }
             throw error;
         }
+    },
+
+    async getCategories() {
+        try {
+            const response = await axiosInstance.get('/categories/');
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
     }
 }; 

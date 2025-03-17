@@ -1,9 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { authService } from '../../services/authService';
 import SearchBar from './SearchBar';
+import { useEffect, useState } from 'react';
+import { productService } from '../../services/productService';
+
 function Navbar() {
     const navigate = useNavigate();
     const user = authService.getUser();
+    const [categories, setCategories] = useState([]);
+    const [showSubMenu, setShowSubMenu] = useState(false);
 
     const handleLogout = async () => {
         try {
@@ -13,6 +18,19 @@ function Navbar() {
             console.error('Error logging out:', error);
         }
     };
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const categoriesData = await productService.getCategories();
+                setCategories(categoriesData);
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        };
+
+        fetchCategories();
+    }, []);
 
     return (
         <nav className="bg-gray-800 p-4">
@@ -24,9 +42,28 @@ function Navbar() {
                     <Link to="/" className="hover:text-gray-300">
                         Home
                     </Link>
-                    <Link to="/products" className="hover:text-gray-300">
-                        Products
-                    </Link>
+                    <div
+                        className="relative"
+                        onMouseEnter={() => setShowSubMenu(true)}
+                        onMouseLeave={() => setShowSubMenu(false)}
+                    >
+                        <Link to="/products" className="hover:text-gray-300">
+                            Products
+                        </Link>
+                        {showSubMenu && (
+                            <div className="absolute bg-white shadow-lg mt-2 rounded">
+                                {categories.map(category => (
+                                    <Link
+                                        key={category.id}
+                                        to={`/products?search=${category.name}`}
+                                        className="block px-4 py-2 hover:bg-gray-200"
+                                    >
+                                        {category.name}
+                                    </Link>
+                                ))}
+                            </div>
+                        )}
+                    </div>
                     <Link to="/contact" className="hover:text-gray-300">
                         Contact
                     </Link>
