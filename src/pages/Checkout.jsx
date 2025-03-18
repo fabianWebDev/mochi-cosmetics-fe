@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { cartService } from '../services/cartService';
 import { orderService } from '../services/orderService';
 import { authService } from '../services/authService';
+import ProgressBar from '../components/ui/ProgressBar';
 
 const ORDER_STATUS = {
     PENDING: 'pending',
@@ -30,7 +31,7 @@ const Checkout = () => {
         shipping_postal_code: '',
         shipping_phone: '',
         full_name: '',
-        pickup: false // Nuevo campo para recoger en tienda
+        pickup: false
     });
     const [userId, setUserId] = useState(null);
 
@@ -158,10 +159,10 @@ const Checkout = () => {
 
             // Limpiar el carrito usando el servicio
             await cartService.clearCart();
-            
+
             // Mostrar mensaje de éxito
             toast.success('Order placed successfully!');
-            
+
             // Redirigir a la página de confirmación
             navigate(`/order-confirmation/${order.order_id}`);
 
@@ -171,18 +172,18 @@ const Checkout = () => {
     };
 
     const calculateTotal = () => {
-        return cart?.items.reduce((total, item) => 
+        return cart?.items.reduce((total, item) =>
             total + (item.product.price * item.quantity), 0
         ) || 0;
     };
 
     const handleError = (error) => {
         console.error('Checkout error:', error);
-        
+
         if (error.response) {
             const errorData = error.response.data;
             console.error('Error response data:', errorData);
-            
+
             switch (error.response.status) {
                 case 400:
                     // Manejar errores de validación
@@ -221,6 +222,7 @@ const Checkout = () => {
 
     return (
         <div className="container mt-4">
+            <ProgressBar currentStep={currentStep} totalSteps={3} />
             <h1 className="mb-4">Checkout</h1>
             {currentStep === 1 && (
                 <div>
