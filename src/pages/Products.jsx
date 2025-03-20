@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
 import Card from '../components/ui/Card'
 import { toast } from 'react-toastify'
 import { cartService } from '../services/cartService'
@@ -68,7 +68,14 @@ const Products = () => {
     const handleAddToCart = async (product) => {
         try {
             await cartService.addToCart(product.id, 1);
-            toast.success('Producto agregado al carrito!');
+            toast.success(
+                <div>
+                    Producto agregado al carrito!
+                    <Link to="/cart" style={{ marginLeft: '5px', color: '#007bff', textDecoration: 'underline' }}>
+                        Ir al carrito
+                    </Link>
+                </div>
+            );
         } catch (error) {
             if (error.response?.data?.error === 'Not enough stock available') {
                 toast.error('Lo sentimos, este producto está agotado');
