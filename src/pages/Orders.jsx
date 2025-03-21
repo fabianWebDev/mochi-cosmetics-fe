@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import {
   Container,
@@ -120,7 +120,9 @@ const Orders = () => {
             ) : (
               orders.map((order) => (
                 <TableRow key={order.order_id} hover>
-                  <TableCell>{order.order_id}</TableCell>
+                  <TableCell>
+                    <Link to={`/orders/${order.order_id}`}>{order.order_id}</Link>
+                  </TableCell>
                   <TableCell>{new Date(order.created_at).toLocaleDateString()}</TableCell>
                   <TableCell>${order.total_price}</TableCell>
                   <TableCell>{order.status}</TableCell>
