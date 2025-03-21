@@ -26,9 +26,10 @@ const Checkout = () => {
     const [loading, setLoading] = useState(true);
     const [currentStep, setCurrentStep] = useState(1);
     const [shippingInfo, setShippingInfo] = useState({
-        shipping_address: '',
-        shipping_city: '',
-        shipping_postal_code: '',
+        province: '',
+        canton: '',
+        district: '',
+        exact_address: '',
         shipping_phone: '',
         full_name: '',
         pickup: false
@@ -72,11 +73,13 @@ const Checkout = () => {
 
     const handleNextStep = () => {
         if (currentStep === 1) {
-            // Validar información de envío
-            const errors = validateShippingInfo();
-            if (errors.length > 0) {
-                errors.forEach(error => toast.error(error));
-                return;
+            // Validar información de envío solo si no se elige "Pick up in Store"
+            if (!shippingInfo.pickup) {
+                const errors = validateShippingInfo();
+                if (errors.length > 0) {
+                    errors.forEach(error => toast.error(error));
+                    return;
+                }
             }
         }
         setCurrentStep(prev => prev + 1);
@@ -85,7 +88,11 @@ const Checkout = () => {
     const validateShippingInfo = () => {
         const errors = [];
         if (!shippingInfo.full_name.trim()) errors.push('Full name is required');
-        if (!shippingInfo.shipping_address.trim() && !shippingInfo.pickup) errors.push('Shipping address is required if not picking up');
+        if (!shippingInfo.province.trim() && !shippingInfo.pickup) errors.push('Province is required if not picking up');
+        if (!shippingInfo.canton.trim() && !shippingInfo.pickup) errors.push('Canton is required if not picking up');
+        if (!shippingInfo.district.trim() && !shippingInfo.pickup) errors.push('District is required if not picking up');
+        if (!shippingInfo.exact_address.trim() && !shippingInfo.pickup) errors.push('Exact address is required if not picking up');
+        if (!shippingInfo.shipping_phone.trim() && !shippingInfo.pickup) errors.push('Phone number is required if not picking up');
         return errors;
     };
 
@@ -237,21 +244,73 @@ const Checkout = () => {
                                 name="full_name"
                                 value={shippingInfo.full_name}
                                 onChange={handleInputChange}
-                                required
+                                required={!shippingInfo.pickup}
                             />
                         </div>
-                        <div className="mb-3">
-                            <label htmlFor="shipping_address" className="form-label">Address</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="shipping_address"
-                                name="shipping_address"
-                                value={shippingInfo.shipping_address}
-                                onChange={handleInputChange}
-                                required={!shippingInfo.pickup} // Requerido solo si no recoge
-                            />
-                        </div>
+                        {!shippingInfo.pickup && (
+                            <>
+                                <div className="mb-3">
+                                    <label htmlFor="province" className="form-label">Provincia</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="province"
+                                        name="province"
+                                        value={shippingInfo.province}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="canton" className="form-label">Cantón</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="canton"
+                                        name="canton"
+                                        value={shippingInfo.canton}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="district" className="form-label">Distrito</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="district"
+                                        name="district"
+                                        value={shippingInfo.district}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="exact_address" className="form-label">Dirección Exacta</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="exact_address"
+                                        name="exact_address"
+                                        value={shippingInfo.exact_address}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="shipping_phone" className="form-label">Número de Teléfono</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="shipping_phone"
+                                        name="shipping_phone"
+                                        value={shippingInfo.shipping_phone}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                </div>
+                            </>
+                        )}
                         <div className="mb-3">
                             <label htmlFor="pickup" className="form-label">
                                 <input
