@@ -131,7 +131,10 @@ const Checkout = () => {
                 user: userId,
                 status: ORDER_STATUS.PENDING,
                 total_price: calculateTotal(),
-                shipping_address: `${shippingInfo.full_name}\n${shippingInfo.shipping_address}\n${shippingInfo.shipping_city}, ${shippingInfo.shipping_postal_code}\nPhone: ${shippingInfo.shipping_phone}`,
+                // Modificar la dirección de envío según la opción de recogida
+                shipping_address: shippingInfo.pickup
+                    ? 'Pick up in store'
+                    : `${shippingInfo.full_name}\n${shippingInfo.exact_address}\n${shippingInfo.district}, ${shippingInfo.canton}, ${shippingInfo.province}\nPhone: ${shippingInfo.shipping_phone}`,
                 items: cart.items.map(item => ({
                     product: item.product.id,
                     quantity: item.quantity,
