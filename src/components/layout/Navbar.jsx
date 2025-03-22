@@ -102,7 +102,7 @@ function Navbar() {
                     )}
                     {user.is_admin && (
                         <Link to={`${MEDIA_BASE_URL}/admin`} className="hover:text-gray-300">
-                            Admin
+                            Admin Panel
                         </Link>
                     )}
                 </div>
