@@ -3,6 +3,7 @@ import { authService } from '../../services/authService';
 import SearchBar from './SearchBar';
 import { useEffect, useState } from 'react';
 import { productService } from '../../services/productService';
+import { MEDIA_BASE_URL } from '../../constants';
 
 function Navbar() {
     const navigate = useNavigate();
@@ -98,6 +99,11 @@ function Navbar() {
                                 Logout
                             </button>
                         </>
+                    )}
+                    {user.is_admin && (
+                        <Link to={`${MEDIA_BASE_URL}/admin`} className="hover:text-gray-300">
+                            Admin Panel
+                        </Link>
                     )}
                 </div>
             </div>
