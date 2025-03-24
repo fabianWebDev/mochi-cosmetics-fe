@@ -6,6 +6,7 @@ import { productService } from '../../services/productService';
 import { MEDIA_BASE_URL } from '../../constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons';
+import classes from '../../styles/Navbar.module.css';
 
 function Navbar() {
     const navigate = useNavigate();
@@ -43,7 +44,7 @@ function Navbar() {
                         My Store
                     </Link>
                 </div>
-                <div className="col">
+                <div className="col d-flex justify-content-end align-items-center">
                     <Link to="/cart">
                         <FontAwesomeIcon icon={faCartShopping} style={{ color: '#eb9ec1' }} />
                     </Link>
@@ -65,13 +66,26 @@ function Navbar() {
                             Magic The Gathering
                         </Link>
                         <div
-                            className="relative"
                             onMouseEnter={() => setShowSubMenu(true)}
                             onMouseLeave={() => setShowSubMenu(false)}
                         >
                             <Link to="/products">
                                 Products
                             </Link>
+                            <div className={`${classes.absolute_menu}`}>
+                                {showSubMenu && (
+                                    <>
+                                        {categories.map(category => (
+                                            <Link
+                                                key={category.id}
+                                                to={`/products?search=${category.name}`}
+                                            >
+                                                {category.name}
+                                            </Link>
+                                        ))}
+                                    </>
+                                )}
+                            </div>
                         </div>
                         <Link to="/contact">
                             Contact
@@ -90,7 +104,7 @@ function Navbar() {
                                     My Orders
                                 </Link>
                                 {user.is_admin && (
-                                    <Link to={`${MEDIA_BASE_URL}/admin`}>
+                                    <Link target='_blank' to={`${MEDIA_BASE_URL}/admin`}>
                                         Admin Panel
                                     </Link>
                                 )}
@@ -103,27 +117,7 @@ function Navbar() {
                     </div>
                 </nav>
             </div>
-            <div className="row">
-                <div className="container-fluid">
-                    {showSubMenu && (
-                        <>
-                            {categories.map(category => (
-                                <Link
-                                    key={category.id}
-                                    to={`/products?search=${category.name}`}
-                                >
-                                    {category.name}
-                                </Link>
-                            ))}
-                        </>
-                    )}
-                </div>
-            </div>
-            <div className="row">
-                <div className="">
-                    <SearchBar />
-                </div>
-            </div>
+            <SearchBar />
         </div >
     );
 }
