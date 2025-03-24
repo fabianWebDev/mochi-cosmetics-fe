@@ -89,6 +89,11 @@ function Navbar() {
                             <Link to="/orders" className="hover:text-gray-300">
                                 My Orders
                             </Link>
+                            {user.is_admin && (
+                                <Link to={`${MEDIA_BASE_URL}/admin`} className="hover:text-gray-300">
+                                    Admin Panel
+                                </Link>
+                            )}
                             <span className="text-gray-300">
                                 {user.first_name || user.username}
                             </span>
@@ -100,11 +105,7 @@ function Navbar() {
                             </button>
                         </>
                     )}
-                    {user.is_admin && (
-                        <Link to={`${MEDIA_BASE_URL}/admin`} className="hover:text-gray-300">
-                            Admin Panel
-                        </Link>
-                    )}
+
                 </div>
             </div>
             <SearchBar />
