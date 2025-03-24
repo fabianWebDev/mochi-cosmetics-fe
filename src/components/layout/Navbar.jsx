@@ -34,13 +34,13 @@ function Navbar() {
     }, []);
 
     return (
-        <nav className="bg-gray-800 p-4">
-            <div className="container mx-auto flex justify-between items-center">
-                <Link to="/" className="font-bold text-xl">
+        <nav>
+            <div>
+                <Link to="/">
                     My Store
                 </Link>
-                <div className="flex space-x-4 items-center">
-                    <Link to="/" className="hover:text-gray-300">
+                <div>
+                    <Link to="/">
                         Home
                     </Link>
                     <div
@@ -48,16 +48,15 @@ function Navbar() {
                         onMouseEnter={() => setShowSubMenu(true)}
                         onMouseLeave={() => setShowSubMenu(false)}
                     >
-                        <Link to="/products" className="hover:text-gray-300">
+                        <Link to="/products">
                             Products
                         </Link>
                         {showSubMenu && (
-                            <div className="absolute bg-white shadow-lg mt-2 rounded">
+                            <div>
                                 {categories.map(category => (
                                     <Link
                                         key={category.id}
                                         to={`/products?search=${category.name}`}
-                                        className="block px-4 py-2 hover:bg-gray-200"
                                     >
                                         {category.name}
                                     </Link>
@@ -65,47 +64,44 @@ function Navbar() {
                             </div>
                         )}
                     </div>
-                    <Link to="/contact" className="hover:text-gray-300">
+                    <Link to="/contact">
                         Contact
                     </Link>
-                    <Link to="/cart" className="hover:text-gray-300 flex items-center">
-                        <i className="bi bi-cart me-1"></i>
+                    <Link to="/cart">
                         Cart
                     </Link>
-                    <Link to="/about" className="hover:text-gray-300">
+                    <Link to="/about">
                         About
                     </Link>
                     {!user ? (
                         <>
-                            <Link to="/login" className="hover:text-gray-300">
+                            <Link to="/login">
                                 Login
                             </Link>
-                            <Link to="/register" className="hover:text-gray-300">
+                            <Link to="/register">
                                 Register
                             </Link>
                         </>
                     ) : (
                         <>
-                            <Link to="/orders" className="hover:text-gray-300">
+                            <Link to="/orders">
                                 My Orders
                             </Link>
                             {user.is_admin && (
-                                <Link to={`${MEDIA_BASE_URL}/admin`} className="hover:text-gray-300">
+                                <Link to={`${MEDIA_BASE_URL}/admin`}>
                                     Admin Panel
                                 </Link>
                             )}
-                            <span className="text-gray-300">
+                            <span>
                                 {user.first_name || user.username}
                             </span>
                             <button
                                 onClick={handleLogout}
-                                className="hover:text-gray-300 cursor-pointer"
                             >
                                 Logout
                             </button>
                         </>
                     )}
-
                 </div>
             </div>
             <SearchBar />
