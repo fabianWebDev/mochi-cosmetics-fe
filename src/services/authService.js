@@ -5,7 +5,7 @@ export const authService = {
     async login(credentials) {
         try {
             const response = await axiosInstance.post('/users/login/', credentials);
-            
+
             if (!response.data) {
                 throw new Error('No response data from server');
             }
@@ -15,7 +15,7 @@ export const authService = {
             if (!access || !refresh) {
                 throw new Error('Invalid response structure from server');
             }
-            
+
             this.setAuthData(access, refresh, user);
             return user;
         } catch (error) {
@@ -34,7 +34,7 @@ export const authService = {
             if (!access || !refresh) {
                 throw new Error('Invalid response structure from server');
             }
-            
+
             this.setAuthData(access, refresh, user);
             return user;
         } catch (error) {

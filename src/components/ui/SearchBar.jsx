@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import classes from '../../styles/SearchBar.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+
 
 const SearchBar = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -13,16 +17,24 @@ const SearchBar = () => {
     };
 
     return (
-        <form onSubmit={handleSearch}>
-            <input
-                type="text"
-                placeholder="Buscar productos..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="search-bar"
-            />
-            <button type="submit">Buscar</button>
-        </form>
+        <div className="row justify-content-center">
+            <div className="col-md-8">
+                <div className={classes.search_container}>
+                    <form onSubmit={handleSearch}>
+                        <input
+                            type="text"
+                            placeholder=""
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className={`${classes.search_input}`}
+                        />
+                        <button type="submit" className={classes.search_button}>
+                            <FontAwesomeIcon icon={faMagnifyingGlass} className={classes.search_icon} />
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
     );
 };
 
