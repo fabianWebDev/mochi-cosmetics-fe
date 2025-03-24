@@ -15,7 +15,7 @@ const Cart = () => {
                 // Cargar carrito usando el servicio
                 const cartItems = cartService.getCartItems();
                 setCart({ items: cartItems });
-                
+
                 // Intentar sincronizar con el backend si el usuario está autenticado
                 if (authService.isAuthenticated()) {
                     try {
@@ -33,7 +33,7 @@ const Cart = () => {
                         toast.error('Error syncing cart with server. Using local cart.');
                     }
                 }
-                
+
                 setLoading(false);
             } catch (error) {
                 console.error('Error loading cart:', error);
@@ -56,7 +56,7 @@ const Cart = () => {
                 await cartService.updateQuantity(productId, newQuantity);
                 toast.success('Cart updated successfully');
             }
-            
+
             // Actualizar el estado del carrito
             setCart({ items: cartService.getCartItems() });
         } catch (error) {
@@ -108,7 +108,7 @@ const Cart = () => {
     }
 
     const calculateTotal = () => {
-        return cart.items.reduce((total, item) => 
+        return cart.items.reduce((total, item) =>
             total + (item.product.price * item.quantity), 0
         );
     };
@@ -127,8 +127,8 @@ const Cart = () => {
                     {cart.items.map((item) => (
                         <div key={item.product.id} className="row mb-4 align-items-center">
                             <div className="col-md-2">
-                                <img 
-                                    src={item.product.image} 
+                                <img
+                                    src={item.product.image}
                                     alt={item.product.name}
                                     className="img-fluid rounded"
                                 />
@@ -139,23 +139,23 @@ const Cart = () => {
                             </div>
                             <div className="col-md-3">
                                 <div className="input-group">
-                                    <button 
-                                        className="btn btn-outline-secondary" 
+                                    <button
+                                        className="btn btn-outline-secondary"
                                         type="button"
                                         onClick={() => handleUpdateQuantity(item.product.id, item.quantity - 1)}
                                     >
                                         -
                                     </button>
-                                    <input 
-                                        type="number" 
-                                        className="form-control text-center" 
+                                    <input
+                                        type="number"
+                                        className="form-control text-center"
                                         value={item.quantity}
                                         onChange={(e) => handleUpdateQuantity(item.product.id, parseInt(e.target.value))}
                                         min="1"
                                         max={item.product.stock}
                                     />
-                                    <button 
-                                        className="btn btn-outline-secondary" 
+                                    <button
+                                        className="btn btn-outline-secondary"
                                         type="button"
                                         onClick={() => handleUpdateQuantity(item.product.id, item.quantity + 1)}
                                         disabled={item.quantity >= item.product.stock}
@@ -168,7 +168,7 @@ const Cart = () => {
                                 <p className="h5 mb-0">${(item.product.price * item.quantity).toFixed(2)}</p>
                             </div>
                             <div className="col-md-1">
-                                <button 
+                                <button
                                     className="btn btn-outline-danger btn-sm"
                                     onClick={() => handleRemoveItem(item.product.id)}
                                 >
@@ -180,7 +180,7 @@ const Cart = () => {
                     <hr />
                     <div className="d-flex justify-content-between align-items-center">
                         <h4>Total: ${calculateTotal().toFixed(2)}</h4>
-                        <button 
+                        <button
                             className="btn btn-primary"
                             onClick={handleCheckout}
                         >
