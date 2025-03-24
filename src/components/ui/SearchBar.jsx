@@ -23,7 +23,7 @@ const SearchBar = () => {
                     <form onSubmit={handleSearch}>
                         <input
                             type="text"
-                            placeholder="Buscar productos..."
+                            placeholder=""
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className={`${classes.search_input}`}
@@ -35,7 +35,6 @@ const SearchBar = () => {
                 </div>
             </div>
         </div>
-
     );
 };
 

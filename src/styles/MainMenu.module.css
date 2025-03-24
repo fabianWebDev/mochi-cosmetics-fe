@@ -1,0 +1,34 @@
+.sub_menu {
+    position: absolute;
+    z-index: 1000;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 12px;
+}
+
+.sub_menu_item {
+    display: block;
+}
+
+.main_menu {
+    margin: 0;
+    padding: 0;
+}
+
+.nav_item {
+    text-decoration: none;
+    margin-right: 36px;
+    color: #1E1E1E;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.nav_item:hover {
+    color: #eb9ec1;
+}
+
+.nav_items {
+    padding-left: 36px;
+}
