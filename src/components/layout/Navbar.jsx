@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { authService } from '../../services/authService';
-import SearchBar from './SearchBar';
+import SearchBar from '../ui/SearchBar';
 import { useEffect, useState } from 'react';
 import { productService } from '../../services/productService';
 import { MEDIA_BASE_URL } from '../../constants';
