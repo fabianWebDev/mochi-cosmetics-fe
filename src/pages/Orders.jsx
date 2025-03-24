@@ -19,12 +19,6 @@ const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [orderProgress, setOrderProgress] = useState({
-    step: 1,
-    status: 'processing',
-    message: 'Creating your order...'
-  });
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -59,31 +53,6 @@ const Orders = () => {
     console.log('Orders state updated:', orders);
   }, [orders]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (isSubmitting) return;
-    setIsSubmitting(true);
-    try {
-      // ... código existente ...
-    } catch (error) {
-      // ... manejo de errores ...
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  // Guardar el estado de la orden en caso de fallo
-  const saveOrderState = (orderData) => {
-    localStorage.setItem('pendingOrder', JSON.stringify({
-      orderData,
-      timestamp: new Date().getTime()
-    }));
-  };
-
-  // Limpiar el estado de la orden después de completar
-  const clearOrderState = () => {
-    localStorage.removeItem('pendingOrder');
-  };
 
   if (loading) {
     return (
@@ -98,7 +67,6 @@ const Orders = () => {
       <Typography variant="h4" gutterBottom>
         My Orders
       </Typography>
-      
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
