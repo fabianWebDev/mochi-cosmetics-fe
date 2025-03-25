@@ -1,14 +1,17 @@
 import SearchBar from '../ui/SearchBar';
 import MainMenu from '../ui/MainMenu';
-import PageHead from '../ui/PageHead';
+import PageHeader from '../ui/PageHeader';
 
 function Navbar() {
     return (
-        <div className="container">
-            <PageHead />
-            <MainMenu />
-            <SearchBar />
-        </div >
+        <>
+            <PageHeader />
+            <div className="container">
+
+                <MainMenu />
+                <SearchBar />
+            </div >
+        </>
     );
 }
 
