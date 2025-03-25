@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Creepster&family=UnifrakturMaguntia&display=swap');
+
+.header_container {
+    width: 100%;
+}
+
+.logo_container {
+    margin: 12px 0 0 12px;
+    display: flex;
+    align-items: center;
+}
+
+.logo_link {
+    text-decoration: none;
+    color: #3b0e57;
+}
+
+.logo_title {
+    margin: 0;
+    font-weight: bold;
+    margin-left: 12px;
+    font-family: 'UnifrakturMaguntia', cursive;
+    font-size: 36px;
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+}
+
+.header_icons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.header_icon{
+    color: #3b0e57;
+    width: 1.5rem;
+    height: 1.5rem;
+}

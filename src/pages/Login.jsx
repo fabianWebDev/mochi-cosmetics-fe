@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { authService } from '../services/authService';
 import { cartService } from '../services/cartService';
-import '../styles/Login.css';
 
 const Login = () => {
     const [formData, setFormData] = useState({

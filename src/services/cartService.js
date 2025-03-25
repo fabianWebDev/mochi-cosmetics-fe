@@ -1,6 +1,7 @@
 import axiosInstance from './axios';
 import { authService } from './authService';
 import { STORAGE_KEYS } from '../constants';
+import { eventService } from './eventService';
 
 class CartService {
     constructor() {
@@ -14,6 +15,7 @@ class CartService {
 
     saveCartToLocalStorage(cart) {
         localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
+        eventService.emit('cartUpdated', this.getCartCount());
     }
 
     async syncWithBackend() {
@@ -62,11 +64,11 @@ class CartService {
                     product_id: productId,
                     quantity: quantity
                 });
-    
+
                 if (updateLocal) {
                     await this.syncWithBackend();
                 }
-    
+
                 return response.data;
             } else {
                 // Si no está autenticado, agregar al carrito local
@@ -85,7 +87,7 @@ class CartService {
         try {
             const cart = this.loadCartFromLocalStorage();
             const existingItem = cart.items.find(item => item.product.id === productId);
-    
+
             if (existingItem) {
                 existingItem.quantity += quantity;
             } else {
@@ -95,7 +97,7 @@ class CartService {
                     quantity: quantity
                 });
             }
-    
+
             this.saveCartToLocalStorage(cart);
             return cart;
         } catch (error) {
@@ -250,6 +252,10 @@ class CartService {
         console.log('Local cart has been cleared.');
     }
 
+    getCartCount() {
+        const cart = this.loadCartFromLocalStorage();
+        return cart.items.reduce((count, item) => count + item.quantity, 0);
+    }
 }
 
 export const cartService = new CartService(); 
