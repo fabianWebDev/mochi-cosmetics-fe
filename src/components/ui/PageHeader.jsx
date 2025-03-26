@@ -55,6 +55,7 @@ const PageHeader = () => {
                     {!user ? (
                         <Link to="/login">
                             <FontAwesomeIcon icon={faUser} className={classes.header_icon} />
+                            <span className={classes.header_icon_text}>Sign in</span>
                         </Link>
                     ) : (
                         <button onClick={handleLogout}>

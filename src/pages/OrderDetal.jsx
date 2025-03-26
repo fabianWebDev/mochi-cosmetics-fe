@@ -19,7 +19,6 @@ const OrderDetal = () => {
                 setLoading(false);
             }
         };
-
         fetchOrderDetails();
     }, [orderId]);
 
