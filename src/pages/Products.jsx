@@ -14,7 +14,7 @@ const Products = () => {
     const [sortOrder, setSortOrder] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [totalProducts, setTotalProducts] = useState(0);
-    const productsPerPage = 3; // Número de productos por página
+    const productsPerPage = 9; // Número de productos por página
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -97,43 +97,51 @@ const Products = () => {
     if (error) return <div className="container mt-4">{error}</div>;
 
     return (
-        <div className="mt-4">
-            <h1 className="mb-4">Productos</h1>
-            <div className="row">
-                <div className="col-md-3">
-                    <ProductFilter onSortChange={handleSortChange} />
-                </div>
-                <div className="col-md-9">
-                    <div className="row row-cols-1 row-cols-md-3 g-4">
-                        {paginatedProducts.map((product) => (
-                            <div key={product.id} className="col">
-                                <ProductCard
-                                    name={product.name}
-                                    description={product.description}
-                                    image={product.image ? `${MEDIA_BASE_URL}${product.image}` : ''}
-                                    price={product.price}
-                                    stock={product.stock}
-                                    onClick={() => handleViewDetails(product.id)}
-                                    onAddToCart={() => handleAddToCart(product)}
-                                />
-                            </div>
-                        ))}
+        <>
+            <div className="mt-4 container">
+                <h1 className="mb-4">Productos</h1>
+                <div className="row">
+                    {/* Sidebar para filtros */}
+                    <div className="col-md-3">
+                        <ProductFilter onSortChange={handleSortChange} />
                     </div>
-                    {/* Paginación */}
-                    <div className="pagination">
-                        {Array.from({ length: totalPages }, (_, index) => (
-                            <button
-                                key={index + 1}
-                                onClick={() => handlePageChange(index + 1)}
-                                className={`page-button ${currentPage === index + 1 ? 'active' : ''}`}
-                            >
-                                {index + 1}
-                            </button>
-                        ))}
+
+                    {/* Grid de productos */}
+                    <div className="col-md-9">
+                        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                            {paginatedProducts.map((product) => (
+                                <div key={product.id} className="col">
+                                    <ProductCard
+                                        name={product.name}
+                                        description={product.description}
+                                        image={product.image ? `${MEDIA_BASE_URL}${product.image}` : ''}
+                                        price={product.price}
+                                        stock={product.stock}
+                                        onClick={() => handleViewDetails(product.id)}
+                                        onAddToCart={() => handleAddToCart(product)}
+                                    />
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+            {/* Paginación centrada */}
+            <div className="d-flex justify-content-center mt-4">
+                <div className="pagination">
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <button
+                            key={index + 1}
+                            onClick={() => handlePageChange(index + 1)}
+                            className={`page-button ${currentPage === index + 1 ? 'active' : ''}`}
+                        >
+                            {index + 1}
+                        </button>
+                    ))}
+                </div>
+            </div>
+        </>
     );
 }
 
