@@ -8,7 +8,7 @@ class EventService {
             this.listeners[event] = [];
         }
         this.listeners[event].push(callback);
-        
+
         // Return unsubscribe function
         return () => {
             this.listeners[event] = this.listeners[event].filter(cb => cb !== callback);

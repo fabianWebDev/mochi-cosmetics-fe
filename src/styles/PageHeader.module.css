@@ -2,6 +2,8 @@
 
 .header_container {
     width: 100%;
+    display: flex;
+    margin-bottom: 16px;
 }
 
 .logo_container {
@@ -31,11 +33,19 @@
 .header_icons {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
 }
 
-.header_icon{
+.header_icon {
     color: #3b0e57;
-    width: 1.5rem;
-    height: 1.5rem;
+    font-size: 1.5rem;
+    margin-right: 8px;
+}
+
+.logout_button {
+    background-color: transparent;
+    border: 2px solid #3b0e57;
+    border-radius: 50px;
+    color: #3b0e57;
+    padding: 8px 16px;
+    font-weight: bold;
 }

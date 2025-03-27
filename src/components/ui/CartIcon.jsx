@@ -1,10 +1,10 @@
-import { FaShoppingCart } from "react-icons/fa";
+import { FiShoppingCart } from "react-icons/fi";
 import classes from '../../styles/CartIcon.module.css';
 
-const CartIcon = ({ itemCount }) => {
+const CartIcon = ({ itemCount, className }) => {
   return (
-    <div className={classes.cart_icon}>
-      <FaShoppingCart/>
+    <div className={`${classes.cart_icon} ${className}`}>
+      <FiShoppingCart />
       {itemCount > 0 && (
         <span className={classes.cart_count}>
           {itemCount}
