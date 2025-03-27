@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Card from '../components/ui/Card';
+import ProductCard from '../components/ui/ProductCard';
 import { cartService } from '../services/cartService';
 import { toast } from 'react-toastify';
 import { productService } from '../services/productService';
@@ -47,7 +47,7 @@ const Product = () => {
 
     return (
         <div className="product-detail">
-            <Card
+            <ProductCard
                 name={product.name}
                 description={product.description}
                 image={`${MEDIA_BASE_URL}${product.image}`}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
-import Card from '../components/ui/Card'
+import ProductCard from '../components/ui/ProductCard'
 import { toast } from 'react-toastify'
 import { cartService } from '../services/cartService'
 import { productService } from '../services/productService'
@@ -107,7 +107,7 @@ const Products = () => {
                     <div className="row row-cols-1 row-cols-md-3 g-4">
                         {paginatedProducts.map((product) => (
                             <div key={product.id} className="col">
-                                <Card
+                                <ProductCard
                                     name={product.name}
                                     description={product.description}
                                     image={product.image ? `${MEDIA_BASE_URL}${product.image}` : ''}
