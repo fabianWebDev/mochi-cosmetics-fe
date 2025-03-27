@@ -12,7 +12,7 @@ const Card = ({ name, description, image, price, stock, onAddToCart, onClick }) 
 
   return (
     <div className={classes.product_card_container}>
-      <div className={classes.product_card_image_container}>
+      <div className={classes.product_card_image_container} onClick={onClick}>
         <img
           src={image}
           alt={name}
@@ -20,9 +20,9 @@ const Card = ({ name, description, image, price, stock, onAddToCart, onClick }) 
         />
       </div>
       <div className={`${classes.product_card_details} mt-2`}>
-        <h3 className={classes.product_card_name}>{name}</h3>
+        <h3 className={classes.product_card_name} onClick={onClick}>{name}</h3>
         <p className={classes.product_card_description}>{description}</p>
-        <div className={`${classes.product_card_price_stock} mt-2`}>
+        <div className={`${classes.product_card_price_stock}`}>
           <p>${price}</p>
           <p>Stock: <span>{stock}</span></p>
         </div>
