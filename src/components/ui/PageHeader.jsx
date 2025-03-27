@@ -1,6 +1,4 @@
 import { authService } from '../../services/authService';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { Link, useNavigate } from 'react-router-dom';
 import classes from '../../styles/PageHeader.module.css';
 import logo from '../../assets/logo.png';
@@ -8,6 +6,7 @@ import CartIcon from './CartIcon';
 import { cartService } from '../../services/cartService';
 import { useState, useEffect } from 'react';
 import { eventService } from '../../services/eventService';
+import UserIcon from './UserIcon';
 
 const PageHeader = () => {
     const user = authService.getUser();
@@ -49,21 +48,27 @@ const PageHeader = () => {
             </div>
             <div className={`${classes.header_icons} col`}>
                 <div className={`${classes.header_icons} col`}>
+                </div>
+                <div className={`${classes.header_icons} col`}>
                     <Link to="/cart">
-                        <CartIcon itemCount={cartCount} />
+                        <CartIcon itemCount={cartCount} className={classes.header_icon} />
                     </Link>
                     {!user ? (
                         <Link to="/login">
-                            <FontAwesomeIcon icon={faUser} className={classes.header_icon} />
-                            <span className={classes.header_icon_text}>Sign in</span>
+                            <button className={classes.logout_button}>
+                                Sign in
+                            </button>
                         </Link>
                     ) : (
-                        <button onClick={handleLogout}>
-                            Logout
-                        </button>
+                        <>
+                            <Link to="/profile">
+                                <UserIcon className={classes.header_icon} />
+                            </Link>
+                            <button onClick={handleLogout} className={classes.logout_button}>
+                                Logout
+                            </button>
+                        </>
                     )}
-                </div>
-                <div className="col">
                 </div>
             </div>
         </div>
