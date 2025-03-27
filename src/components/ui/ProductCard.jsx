@@ -26,16 +26,14 @@ const Card = ({ name, description, image, price, stock, onAddToCart, onClick }) 
           <p>${price}</p>
           <p>Stock: <span>{stock}</span></p>
         </div>
-        <div className={`${classes.product_card_button_container} mt-2`}>
-          <div className='col'>
-            <button
-              onClick={handleAddToCart}
-              disabled={stock === 0}
-              className={`${classes.product_card_button} ${stock === 0 ? classes.product_card_button_disabled : ''}`}
-            >
-              {stock === 0 ? 'Out of Stock' : 'Add to Cart'}
-            </button>
-          </div>
+        <div className={`${classes.product_card_button_container} mt-3`}>
+          <button
+            onClick={handleAddToCart}
+            disabled={stock === 0}
+            className={`${classes.product_card_button} ${stock === 0 ? classes.product_card_button_disabled : ''}`}
+          >
+            {stock === 0 ? 'Out of Stock' : 'Add to Cart'}
+          </button>
         </div>
       </div>
     </div>
