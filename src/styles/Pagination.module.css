@@ -19,30 +19,30 @@
 }
 
 .page_button {
-    min-width: 40px;
-    height: 40px;
-    padding: 0 12px;
-    border: 2px solid #5a1588;
+    min-width: 24px;
+    height: 24px;
+    border: none;
     border-radius: 8px;
     background-color: transparent;
-    color: #5a1588;
-    font-weight: 600;
+    color: #9F9F9F;
+    font-weight: 100;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: 0.1s ease;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 14px;
 }
 
 .page_button:hover:not(:disabled) {
-    background-color: #5a1588;
-    color: white;
+    background-color: #9F9F9F;
+    color: #ffffff;
     transform: translateY(-2px);
 }
 
 .page_button.active {
-    background-color: #5a1588;
-    color: white;
+    background-color: #9F9F9F;
+    color: #ffffff;
 }
 
 .page_button:disabled {
