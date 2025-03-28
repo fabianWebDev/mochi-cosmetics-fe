@@ -4,12 +4,11 @@ import styles from '../../styles/ProductFilter.module.css';
 const ProductFilter = ({ onSortChange, onStockFilterChange, showInStockOnly }) => {
     return (
         <div className={styles.sidebar}>
-            <h3>Filters</h3>
             <div className={styles.mb_3}>
                 <label htmlFor="sort" className={styles.form_label}>Sort By</label>
                 <select id="sort" className={styles.form_select} onChange={onSortChange}>
                     <option value="">Select</option>
-                    <option value="alphabetical">Alphabetical</option>
+                    <option value="alphabetical">A - Z</option>
                     <option value="price_asc">Price: Low to High</option>
                     <option value="price_desc">Price: High to Low</option>
                 </select>
