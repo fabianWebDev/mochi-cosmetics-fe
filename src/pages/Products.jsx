@@ -15,6 +15,7 @@ const Products = () => {
     const [sortOrder, setSortOrder] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [totalProducts, setTotalProducts] = useState(0);
+    const [showInStockOnly, setShowInStockOnly] = useState(false);
     const productsPerPage = 6; // Número de productos por página
     const navigate = useNavigate();
     const location = useLocation();
@@ -79,8 +80,20 @@ const Products = () => {
         setCurrentPage(pageNumber);
     };
 
+    const handleStockFilterChange = (e) => {
+        setShowInStockOnly(e.target.checked);
+        setCurrentPage(1); // Reset to first page when filter changes
+    };
+
     const sortedProducts = () => {
         let sorted = [...products];
+        
+        // Apply stock filter
+        if (showInStockOnly) {
+            sorted = sorted.filter(product => product.stock > 0);
+        }
+
+        // Apply sorting
         if (sortOrder === 'alphabetical') {
             sorted.sort((a, b) => a.name.localeCompare(b.name));
         } else if (sortOrder === 'price_asc') {
@@ -96,6 +109,11 @@ const Products = () => {
         currentPage * productsPerPage
     );
 
+    // Update total products count when filters change
+    useEffect(() => {
+        setTotalProducts(sortedProducts().length);
+    }, [products, sortOrder, showInStockOnly]);
+
     if (loading) return <div className="container mt-4">Cargando...</div>;
     if (error) return <div className="container mt-4">{error}</div>;
 
@@ -105,7 +123,11 @@ const Products = () => {
                 <h1 className="mb-4">Productos</h1>
                 <div className="row">
                     <div className="col-md-3">
-                        <ProductFilter onSortChange={handleSortChange} />
+                        <ProductFilter 
+                            onSortChange={handleSortChange}
+                            onStockFilterChange={handleStockFilterChange}
+                            showInStockOnly={showInStockOnly}
+                        />
                     </div>
                     <div className="col-md-9">
                         <Pagination

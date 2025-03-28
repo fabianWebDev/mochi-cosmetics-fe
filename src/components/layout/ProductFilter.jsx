@@ -1,17 +1,32 @@
 import React from 'react';
+import styles from '../../styles/ProductFilter.module.css';
 
-const ProductFilter = ({ onSortChange }) => {
+const ProductFilter = ({ onSortChange, onStockFilterChange, showInStockOnly }) => {
     return (
-        <div className="sidebar">
+        <div className={styles.sidebar}>
             <h3>Filters</h3>
-            <div className="mb-3">
-                <label htmlFor="sort" className="form-label">Sort By</label>
-                <select id="sort" className="form-select" onChange={onSortChange}>
+            <div className={styles.mb_3}>
+                <label htmlFor="sort" className={styles.form_label}>Sort By</label>
+                <select id="sort" className={styles.form_select} onChange={onSortChange}>
                     <option value="">Select</option>
                     <option value="alphabetical">Alphabetical</option>
                     <option value="price_asc">Price: Low to High</option>
                     <option value="price_desc">Price: High to Low</option>
                 </select>
+            </div>
+            <div className={styles.mb_3}>
+                <div className={styles.checkbox_container}>
+                    <input
+                        type="checkbox"
+                        id="inStock"
+                        checked={showInStockOnly}
+                        onChange={onStockFilterChange}
+                        className={styles.checkbox}
+                    />
+                    <label htmlFor="inStock" className={styles.checkbox_label}>
+                        In-Stock
+                    </label>
+                </div>
             </div>
         </div>
     );
