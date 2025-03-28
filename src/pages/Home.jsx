@@ -1,8 +1,10 @@
+import Hero from "../components/layout/Hero";
+
 const Home = () => {
     return (
         <>
-            <div className="container mx-auto mt-8">
-                <h1 className="text-3xl font-bold">Bienvenido a Mi Tienda</h1>
+            <div className="container">
+                <Hero />
             </div>
         </>
     );
