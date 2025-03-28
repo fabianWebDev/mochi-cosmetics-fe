@@ -5,7 +5,6 @@ import { toast } from 'react-toastify'
 import { cartService } from '../services/cartService'
 import { productService } from '../services/productService'
 import { MEDIA_BASE_URL } from '../constants'
-import ProductFilter from '../components/ui/ProductFilter'
 import Pagination from '../components/ui/Pagination'
 import SideBar from '../components/layout/SideBar'
 
