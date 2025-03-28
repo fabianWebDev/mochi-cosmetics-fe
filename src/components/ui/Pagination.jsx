@@ -1,14 +1,14 @@
-import styles from '../../styles/Pagination.module.css';
+import classes from '../../styles/Pagination.module.css';
 
 const Pagination = ({ currentPage, totalItems, itemsPerPage, onPageChange }) => {
     const totalPages = Math.ceil(totalItems / itemsPerPage);
 
     return (
-        <nav className={styles.pagination_container} aria-label="Page navigation">
-            <ul className={styles.pagination_list}>
-                <li className={styles.page_item}>
+        <nav className={classes.pagination_container} aria-label="Page navigation">
+            <ul className={classes.pagination_list}>
+                <li className={classes.page_item}>
                     <button
-                        className={styles.page_button}
+                        className={classes.page_button}
                         onClick={() => onPageChange(currentPage - 1)}
                         disabled={currentPage === 1}
                     >
@@ -16,18 +16,18 @@ const Pagination = ({ currentPage, totalItems, itemsPerPage, onPageChange }) => 
                     </button>
                 </li>
                 {Array.from({ length: totalPages }, (_, index) => (
-                    <li key={index + 1} className={styles.page_item}>
+                    <li key={index + 1} className={classes.page_item}>
                         <button
-                            className={`${styles.page_button} ${currentPage === index + 1 ? styles.active : ''}`}
+                            className={`${classes.page_button} ${currentPage === index + 1 ? classes.active : ''}`}
                             onClick={() => onPageChange(index + 1)}
                         >
                             {index + 1}
                         </button>
                     </li>
                 ))}
-                <li className={styles.page_item}>
+                <li className={classes.page_item}>
                     <button
-                        className={styles.page_button}
+                        className={classes.page_button}
                         onClick={() => onPageChange(currentPage + 1)}
                         disabled={currentPage === totalPages}
                     >

@@ -5,8 +5,9 @@ import { toast } from 'react-toastify'
 import { cartService } from '../services/cartService'
 import { productService } from '../services/productService'
 import { MEDIA_BASE_URL } from '../constants'
-import ProductFilter from '../components/layout/ProductFilter'
+import ProductFilter from '../components/ui/ProductFilter'
 import Pagination from '../components/ui/Pagination'
+import SideBar from '../components/layout/SideBar'
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -16,7 +17,7 @@ const Products = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalProducts, setTotalProducts] = useState(0);
     const [showInStockOnly, setShowInStockOnly] = useState(false);
-    const productsPerPage = 6; // Número de productos por página
+    const productsPerPage = 12; // Número de productos por página
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -87,7 +88,7 @@ const Products = () => {
 
     const sortedProducts = () => {
         let sorted = [...products];
-        
+
         // Apply stock filter
         if (showInStockOnly) {
             sorted = sorted.filter(product => product.stock > 0);
@@ -119,15 +120,12 @@ const Products = () => {
 
     return (
         <>
-            <div className="mt-4 container">
-                <h1 className="mb-4">Productos</h1>
+            <div className="container mt-4">
                 <div className="row">
                     <div className="col-md-3">
-                        <ProductFilter 
-                            onSortChange={handleSortChange}
+                        <SideBar onSortChange={handleSortChange}
                             onStockFilterChange={handleStockFilterChange}
-                            showInStockOnly={showInStockOnly}
-                        />
+                            showInStockOnly={showInStockOnly} />
                     </div>
                     <div className="col-md-9">
                         <Pagination
@@ -136,7 +134,7 @@ const Products = () => {
                             itemsPerPage={productsPerPage}
                             onPageChange={handlePageChange}
                         />
-                        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-3 mb-4">
                             {paginatedProducts.map((product) => (
                                 <div key={product.id} className="col">
                                     <ProductCard
