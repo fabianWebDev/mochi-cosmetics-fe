@@ -1,6 +1,6 @@
 import ProductFilter from '../ui/ProductFilter';
 
-const SideBar = ({ onSortChange, onStockFilterChange, showInStockOnly }) => {
+const Sidebar = ({ onSortChange, onStockFilterChange, showInStockOnly }) => {
     return (
         <div>
             <ProductFilter
@@ -12,4 +12,4 @@ const SideBar = ({ onSortChange, onStockFilterChange, showInStockOnly }) => {
     )
 }
 
-export default SideBar;
+export default Sidebar;

@@ -6,7 +6,7 @@ import { cartService } from '../services/cartService'
 import { productService } from '../services/productService'
 import { MEDIA_BASE_URL } from '../constants'
 import Pagination from '../components/ui/Pagination'
-import SideBar from '../components/layout/SideBar'
+import Sidebar from '../components/layout/SideBar'
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -122,7 +122,7 @@ const Products = () => {
             <div className="container mt-4">
                 <div className="row">
                     <div className="col-md-3">
-                        <SideBar onSortChange={handleSortChange}
+                        <Sidebar onSortChange={handleSortChange}
                             onStockFilterChange={handleStockFilterChange}
                             showInStockOnly={showInStockOnly} />
                     </div>

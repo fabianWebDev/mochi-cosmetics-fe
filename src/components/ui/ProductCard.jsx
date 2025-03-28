@@ -32,7 +32,7 @@ const Card = ({ name, description, image, price, stock, onAddToCart, onClick }) 
             disabled={stock === 0}
             className={`${classes.product_card_button} ${stock === 0 ? classes.product_card_button_disabled : ''}`}
           >
-            {stock === 0 ? 'Out of Stock' : 'Add to Cart'}
+            {stock === 0 ? 'Out of stock' : 'Add to cart'}
           </button>
         </div>
       </div>

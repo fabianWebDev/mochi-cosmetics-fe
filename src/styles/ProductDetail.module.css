@@ -1,0 +1,138 @@
+.product_detail {
+    padding: 24px;
+}
+
+.product_image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+}
+
+.product_image img {
+    max-width: 65%;
+    height: auto;
+}
+
+.product_info {}
+
+.product_info h1 {
+    color: #5a1588;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.product_info p {
+    color: #333;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.product_info p:last-child {
+    margin-bottom: 0;
+}
+
+.product_actions {
+    padding: 16px;
+    background-color: #f4f3f0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.add_to_cart_button {
+    width: 100%;
+    background-color: #5a1588;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    border-bottom: 3px solid #3b0e57;
+}
+
+.product_actions button:hover {
+    background-color: #772baa;
+}
+
+.product_price {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.quantity_control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    max-width: 200px;
+}
+
+.quantity_button {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: transparent;
+    color: #9F9F9F;
+    border: 2px solid #9F9F9F;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+.quantity_button:disabled {
+    cursor: not-allowed;
+    color: #ffffff;
+    background-color: #9F9F9F !important;
+}
+
+.quantity_button:not(:disabled):hover {
+    border: 2px solid #772baa;
+    color: #772baa;
+    transform: translateY(-2px);
+    background-color: transparent !important;
+}
+
+.quantity_button:disabled:hover {
+    background-color: #9F9F9F;
+    color: #ffffff;
+}
+
+.quantity_value {
+    min-width: 40px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    background-color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #efeded;
+}
+
+.product_stock {
+    font-size: 14px;
+    color: #9F9F9F;
+}
+
+.product_card_button_disabled {
+    background-color: #9F9F9F !important;
+    color: white;
+    cursor: not-allowed;
+    border-bottom: 3px solid #4e4e4e;
+}
