@@ -16,7 +16,7 @@ const Products = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalProducts, setTotalProducts] = useState(0);
     const [showInStockOnly, setShowInStockOnly] = useState(false);
-    const productsPerPage = 12; // Número de productos por página
+    const productsPerPage = 9; // Número de productos por página
     const navigate = useNavigate();
     const location = useLocation();
 
