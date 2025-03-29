@@ -24,6 +24,8 @@
 .product_card_details {
     background-color: transparent;
     padding: 16px;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
     background-color: var(--tertiary-color);
 }
 

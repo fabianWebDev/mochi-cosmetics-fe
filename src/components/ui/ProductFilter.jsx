@@ -8,7 +8,8 @@ const ProductFilter = ({ onSortChange, onStockFilterChange, showInStockOnly }) =
                 <label htmlFor="sort" className={styles.form_label}>Sort By</label>
                 <select id="sort" className={styles.form_select} onChange={onSortChange}>
                     <option value="">Select</option>
-                    <option value="alphabetical">A - Z</option>
+                    <option value="a-z">A - Z</option>
+                    <option value="z-a">Z - A</option>
                     <option value="price_asc">Price: Low to High</option>
                     <option value="price_desc">Price: High to Low</option>
                 </select>

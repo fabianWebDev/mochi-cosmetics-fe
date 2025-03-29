@@ -94,8 +94,10 @@ const Products = () => {
         }
 
         // Apply sorting
-        if (sortOrder === 'alphabetical') {
+        if (sortOrder === 'a-z') {
             sorted.sort((a, b) => a.name.localeCompare(b.name));
+        } else if (sortOrder === 'z-a') {
+            sorted.sort((a, b) => b.name.localeCompare(a.name));
         } else if (sortOrder === 'price_asc') {
             sorted.sort((a, b) => a.price - b.price);
         } else if (sortOrder === 'price_desc') {
@@ -119,23 +121,17 @@ const Products = () => {
 
     return (
         <>
-            <div className="container mt-4">
+            <div className="container">
                 <div className="row">
-                    <div className="col-md-3">
+                    <div className="col-md-3 mt-3">
                         <Sidebar onSortChange={handleSortChange}
                             onStockFilterChange={handleStockFilterChange}
                             showInStockOnly={showInStockOnly} />
                     </div>
                     <div className="col-md-9">
-                        <Pagination
-                            currentPage={currentPage}
-                            totalItems={totalProducts}
-                            itemsPerPage={productsPerPage}
-                            onPageChange={handlePageChange}
-                        />
-                        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-3 mb-4">
+                        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 mt-3 mb-4">
                             {paginatedProducts.map((product) => (
-                                <div key={product.id} className="col">
+                                <div key={product.id} className="col mb-3">
                                     <ProductCard
                                         name={product.name}
                                         description={product.description}

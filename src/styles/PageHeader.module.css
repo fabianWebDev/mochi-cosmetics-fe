@@ -14,7 +14,7 @@
 
 .logo_link {
     text-decoration: none;
-    color: #3b0e57;
+    color: var(--primary-color);
 }
 
 .logo_title {
