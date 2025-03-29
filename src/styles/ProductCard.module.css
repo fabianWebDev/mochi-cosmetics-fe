@@ -1,6 +1,6 @@
 .product_card_container {
     width: 100%;
-    border: 1px solid #efeded;
+    border: 1px solid var(--tertiary-color);
     border-radius: 8px;
 }
 
@@ -13,6 +13,7 @@
 .product_card_image {
     width: 200px;
     cursor: pointer;
+    transition: all 0.1s ease;
 }
 
 .product_card_image:hover {
@@ -23,11 +24,11 @@
 .product_card_details {
     background-color: transparent;
     padding: 16px;
-    background-color: #f4f3f0;
+    background-color: var(--tertiary-color);
 }
 
 .product_card_name {
-    font-size: 16px;
+    font-size: var(--font-size-base);
     font-weight: 600;
     cursor: pointer;
     display: inline-block;
@@ -35,13 +36,13 @@
 }
 
 .product_card_name:hover {
-    color: #772baa;
+    color: var(--primary-color);
 }
 
 .product_card_description {
-    font-size: 14px;
+    font-size: var(--font-size-small);
     font-weight: 400;
-    height: 60px;
+    height: 64px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -51,9 +52,9 @@
     justify-content: space-between;
     align-items: center;
     background-color: #ffffff;
-    padding: 10px;
-    font-size: 16px;
-    border-bottom: 3px solid #9F9F9F;
+    padding: 8px;
+    font-size: var(--font-size-small);
+    border-bottom: 3px solid var(--secondary-color);
     border-radius: 8px;
 }
 
@@ -66,33 +67,30 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    background-color: #5a1588;
+    background-color: var(--primary-color);
     color: #ffffff;
     border: none;
     border-radius: 8px;
     padding: 8px;
-    font-size: 16px;
+    font-size: var(--font-size-base);
     cursor: pointer;
     font-weight: bold;
-    border-bottom: 3px solid #3b0e57;
+    border-bottom: 2px solid #3b0e57;
+    transition: all 0.1s ease;
 }
 
 .product_card_button:hover {
-    background-color: #772baa;
+    background-color: var(--highlight-color);
 }
 
 .product_card_button_disabled {
-    background-color: #9F9F9F;
+    background-color: var(--secondary-color);
     color: white;
     cursor: not-allowed;
-    border-bottom: 3px solid #4e4e4e;
+    border-bottom: none;
 }
 
 .product_card_button_disabled:hover {
-    background-color: #9F9F9F;
-}
-
-.cart_icon {
-    margin-left: 10px;
-    font-size: 16px;
+    background-color: var(--secondary-color);
+    border-bottom: none;
 }

@@ -4,7 +4,7 @@ import styles from '../../styles/ProductFilter.module.css';
 const ProductFilter = ({ onSortChange, onStockFilterChange, showInStockOnly }) => {
     return (
         <div className={styles.sidebar}>
-            <div className={styles.mb_3}>
+            <div className="mb-2">
                 <label htmlFor="sort" className={styles.form_label}>Sort By</label>
                 <select id="sort" className={styles.form_select} onChange={onSortChange}>
                     <option value="">Select</option>
@@ -13,7 +13,7 @@ const ProductFilter = ({ onSortChange, onStockFilterChange, showInStockOnly }) =
                     <option value="price_desc">Price: High to Low</option>
                 </select>
             </div>
-            <div className={styles.mb_3}>
+            <div>
                 <div className={styles.checkbox_container}>
                     <input
                         type="checkbox"

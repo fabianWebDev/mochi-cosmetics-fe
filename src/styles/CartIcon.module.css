@@ -1,17 +1,17 @@
 .cart_count {
     position: absolute;
-    top: 0px;
-    right: -5px;
-    background-color: #8e4eb6;
+    top: -4px;
+    right: -8px;
+    background-color: var(--primary-color);
     color: white;
     font-size: 0.75rem;
-    min-width: 18px;
-    height: 18px;
+    min-width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    padding: 3px;
+    padding: 4px;
 }
 
 .cart_icon {

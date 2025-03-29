@@ -7,7 +7,7 @@
 }
 
 .logo_container {
-    margin: 12px 0 0 12px;
+    margin: 16px 0 0 16px;
     display: flex;
     align-items: center;
 }
@@ -20,14 +20,14 @@
 .logo_title {
     margin: 0;
     font-weight: bold;
-    margin-left: 12px;
+    margin-left: 16px;
     font-family: 'UnifrakturMaguntia', cursive;
     font-size: 36px;
 }
 
 .logo {
-    width: 80px;
-    height: 80px;
+    width: 64px;
+    height: 64px;
 }
 
 .header_icons {
@@ -36,16 +36,22 @@
 }
 
 .header_icon {
-    color: #3b0e57;
-    font-size: 1.5rem;
+    color: var(--primary-color);
+    font-size: var(--font-size-large);
     margin-right: 8px;
 }
 
 .logout_button {
     background-color: transparent;
-    border: 2px solid #3b0e57;
+    border: 2px solid var(--primary-color);
     border-radius: 50px;
-    color: #3b0e57;
+    color: var(--primary-color);
     padding: 8px 16px;
     font-weight: bold;
+    transition: all 0.1s ease;
+}
+
+.logout_button:hover {
+    background-color: var(--primary-color);
+    color: white;
 }

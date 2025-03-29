@@ -2,7 +2,7 @@ import SearchBar from '../ui/SearchBar';
 import MainMenu from '../ui/MainMenu';
 import PageHeader from '../ui/PageHeader';
 
-function Navbar() {
+const Navbar = () => {
     return (
         <>
             <PageHeader />

@@ -1,7 +1,6 @@
 .main_menu {
-    margin: 0;
+    margin: 8px 0;
     padding: 0;
-    font-family: 'Poppins', sans-serif;
 }
 
 .sub_menu {
@@ -9,8 +8,8 @@
     z-index: 1000;
     background-color: white;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 12px;
+    border-radius: 8px;
+    padding: 8px;
 }
 
 .sub_menu_item {
@@ -20,16 +19,11 @@
 .nav_item {
     text-decoration: none;
     margin-right: 36px;
-    color: #1E1E1E;
-    font-size: 16px;
-    font-weight: 600;
+    color: #000000;
+    font-size: var(--font-size-base);
     letter-spacing: 0.05em;
 }
 
 .nav_item:hover {
-    color: #1e1e1e85;
-}
-
-.nav_items {
-    padding-left: 36px;
+    color: #5a1588;
 }
