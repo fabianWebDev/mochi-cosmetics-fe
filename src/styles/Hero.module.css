@@ -23,6 +23,5 @@
     font-size: var(--font-size-large);
     cursor: pointer;
     font-weight: bold;
-    border-bottom: 3px solid #3b0e57;
+    border-bottom: 2px solid var(--highlight-btn-color);
 }
-

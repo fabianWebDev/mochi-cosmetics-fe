@@ -49,7 +49,7 @@
     font-weight: bold;
     cursor: pointer;
     transition: all 0.1s ease;
-    border-bottom: 3px solid #3b0e57;
+    border-bottom: 2px solid var(--highlight-btn-color);
 }
 
 .product_actions button:hover {
