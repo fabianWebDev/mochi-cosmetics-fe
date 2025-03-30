@@ -3,7 +3,7 @@
 }
 
 .search_input {
-    height: 44px;
+    height: 40px;
     border-radius: 30px;
     padding-left: 24px;
     border: 1px solid var(--tertiary-color);
