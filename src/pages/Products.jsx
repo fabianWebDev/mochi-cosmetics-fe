@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
-import ProductCard from '../components/ui/ProductCard'
 import { toast } from 'react-toastify'
 import { cartService } from '../services/cartService'
 import { productService } from '../services/productService'
-import { MEDIA_BASE_URL } from '../constants'
 import Pagination from '../components/ui/Pagination'
 import Sidebar from '../components/layout/SideBar'
+import ProductList from '../components/ui/ProductList'
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -129,21 +128,11 @@ const Products = () => {
                             showInStockOnly={showInStockOnly} />
                     </div>
                     <div className="col-md-9">
-                        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 mt-3 mb-4">
-                            {paginatedProducts.map((product) => (
-                                <div key={product.id} className="col mb-3">
-                                    <ProductCard
-                                        name={product.name}
-                                        description={product.description}
-                                        image={product.image ? `${MEDIA_BASE_URL}${product.image}` : ''}
-                                        price={product.price}
-                                        stock={product.stock}
-                                        onClick={() => handleViewDetails(product.id)}
-                                        onAddToCart={() => handleAddToCart(product)}
-                                    />
-                                </div>
-                            ))}
-                        </div>
+                        <ProductList
+                            products={paginatedProducts}
+                            handleViewDetails={handleViewDetails}
+                            handleAddToCart={handleAddToCart}
+                        />
                         <Pagination
                             currentPage={currentPage}
                             totalItems={totalProducts}
