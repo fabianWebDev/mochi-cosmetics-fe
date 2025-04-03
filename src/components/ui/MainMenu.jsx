@@ -2,11 +2,13 @@ import classes from '../../styles/MainMenu.module.css';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { productService } from '../../services/productService';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const MainMenu = () => {
     const [categories, setCategories] = useState([]);
     const [showSubMenu, setShowSubMenu] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -21,17 +23,29 @@ const MainMenu = () => {
         fetchCategories();
     }, []);
 
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
+    const closeMobileMenu = () => {
+        setIsMobileMenuOpen(false);
+    };
+
     return (
         <nav className={`${classes.main_menu} navbar`}>
-            <div className={`${classes.nav_items} col-md-8 container-fluid justify-content-start`}>
-                <Link to="/products?search=mtg" className={classes.nav_item}>
+            <button className={classes.mobile_menu_button} onClick={toggleMobileMenu}>
+                <FontAwesomeIcon icon={isMobileMenuOpen ? faTimes : faBars} />
+            </button>
+            <div className={`${classes.nav_items} ${isMobileMenuOpen ? classes.mobile_menu_open : ''}`}>
+                <Link to="/products?search=mtg" className={classes.nav_item} onClick={closeMobileMenu}>
                     Magic The Gathering
                 </Link>
                 <div
+                    className={classes.sub_menu_container}
                     onMouseEnter={() => setShowSubMenu(true)}
                     onMouseLeave={() => setShowSubMenu(false)}
                 >
-                    <Link to="/products" className={classes.nav_item}>
+                    <Link to="/products" className={classes.nav_item} onClick={closeMobileMenu}>
                         Products
                     </Link>
                     {showSubMenu && (
@@ -41,6 +55,7 @@ const MainMenu = () => {
                                     key={category.id}
                                     to={`/products?search=${category.name}`}
                                     className={`${classes.nav_item} ${classes.sub_menu_item}`}
+                                    onClick={closeMobileMenu}
                                 >
                                     {category.name}
                                 </Link>
@@ -48,10 +63,10 @@ const MainMenu = () => {
                         </div>
                     )}
                 </div>
-                <Link to="/contact" className={classes.nav_item}>
+                <Link to="/contact" className={classes.nav_item} onClick={closeMobileMenu}>
                     Contact
                 </Link>
-                <Link to="/about" className={classes.nav_item}>
+                <Link to="/about" className={classes.nav_item} onClick={closeMobileMenu}>
                     About
                 </Link>
             </div>
