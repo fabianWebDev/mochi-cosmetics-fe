@@ -33,6 +33,7 @@
 .header_icons {
     display: flex;
     align-items: center;
+    margin-top: 8px;
 }
 
 .header_icon {
@@ -68,7 +69,6 @@
 }
 
 @media (max-width: 360px) {
-    .header_container {}
 
     .logo_title {
         display: none;
