@@ -38,7 +38,7 @@ const PageHeader = () => {
     };
     return (
         <div className={`${classes.header_container} row`}>
-            <div className={`${classes.logo_container} col`}>
+            <div className={`${classes.logo_container} col col-sm-6 col-md-6`}>
                 <Link to="/">
                     <img src={logo} alt="logo" className={classes.logo} />
                 </Link>
@@ -46,7 +46,7 @@ const PageHeader = () => {
                     <h1 className={classes.logo_title}>Minas Morgul Cards</h1>
                 </Link>
             </div>
-            <div className={`${classes.header_icons} col`}>
+            <div className={`${classes.header_icons} col col-sm-4 col-md-4`}>
                 <div className={`${classes.header_icons} col`}>
                 </div>
                 <div className={`${classes.header_icons} col`}>
