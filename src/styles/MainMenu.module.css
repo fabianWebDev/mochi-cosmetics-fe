@@ -10,7 +10,6 @@
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
-    padding: 0.5rem;
     color: #000000;
 }
 
@@ -53,10 +52,6 @@
 @media (max-width: 768px) {
     .mobile_menu_button {
         display: block;
-        position: absolute;
-        right: 1rem;
-        top: 50%;
-        transform: translateY(-50%);
     }
 
     .nav_items {

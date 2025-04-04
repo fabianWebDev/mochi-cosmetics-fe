@@ -55,3 +55,36 @@
     background-color: var(--primary-color);
     color: white;
 }
+
+@media (max-width: 768px) {
+    .logo_title {
+        font-size: 24px;
+    }
+
+    .logo {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 360px) {
+    .header_container {}
+
+    .logo_title {
+        display: none;
+    }
+
+    .header_icons {
+        margin-top: 8px;
+        padding: 0px;
+    }
+
+    .logo {
+        width: 48px;
+        height: 48px;
+    }
+
+    .logo_container {
+        margin: 8px 0 0 8px;
+    }
+}
