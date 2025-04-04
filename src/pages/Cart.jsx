@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../hooks/useCart';
-import CartItem from '../components/cart/cartItem';
-import CartSummary from '../components/cart/cartSummary';
+import CartItem from '../components/cart/CartItem';
+import CartSummary from '../components/cart/CartSummary';
 
 const Cart = () => {
     const {

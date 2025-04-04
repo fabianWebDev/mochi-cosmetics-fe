@@ -1,10 +1,12 @@
 import React from 'react';
+import { MEDIA_BASE_URL } from '../../constants';
+import classes from '../../styles/CartItem.module.css';
 
 const CartItem = ({ item, onUpdateQuantity, onRemove }) => {
     return (
         <div className="row mb-4 align-items-center">
-            <div className="col-md-2">
-                <img src={item.product.image} alt={item.product.name} className="img-fluid rounded" />
+            <div className="col-md-2 d-flex justify-content-center">
+                <img src={`${MEDIA_BASE_URL}/${item.product.image}`} alt={item.product.name} className={`${classes.cart_item_image}`} />
             </div>
             <div className="col-md-4">
                 <h5>{item.product.name}</h5>
