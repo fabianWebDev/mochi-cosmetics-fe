@@ -37,7 +37,7 @@ const Cart = () => {
                     Please <Link to="/login" className="alert-link">log in</Link> to save your cart and proceed with checkout.
                 </div>
             )}
-            <div className="card shadow-sm">
+            <div className="card">
                 <div className="card-body">
                     {cart.items.map(item => (
                         <CartItem
