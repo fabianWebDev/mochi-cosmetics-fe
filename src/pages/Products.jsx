@@ -11,7 +11,6 @@ const Products = () => {
     const navigate = useNavigate();
     const { products, loading, error } = useProducts();
     const {
-        sortOrder,
         setSortOrder,
         showInStockOnly,
         setShowInStockOnly,

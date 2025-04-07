@@ -4,7 +4,7 @@ import { orderService } from '../services/orderService';
 import { Container, Typography, Paper, List, ListItem } from '@mui/material';
 
 const OrderDetal = () => {
-    const { orderId } = useParams(); // Obtener el ID de la orden de los parámetros de la URL
+    const { orderId } = useParams();
     const [orderDetails, setOrderDetails] = useState(null);
     const [loading, setLoading] = useState(true);
 

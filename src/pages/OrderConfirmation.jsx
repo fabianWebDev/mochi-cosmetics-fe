@@ -64,7 +64,6 @@ const OrderConfirmation = () => {
     if (loading) return <div className="container mt-4">Loading...</div>;
     if (!order) return <div className="container mt-4">Order not found</div>;
 
-    // Extraer información de envío del campo shipping_address
     const shippingLines = order.shipping_address.split('\n');
     const fullName = shippingLines[0];
     const address = shippingLines[1];

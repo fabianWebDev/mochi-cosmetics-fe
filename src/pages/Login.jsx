@@ -13,7 +13,6 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    // Redirigir si ya está autenticado
     useEffect(() => {
         if (authService.isAuthenticated()) {
             const from = location.state?.from?.pathname || '/products';
@@ -32,11 +31,11 @@ const Login = () => {
         e.preventDefault();
         setError('');
         setLoading(true);
-        
+
         try {
             await authService.login(formData);
             await cartService.mergeLocalCartWithBackend();
-            
+
             // Redirigir a la página anterior o a /products por defecto
             const from = location.state?.from?.pathname || '/products';
             navigate(from, { replace: true });
@@ -78,8 +77,8 @@ const Login = () => {
                             disabled={loading}
                         />
                     </div>
-                    <button 
-                        type="submit" 
+                    <button
+                        type="submit"
                         className="login-button"
                         disabled={loading}
                     >
