@@ -1,0 +1,78 @@
+.shipping_info {
+    padding: 24px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid var(--tertiary-color);
+}
+
+.shipping_info h3 {
+    font-size: var(--font-size-xlarge);
+    margin-bottom: 24px;
+}
+
+.form_group {
+    margin-bottom: 16px;
+}
+
+.form_control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--tertiary-color);
+    border-radius: 8px;
+    font-size: var(--font-size-small);
+    transition: all 0.1s ease;
+}
+
+.form_control:focus {
+    outline: none;
+    border-color: var(--highlight-color);
+}
+
+.form_control:hover {
+    border-color: var(--highlight-color);
+}
+
+.checkbox_container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.checkbox {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--primary-color);
+}
+
+.checkbox_label {
+    font-size: var(--font-size-small);
+    cursor: pointer;
+    user-select: none;
+}
+
+.next_button {
+    width: 50%;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: var(--font-size-base);
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    border-bottom: 2px solid var(--highlight-btn-color);
+}
+
+.next_button:hover {
+    background-color: var(--highlight-color);
+}
+
+.button_container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}

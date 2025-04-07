@@ -21,28 +21,31 @@ const Checkout = () => {
 
     return (
         <div className="container mt-4">
-            <ProgressBar currentStep={currentStep} totalSteps={3} />
-            <h1 className="mb-4">Checkout</h1>
-            {currentStep === 1 && (
-                <ShippingInfo
-                    shippingInfo={shippingInfo}
-                    onInputChange={handleInputChange}
-                    onSubmit={handleNextStep}
-                />
-            )}
-            {currentStep === 2 && (
-                <OrderSummary
-                    cart={cart}
-                    onBack={() => setCurrentStep(1)}
-                    onNext={handleNextStep}
-                />
-            )}
-            {currentStep === 3 && (
-                <PaymentMethod
-                    onBack={() => setCurrentStep(2)}
-                    onSubmit={handleSubmit}
-                />
-            )}
+            <div className="row justify-content-center">
+                <div className="col-md-8">
+                    <ProgressBar currentStep={currentStep} totalSteps={3} />
+                    {currentStep === 1 && (
+                        <ShippingInfo
+                            shippingInfo={shippingInfo}
+                            onInputChange={handleInputChange}
+                            onSubmit={handleNextStep}
+                        />
+                    )}
+                    {currentStep === 2 && (
+                        <OrderSummary
+                            cart={cart}
+                            onBack={() => setCurrentStep(1)}
+                            onNext={handleNextStep}
+                        />
+                    )}
+                    {currentStep === 3 && (
+                        <PaymentMethod
+                            onBack={() => setCurrentStep(2)}
+                            onSubmit={handleSubmit}
+                        />
+                    )}
+                </div>
+            </div>
         </div>
     );
 };

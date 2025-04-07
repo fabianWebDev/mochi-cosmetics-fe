@@ -1,4 +1,5 @@
 import React from 'react';
+import classes from '../../styles/OrderSummary.module.css';
 
 const OrderSummary = ({ cart, onBack, onNext }) => {
     const calculateTotal = () => {
@@ -8,22 +9,23 @@ const OrderSummary = ({ cart, onBack, onNext }) => {
     };
 
     return (
-        <div>
+        <div className={classes.order_summary}>
             <h3>Order Summary</h3>
-            {cart?.items.map((item) => (
-                <div key={item.product.id} className="d-flex justify-content-between mb-2">
-                    <span>{item.product.name} x {item.quantity}</span>
-                    <span>${(item.product.price * item.quantity).toFixed(2)}</span>
-                </div>
-            ))}
-            <hr />
-            <div className="d-flex justify-content-between">
-                <strong>Total</strong>
-                <strong>${calculateTotal().toFixed(2)}</strong>
+            <div className={classes.order_items}>
+                {cart?.items.map((item) => (
+                    <div key={item.product.id} className={classes.order_item}>
+                        <span className={classes.item_name}>{item.product.name} x {item.quantity}</span>
+                        <span className={classes.item_price}>${(item.product.price * item.quantity).toFixed(2)}</span>
+                    </div>
+                ))}
             </div>
-            <div className="mt-3">
-                <button onClick={onBack} className="btn btn-secondary me-2">Back</button>
-                <button onClick={onNext} className="btn btn-primary">Next</button>
+            <div className={classes.total}>
+                <span className={classes.total_label}>Total</span>
+                <span className={classes.total_amount}>${calculateTotal().toFixed(2)}</span>
+            </div>
+            <div className={classes.button_group}>
+                <button onClick={onBack} className={classes.back_button}>Back</button>
+                <button onClick={onNext} className={classes.next_button}>Next</button>
             </div>
         </div>
     );
