@@ -1,4 +1,5 @@
 import React from 'react';
+import classes from '../../styles/ProgressBar.module.css';
 
 const ProgressBar = ({ currentStep, totalSteps }) => {
     const percentage = (currentStep / totalSteps) * 100;
@@ -6,7 +7,7 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
     return (
         <div className="progress mb-4">
             <div 
-                className="progress-bar" 
+                className={classes.progress_bar} 
                 role="progressbar" 
                 style={{ width: `${percentage}%` }} 
                 aria-valuenow={percentage} 
