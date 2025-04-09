@@ -19,24 +19,26 @@ import OrderDetal from './pages/OrderDetal'
 function App() {
   return (
     <AuthProvider>
-      <Navbar />
-      <div className='container'>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/order-confirmation/:orderId" element={<OrderConfirmation />} />
-          <Route path="/orders/:orderId" element={<OrderDetal />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
+      <div className='page-container'>
+        <Navbar />
+        <div className='content-wrap container'>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/order-confirmation/:orderId" element={<OrderConfirmation />} />
+            <Route path="/orders/:orderId" element={<OrderDetal />} />
+            <Route path="/about" element={<About />} />
+          </Routes>
+        </div>
+        <Footer />
       </div>
-      <Footer />
     </AuthProvider>
   )
 }

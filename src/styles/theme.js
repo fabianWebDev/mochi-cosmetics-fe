@@ -19,7 +19,34 @@ const theme = createTheme({
         h4: {
           margin: 0,
         },
-           
+        '*': {
+          boxSizing: 'border-box',
+        },
+        '*::before': {
+          boxSizing: 'border-box',
+        },
+        '*::after': {
+          boxSizing: 'border-box',
+        },
+        body: {
+          height: '100%',
+          margin: 0,
+        },
+        html: {
+          height: '100%',
+          margin: 0,
+        },
+        '.page-container': {
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100vh',
+        },
+        '.content-wrap': {
+          flex: 1,
+        },
+        // '*': {
+        //   outline: '1px dashed blue',
+        // },
       },
     },
   },
