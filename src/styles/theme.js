@@ -44,6 +44,9 @@ const theme = createTheme({
         '.content-wrap': {
           flex: 1,
         },
+        hr: {
+          margin: '0',
+        }
         // '*': {
         //   outline: '1px dashed blue',
         // },
