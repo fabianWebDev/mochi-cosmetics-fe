@@ -16,7 +16,7 @@ const Login = () => {
 
     return (
         <div className="row justify-content-center mt-4">
-            <div className="col-md-4 col-sm-6">
+            <div className="col-10 col-md-8 col-lg-8 col-xl-5">
                 <LoginForm
                     formData={formData}
                     onChange={handleChange}

@@ -17,12 +17,12 @@ const Checkout = () => {
         setCurrentStep
     } = useCheckout();
 
-    if (loading) return <div className="container mt-4">Loading...</div>;
+    if (loading) return <div className="mt-4">Loading...</div>;
 
     return (
-        <div className="container mt-4">
+        <div className="mt-4">
             <div className="row justify-content-center">
-                <div className="col-md-8">
+                <div className="col-10 col-md-8 col-lg-8 col-xl-8">
                     <ProgressBar currentStep={currentStep} totalSteps={3} />
                     {currentStep === 1 && (
                         <ShippingInfo

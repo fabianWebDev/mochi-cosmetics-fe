@@ -74,7 +74,7 @@ const RegisterForm = ({ formData, onChange, onSubmit, error }) => {
             <button type="submit" className={classes.register_button}>
                 Register
             </button>
-            <p className={classes.login_button_container}>Already have an account? <a href="/login" className={classes.login_button}>Login</a></p>
+            <p className={classes.register_button_container}>Already have an account? <a href="/login" className={classes.login_button}>Login</a></p>
         </form>
     );
 };

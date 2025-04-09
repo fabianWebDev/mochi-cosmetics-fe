@@ -61,5 +61,9 @@
     text-decoration: none;
 }
 
+.register_button_container {
+    font-size: var(--font-size-small);
+}
+
 
 

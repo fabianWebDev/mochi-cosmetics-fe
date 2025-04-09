@@ -27,7 +27,7 @@ const Register = () => {
 
             localStorage.setItem('accessToken', response.data.access);
             localStorage.setItem('refreshToken', response.data.refresh);
-            
+
             navigate('/login');
         } catch (err) {
             if (err.response?.data) {
@@ -43,7 +43,7 @@ const Register = () => {
 
     return (
         <div className="row justify-content-center mt-4">
-            <div className="col col-md-6 col-sm-8 col-lg-4">
+            <div className="col-10 col-md-8 col-lg-8 col-xl-5">
                 <RegisterForm
                     formData={formData}
                     onChange={handleChange}
