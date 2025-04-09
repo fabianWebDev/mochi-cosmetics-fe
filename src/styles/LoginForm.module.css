@@ -44,17 +44,9 @@
 }
 
 .register_button {
-    color: var(--primary-color);
     text-decoration: none;
 }
 
-.register_button:hover {
-    background-color: var(--tertiary-color);
-}
-
-.register_button_container {
-    font-size: var(--font-size-small);
-}
 
 .login_form_title {
     font-size: var(--font-size-xlarge);
