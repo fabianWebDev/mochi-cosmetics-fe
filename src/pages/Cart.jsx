@@ -29,30 +29,32 @@ const Cart = () => {
     }
 
     return (
-        <div className="mt-4">
-            <h1 className="mb-4">Shopping Cart</h1>
-            {!isAuthenticated && (
-                <div className="alert alert-warning">
-                    <i className="bi bi-info-circle me-2"></i>
-                    Please <Link to="/login" className="alert-link">log in</Link> to save your cart and proceed with checkout.
-                </div>
-            )}
-            <div className="card">
-                <div className="card-body">
-                    {cart.items.map(item => (
-                        <CartItem
-                            key={item.product.id}
-                            item={item}
-                            onUpdateQuantity={updateQuantity}
-                            onRemove={removeItem}
+        <div className="row mt-4 justify-content-center">
+            <div className="col-md-8">
+                <h1 className="mb-4 custom_h1">Your Cart</h1>
+                {!isAuthenticated && (
+                    <div className="alert alert-warning">
+                        <i className="bi bi-info-circle me-2"></i>
+                        Please <Link to="/login" className="alert-link">log in</Link> to save your cart and proceed with checkout.
+                    </div>
+                )}
+                <div className="card">
+                    <div className="card-body">
+                        {cart.items.map(item => (
+                            <CartItem
+                                key={item.product.id}
+                                item={item}
+                                onUpdateQuantity={updateQuantity}
+                                onRemove={removeItem}
+                            />
+                        ))}
+                        <hr />
+                        <CartSummary
+                            total={calculateTotal()}
+                            onCheckout={handleCheckout}
+                            isAuthenticated={isAuthenticated}
                         />
-                    ))}
-                    <hr />
-                    <CartSummary
-                        total={calculateTotal()}
-                        onCheckout={handleCheckout}
-                        isAuthenticated={isAuthenticated}
-                    />
+                    </div>
                 </div>
             </div>
         </div>
