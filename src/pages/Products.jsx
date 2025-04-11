@@ -42,32 +42,30 @@ const Products = () => {
         }
     };
 
-    if (loading) return <div className="container mt-4">Cargando...</div>;
-    if (error) return <div className="container mt-4">{error}</div>;
+    if (loading) return <div className="mt-4">Cargando...</div>;
+    if (error) return <div className="mt-4">{error}</div>;
 
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col-md-3 mt-3">
-                    <Sidebar
-                        onSortChange={(e) => setSortOrder(e.target.value)}
-                        onStockFilterChange={(e) => setShowInStockOnly(e.target.checked)}
-                        showInStockOnly={showInStockOnly}
-                    />
-                </div>
-                <div className="col-md-9">
-                    <ProductList
-                        products={paginatedProducts}
-                        handleViewDetails={handleViewDetails}
-                        handleAddToCart={handleAddToCart}
-                    />
-                    <Pagination
-                        currentPage={currentPage}
-                        totalItems={totalProducts}
-                        itemsPerPage={productsPerPage}
-                        onPageChange={setCurrentPage}
-                    />
-                </div>
+        <div className="row">
+            <div className="col-md-3 mt-3">
+                <Sidebar
+                    onSortChange={(e) => setSortOrder(e.target.value)}
+                    onStockFilterChange={(e) => setShowInStockOnly(e.target.checked)}
+                    showInStockOnly={showInStockOnly}
+                />
+            </div>
+            <div className="col-md-9">
+                <ProductList
+                    products={paginatedProducts}
+                    handleViewDetails={handleViewDetails}
+                    handleAddToCart={handleAddToCart}
+                />
+                <Pagination
+                    currentPage={currentPage}
+                    totalItems={totalProducts}
+                    itemsPerPage={productsPerPage}
+                    onPageChange={setCurrentPage}
+                />
             </div>
         </div>
     );

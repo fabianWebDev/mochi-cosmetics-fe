@@ -15,11 +15,11 @@ const Cart = () => {
         isAuthenticated
     } = useCart();
 
-    if (loading) return <div className="container mt-4">Loading...</div>;
+    if (loading) return <div className="mt-4">Loading...</div>;
 
     if (!cart || !cart.items || cart.items.length === 0) {
         return (
-            <div className="container mt-4">
+            <div className="mt-4">
                 <h1 className="mb-4">Shopping Cart</h1>
                 <div className="alert alert-info">
                     Your cart is empty. <Link to="/products" className="alert-link">Continue shopping</Link>
@@ -29,7 +29,7 @@ const Cart = () => {
     }
 
     return (
-        <div className="container mt-4">
+        <div className="mt-4">
             <h1 className="mb-4">Shopping Cart</h1>
             {!isAuthenticated && (
                 <div className="alert alert-warning">

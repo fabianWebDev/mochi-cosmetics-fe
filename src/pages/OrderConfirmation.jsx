@@ -61,8 +61,8 @@ const OrderConfirmation = () => {
         fetchOrder();
     }, [orderId, navigate]);
 
-    if (loading) return <div className="container mt-4">Loading...</div>;
-    if (!order) return <div className="container mt-4">Order not found</div>;
+    if (loading) return <div className="mt-4">Loading...</div>;
+    if (!order) return <div className="mt-4">Order not found</div>;
 
     const shippingLines = order.shipping_address.split('\n');
     const fullName = shippingLines[0];
@@ -73,7 +73,7 @@ const OrderConfirmation = () => {
     const phone = shippingLines[3]?.replace('Phone:', '').trim() || '';
 
     return (
-        <div className="container mt-4">
+        <div className="mt-4">
             <div className="card shadow-sm">
                 <div className="card-body">
                     <div className="text-center mb-4">
