@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import classes from '../../styles/LoginForm.module.css';
 
 const LoginForm = ({ formData, onChange, onSubmit, loading, error }) => {
@@ -37,7 +37,7 @@ const LoginForm = ({ formData, onChange, onSubmit, loading, error }) => {
             <button type="submit" className={classes.login_button} disabled={loading}>
                 {loading ? 'Logging in...' : 'Login'}
             </button>
-            <p className={classes.register_button_container}>Don't have an account yet? <a href="/register" className={classes.register_button} disabled={loading}>Register</a></p>
+            <p className={classes.register_button_container}>Don't have an account yet? <Link to="/register" className={classes.register_button}>Register</Link></p>
         </form>
     );
 };

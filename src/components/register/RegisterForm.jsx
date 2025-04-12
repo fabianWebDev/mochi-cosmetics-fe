@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import classes from '../../styles/RegisterForm.module.css';
 
 const RegisterForm = ({ formData, onChange, onSubmit, error }) => {
@@ -74,7 +75,7 @@ const RegisterForm = ({ formData, onChange, onSubmit, error }) => {
             <button type="submit" className={classes.register_button}>
                 Register
             </button>
-            <p className={classes.register_button_container}>Already have an account? <a href="/login" className={classes.login_button}>Login</a></p>
+            <p className={classes.register_button_container}>Already have an account? <Link to="/login" className={classes.login_button}>Login</Link></p>
         </form>
     );
 };
