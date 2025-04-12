@@ -10,4 +10,5 @@ const CartSummary = ({ total, onCheckout, isAuthenticated }) => (
     </div>
 );
 
+
 export default CartSummary;

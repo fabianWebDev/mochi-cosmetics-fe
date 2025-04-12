@@ -51,4 +51,5 @@ const CartItem = ({ item, onUpdateQuantity, onRemove }) => {
     );
 };
 
+
 export default CartItem;
