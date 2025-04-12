@@ -26,10 +26,10 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    
+
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-      
+
       try {
         const refreshToken = localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN);
         if (!refreshToken) {
@@ -44,7 +44,7 @@ axiosInstance.interceptors.response.use(
         localStorage.setItem(STORAGE_KEYS.TOKEN, newToken);
         axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
         originalRequest.headers['Authorization'] = `Bearer ${newToken}`;
-        
+
         return axiosInstance(originalRequest);
       } catch (refreshError) {
         // Limpiar datos de autenticación y redirigir al login
@@ -62,4 +62,4 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-export default axiosInstance; 
+export default axiosInstance;
