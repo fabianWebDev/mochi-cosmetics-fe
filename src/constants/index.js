@@ -1,7 +1,7 @@
 export const APP_NAME = 'Store FE';
 
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
-export const MEDIA_BASE_URL = import.meta.env.VITE_MEDIA_BASE_URL || 'http://localhost:8000';
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://5cf4-201-202-14-163.ngrok-free.app/api';
+export const MEDIA_BASE_URL = import.meta.env.VITE_MEDIA_BASE_URL || 'https://5cf4-201-202-14-163.ngrok-free.app';
 
 export const ROUTES = {
   HOME: '/',
