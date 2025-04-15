@@ -11,7 +11,6 @@ const MainMenu = () => {
     const [categories, setCategories] = useState([]);
     const [showSubMenu, setShowSubMenu] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const { logout } = useAuth();
 
     useEffect(() => {
         const fetchCategories = async () => {
