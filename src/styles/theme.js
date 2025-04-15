@@ -46,7 +46,7 @@ const theme = createTheme({
         },
         hr: {
           margin: '0',
-        }
+        },
         // '*': {
         //   outline: '1px dashed blue',
         // },
