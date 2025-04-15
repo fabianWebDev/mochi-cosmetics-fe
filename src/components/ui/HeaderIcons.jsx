@@ -1,17 +1,18 @@
-import { authService } from '../../services/authService';
 import { Link } from 'react-router-dom';
 import UserIcon from './UserIcon';
 import classes from '../../styles/HeaderIcons.module.css';
 import Logout from './Logout';
 import CartIconWithCount from './CartIconWithCount';
+import useAuth from '../../hooks/useAuth';
 
 const HeaderIcons = () => {
-    const user = authService.getUser();
+    const { isAuthenticated, getUser } = useAuth();
+    const user = getUser();
 
     return (
         <div className={classes.header_icons}>
             <CartIconWithCount className={classes.header_icon} />
-            {!user ? (
+            {!isAuthenticated ? (
                 <Link to="/login">
                     <button className={classes.logout_button}>
                         Sign in

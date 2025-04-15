@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { productService } from '../../services/productService';
 import Logout from './Logout';
-import { authService } from '../../services/authService';
 import CartIconWithCount from './CartIconWithCount';
+import useAuth from '../../hooks/useAuth';
 
 const MainMenu = () => {
     const [categories, setCategories] = useState([]);
     const [showSubMenu, setShowSubMenu] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const { isAuthenticated } = useAuth();
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -91,7 +92,7 @@ const MainMenu = () => {
                         About
                     </Link>
                     {isMobileMenuOpen && (
-                        authService.isAuthenticated() ? (
+                        isAuthenticated ? (
                             <Logout />
                         ) : (
                             <Link to="/login" className={classes.nav_item} onClick={handleLinkClick}>

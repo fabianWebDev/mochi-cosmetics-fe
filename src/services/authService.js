@@ -68,7 +68,6 @@ export const authService = {
         localStorage.removeItem(STORAGE_KEYS.TOKEN);
         localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
         localStorage.removeItem(STORAGE_KEYS.USER);
-        window.location.href = '/';
     },
 
     isAuthenticated() {
