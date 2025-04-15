@@ -2,7 +2,6 @@ import classes from '../../styles/MainMenu.module.css';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { productService } from '../../services/productService';
-import { useAuth } from '../../context/AuthContext';
 import Logout from './Logout';
 import { authService } from '../../services/authService';
 import CartIconWithCount from './CartIconWithCount';
