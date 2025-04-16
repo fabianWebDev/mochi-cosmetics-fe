@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from '../../styles/ProductCard.module.css';
 
-const Card = ({ name, description, image, price, stock, onAddToCart, onClick }) => {
+const Card = ({ name, description, image, price, stock, onAddToCart, onClick, isAdding }) => {
   const handleAddToCart = () => {
     if (typeof onAddToCart === 'function') {
       onAddToCart();
@@ -29,10 +29,10 @@ const Card = ({ name, description, image, price, stock, onAddToCart, onClick }) 
         <div className={`${classes.product_card_button_container} mt-3`}>
           <button
             onClick={handleAddToCart}
-            disabled={stock === 0}
+            disabled={stock === 0 || isAdding}
             className={`${classes.product_card_button} ${stock === 0 ? classes.product_card_button_disabled : ''}`}
           >
-            {stock === 0 ? 'Out of stock' : 'Add to cart'}
+            {stock === 0 ? 'Out of stock' : isAdding ? 'Adding...' : 'Add to cart'}
           </button>
         </div>
       </div>

@@ -45,9 +45,11 @@ export const useCart = () => {
         try {
             if (quantity <= 0) {
                 await cartService.removeFromCart(productId);
+                toast.dismiss();
                 toast.success('Item removed from cart');
             } else {
                 await cartService.updateQuantity(productId, quantity);
+                toast.dismiss();
                 toast.success('Cart updated successfully');
             }
             setCart({ items: cartService.getCartItems() });
@@ -60,6 +62,7 @@ export const useCart = () => {
         try {
             await cartService.removeFromCart(productId);
             setCart({ items: cartService.getCartItems() });
+            toast.dismiss();
             toast.success('Item removed from cart');
         } catch (error) {
             handleAuthError(error);

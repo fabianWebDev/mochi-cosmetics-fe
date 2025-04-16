@@ -13,7 +13,6 @@ const Toast = () => {
       pauseOnFocusLoss
       draggable
       pauseOnHover
-      limit={1}
       toastClassName="Toastify__toast--custom"
       closeButton={false}
     />
