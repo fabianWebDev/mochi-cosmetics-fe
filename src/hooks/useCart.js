@@ -22,6 +22,7 @@ export const useCart = () => {
                     } catch (error) {
                         console.error('Error syncing cart with backend:', error);
                         if (error.response?.status === 401) {
+                            toast.dismiss();
                             toast.error('Session expired. Please login again.');
                             navigate('/login');
                             return;
@@ -72,10 +73,12 @@ export const useCart = () => {
     const handleAuthError = (error) => {
         console.error('Cart error:', error);
         if (error.response?.status === 401) {
+            toast.dismiss();
             toast.error('Session expired. Please login again.');
             navigate('/login');
             return;
         }
+        toast.dismiss();
         toast.error('Something went wrong with the cart.');
     };
 
@@ -88,6 +91,7 @@ export const useCart = () => {
         if (authService.isAuthenticated()) {
             navigate('/checkout');
         } else {
+            toast.dismiss();
             toast.info('Please log in to proceed with checkout');
             navigate('/login');
         }

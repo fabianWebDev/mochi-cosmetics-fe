@@ -25,6 +25,7 @@ const Orders = () => {
       try {
         // Verificar autenticación
         if (!authService.isAuthenticated()) {
+          toast.dismiss();
           toast.error('Please login to view your orders');
           navigate('/login');
           return;
@@ -36,10 +37,12 @@ const Orders = () => {
       } catch (error) {
         console.error('Error loading orders:', error);
         if (error.response?.status === 401) {
+          toast.dismiss();
           toast.error('Session expired. Please login again.');
           navigate('/login');
           return;
         }
+        toast.dismiss();
         toast.error('Error loading orders. Please try again.');
       } finally {
         setLoading(false);

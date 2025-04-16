@@ -18,6 +18,7 @@ export const useCheckout = () => {
 
     useEffect(() => {
         if (!authService.isAuthenticated()) {
+            toast.dismiss();
             toast.error('Please login to proceed with checkout');
             navigate('/login');
             return;
@@ -25,6 +26,7 @@ export const useCheckout = () => {
 
         const user = authService.getUser();
         if (!user || !user.id) {
+            toast.dismiss();
             toast.error('Error loading user data');
             navigate('/login');
             return;
@@ -33,6 +35,7 @@ export const useCheckout = () => {
 
         const cartItems = cartService.getCartItems();
         if (!cartItems || cartItems.length === 0) {
+            toast.dismiss();
             toast.error('Your cart is empty');
             navigate('/cart');
             return;
@@ -54,7 +57,10 @@ export const useCheckout = () => {
             if (!shippingInfo.pickup) {
                 const errors = validateShippingInfo(shippingInfo);
                 if (errors.length > 0) {
-                    errors.forEach(error => toast.error(error));
+                    errors.forEach(error => {
+                        toast.dismiss();
+                        toast.error(error);
+                    });
                     return;
                 }
             }
@@ -73,17 +79,24 @@ export const useCheckout = () => {
 
         const shippingErrors = validateShippingInfo(shippingInfo);
         if (shippingErrors.length > 0) {
-            shippingErrors.forEach(error => toast.error(error));
+            shippingErrors.forEach(error => {
+                toast.dismiss();
+                toast.error(error);
+            });
             return;
         }
 
         const cartErrors = validateCart(cart);
         if (cartErrors.length > 0) {
-            cartErrors.forEach(error => toast.error(error));
+            cartErrors.forEach(error => {
+                toast.dismiss();
+                toast.error(error);
+            });
             return;
         }
 
         if (!userId) {
+            toast.dismiss();
             toast.error('User information not loaded');
             return;
         }
@@ -117,6 +130,7 @@ export const useCheckout = () => {
                         'decrease'
                     );
                 } catch (error) {
+                    toast.dismiss();
                     toast.error(`Error updating stock for ${item.product.name}`);
                     await orderService.deleteOrder(order.order_id);
                     return;
@@ -124,6 +138,7 @@ export const useCheckout = () => {
             }
 
             await cartService.clearCart();
+            toast.dismiss();
             toast.success('Order placed successfully!');
             navigate(`/order-confirmation/${order.order_id}`);
 

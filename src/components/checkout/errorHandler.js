@@ -7,6 +7,7 @@ export const handleCheckoutError = (error, navigate) => {
         const errorData = error.response.data;
         console.error('Error response data:', errorData);
 
+        toast.dismiss();
         switch (error.response.status) {
             case 400:
                 if (typeof errorData === 'object') {
