@@ -14,6 +14,7 @@ const OrderConfirmation = () => {
         const fetchOrder = async () => {
             try {
                 // Verificar autenticación
+                toast.dismiss();
                 if (!authService.isAuthenticated()) {
                     toast.error('Please login to view order details');
                     navigate('/login');
@@ -40,6 +41,7 @@ const OrderConfirmation = () => {
                     console.error('Error headers:', error.response.headers);
                     
                     if (error.response.status === 401) {
+                        toast.dismiss();
                         toast.error('Session expired. Please login again.');
                         navigate('/login');
                         return;
@@ -49,6 +51,7 @@ const OrderConfirmation = () => {
                 } else {
                     console.error('Error setting up request:', error.message);
                 }
+                toast.dismiss();
                 toast.error(
                     error.response?.data?.detail || 
                     error.response?.data?.error || 

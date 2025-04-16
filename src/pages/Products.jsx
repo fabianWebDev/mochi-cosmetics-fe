@@ -30,6 +30,7 @@ const Products = () => {
         if (addingToCart[product.id]) return;
 
         setAddingToCart(prev => ({ ...prev, [product.id]: true }));
+        toast.dismiss();
         try {
             await cartService.addToCart(product.id, 1);
             toast.success(
@@ -46,6 +47,7 @@ const Products = () => {
             const message = error.response?.data?.error === "Not enough stock available"
                 ? "Lo sentimos, este producto está agotado"
                 : "Error al agregar el producto al carrito";
+            toast.dismiss();
             toast.error(message);
         } finally {
             setAddingToCart(prev => ({ ...prev, [product.id]: false }));
