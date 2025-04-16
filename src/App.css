@@ -9,6 +9,9 @@
   --tertiary-color: #efeded;
   --highlight-color: #772baa;
   --highlight-btn-color: #3b0e57;
+  --toastify-icon-color-success: #5a1588!important; 
+  --toastify-icon-color-error: #ff1744;  
+  --toastify-icon-color-info: #00b0ff;   
 }
 
 .custom_h1 {
@@ -24,4 +27,11 @@
 .custom_h3 {
   font-size: var(--font-size-base);
   font-weight: bold;
+}
+
+.Toastify__toast--custom {
+  background: #ffffff ;
+  border: 2px solid var(--primary-color)!important;
+  width: auto!important;
+  margin: 0px!important;
 }
