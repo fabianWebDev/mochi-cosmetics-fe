@@ -29,7 +29,7 @@ const Products = () => {
             toast.success(
                 <div>
                     Producto agregado al carrito!
-                    <Link to="/cart" style={{ marginLeft: "5px", color: "#007bff", textDecoration: "underline" }}>
+                    <Link to="/cart" style={{ marginLeft: "5px", color: "#007bff" }}>
                         Ir al carrito
                     </Link>
                 </div>

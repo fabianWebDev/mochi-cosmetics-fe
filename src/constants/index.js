@@ -23,7 +23,7 @@ export const STORAGE_KEYS = {
   CART: 'cart_data',
 };
 
-export const TOAST_DURATION = 3000;
+export const TOAST_DURATION = 2000;
 
 export const CURRENCY = 'USD';
 
