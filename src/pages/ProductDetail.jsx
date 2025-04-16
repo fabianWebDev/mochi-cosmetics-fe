@@ -12,6 +12,7 @@ const ProductDetail = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [quantity, setQuantity] = useState(1);
+    const [isAddingToCart, setIsAddingToCart] = useState(false);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -36,10 +37,16 @@ const ProductDetail = () => {
     };
 
     const handleAddToCart = async () => {
+        if (isAddingToCart) return;
+
+        setIsAddingToCart(true);
         try {
             await cartService.addToCart(product.id, quantity);
+            toast.dismiss();
             toast.success('Producto agregado al carrito!');
             setQuantity(1); // Reset quantity after adding to cart
+            // Wait 1 second before allowing another addition
+            await new Promise(resolve => setTimeout(resolve, 1000));
         } catch (error) {
             if (error.response?.data?.error === 'Not enough stock available') {
                 toast.error('Lo sentimos, este producto está agotado');
@@ -47,6 +54,8 @@ const ProductDetail = () => {
                 toast.error('Error al agregar el producto al carrito');
             }
             console.error('Error adding to cart:', error);
+        } finally {
+            setIsAddingToCart(false);
         }
     };
 
@@ -67,7 +76,7 @@ const ProductDetail = () => {
                 <div className={`${classes.product_actions} row`}>
                     <p className="text-center">
                         <span className={`${classes.product_price}`}>${product.price}</span>
-                       
+
                     </p>
                     <div className={classes.quantity_control}>
                         <button
@@ -87,12 +96,12 @@ const ProductDetail = () => {
                         </button>
                     </div>
                     <button
-                    onClick={handleAddToCart}
-                    disabled={product.stock === 0}
-                    className={`${classes.add_to_cart_button} ${product.stock === 0 ? classes.product_card_button_disabled : ''}`}
+                        onClick={handleAddToCart}
+                        disabled={product.stock === 0 || isAddingToCart}
+                        className={`${classes.add_to_cart_button} ${product.stock === 0 ? classes.product_card_button_disabled : ''}`}
                     >
-                        {product.stock === 0 ? 'Out of stock' : 'Add to cart'}
-                        </button>
+                        {product.stock === 0 ? 'Out of stock' : isAddingToCart ? 'Adding...' : 'Add to cart'}
+                    </button>
                     <p className="text-center">
                         <span className={`${classes.product_stock}`}>Stock: {product.stock}</span>
                     </p>

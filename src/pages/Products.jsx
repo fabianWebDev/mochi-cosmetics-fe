@@ -6,6 +6,7 @@ import useProductFilters from "../hooks/useProductFilters";
 import Pagination from "../components/ui/Pagination";
 import Sidebar from "../components/layout/SideBar";
 import ProductList from "../components/ui/ProductList";
+import { useState } from "react";
 
 const Products = () => {
     const navigate = useNavigate();
@@ -21,9 +22,14 @@ const Products = () => {
         paginatedProducts,
     } = useProductFilters(products);
 
+    const [addingToCart, setAddingToCart] = useState({});
+
     const handleViewDetails = (productId) => navigate(`/product/${productId}`);
 
     const handleAddToCart = async (product) => {
+        if (addingToCart[product.id]) return;
+
+        setAddingToCart(prev => ({ ...prev, [product.id]: true }));
         try {
             await cartService.addToCart(product.id, 1);
             toast.success(
@@ -34,11 +40,15 @@ const Products = () => {
                     </Link>
                 </div>
             );
+            // Wait 1.5 seconds before allowing another addition
+            await new Promise(resolve => setTimeout(resolve, 1500));
         } catch (error) {
             const message = error.response?.data?.error === "Not enough stock available"
                 ? "Lo sentimos, este producto está agotado"
                 : "Error al agregar el producto al carrito";
             toast.error(message);
+        } finally {
+            setAddingToCart(prev => ({ ...prev, [product.id]: false }));
         }
     };
 
@@ -59,6 +69,7 @@ const Products = () => {
                     products={paginatedProducts}
                     handleViewDetails={handleViewDetails}
                     handleAddToCart={handleAddToCart}
+                    addingToCart={addingToCart}
                 />
                 <Pagination
                     currentPage={currentPage}
