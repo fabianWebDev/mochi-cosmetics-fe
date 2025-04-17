@@ -1,13 +1,15 @@
+import { Link } from 'react-router-dom';
+
 const FooterContactUs = ({ className }) => {
     return (
         <div className={className}>
             <ul>
                 <h3>Contact us</h3>
                 <li>
-                    <a href="/">WhatsApp: +57 317 865 2345</a>
+                    <Link to="https://wa.me/50683751695" target="_blank">WhatsApp: +506 83751695</Link>
                 </li>
                 <li>
-                    <a href="/">Email: contact@example.com</a>
+                    <Link to="mailto:minasmorgulstore@gmail.com" target="_blank">Email: minasmorgulstore@gmail.com</Link>
                 </li>
             </ul>
         </div>

@@ -1,18 +1,19 @@
+import { Link } from 'react-router-dom';
+
 const FooterMenu = ({ className }) => {
     return (
         <div className={className}>
             <ul>
                 <h3>Shop</h3>
                 <li>
-                    <a href="/">Home</a>
+                    <Link to="/">Home</Link>
                 </li>
                 <li>
-                    <a href="/">Magic the Gathering</a>
+                    <Link to="/products?search=mtg">Magic the Gathering</Link>
                 </li>
                 <li>
-                    <a href="/">Accessories</a>
+                    <Link to="/products">Products</Link>
                 </li>
-
             </ul>
         </div>
     )
