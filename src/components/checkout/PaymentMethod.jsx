@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from '../../styles/PaymentMethod.module.css';
+import classes from './PaymentMethod.module.css';
 
 const PaymentMethod = ({ onBack, onSubmit }) => {
     return (

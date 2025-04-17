@@ -1,0 +1,36 @@
+.search_container {
+    position: relative;
+}
+
+.search_input {
+    height: 40px;
+    border-radius: 30px;
+    padding-left: 24px;
+    border: 1px solid var(--tertiary-color);
+    width: 100%;
+    transition: all 0.1s ease;
+}
+
+.search_input:focus {
+    outline: none;
+    border-color: var(--highlight-color);
+}
+
+.search_input:hover {
+    border-color: var(--highlight-color);
+}
+
+.search_button {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    color: var(--secondary-color);
+    transition: all 0.1s ease;
+}
+
+.search_button:hover {
+    color: var(--highlight-color);
+} 

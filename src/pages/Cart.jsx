@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../hooks/useCart';
-import CartItem from '../components/cart/CartItem';
-import CartSummary from '../components/cart/CartSummary';
+import { Cart } from '../components';
+const { CartItem, CartSummary } = Cart;
 
-const Cart = () => {
+const CartPage = () => {
     const {
         cart,
         loading,
@@ -61,4 +61,4 @@ const Cart = () => {
     );
 };
 
-export default Cart;
+export default CartPage;

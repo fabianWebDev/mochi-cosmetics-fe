@@ -1,11 +1,10 @@
 import React from 'react';
-import ProgressBar from '../components/ui/ProgressBar';
-import ShippingInfo from '../components/checkout/ShippingInfo';
-import OrderSummary from '../components/checkout/OrderSummary';
-import PaymentMethod from '../components/checkout/PaymentMethod';
+import { UI, Checkout } from '../components';
+const { Common: { ProgressBar } } = UI;
+const { ShippingInfo, OrderSummary, PaymentMethod } = Checkout;
 import { useCheckout } from '../hooks/useCheckout';
 
-const Checkout = () => {
+const CheckoutPage = () => {
     const {
         cart,
         loading,
@@ -50,4 +49,4 @@ const Checkout = () => {
     );
 };
 
-export default Checkout;
+export default CheckoutPage;

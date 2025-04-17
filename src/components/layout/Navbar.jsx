@@ -1,6 +1,6 @@
-import SearchBar from '../ui/SearchBar';
-import MainMenu from '../ui/MainMenu';
-import PageHeader from '../ui/PageHeader';
+import SearchBar from '../ui/header/SearchBar';
+import MainMenu from '../ui/header/MainMenu';
+import PageHeader from '../ui/header/PageHeader';
 
 const Navbar = () => {
     return (

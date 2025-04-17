@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from '../../styles/OrderSummary.module.css';
+import classes from './OrderSummary.module.css';
 
 const OrderSummary = ({ cart, onBack, onNext }) => {
     const calculateTotal = () => {

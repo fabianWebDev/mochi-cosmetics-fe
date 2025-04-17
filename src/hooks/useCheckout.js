@@ -4,9 +4,10 @@ import { toast } from 'react-toastify';
 import { authService } from '../services/authService';
 import { cartService } from '../services/cartService';
 import { orderService } from '../services/orderService';
-import { ORDER_STATUS, INITIAL_SHIPPING_INFO } from '../components/checkout/constants';
-import { validateShippingInfo, validateCart } from '../components/checkout/validations';
-import { handleCheckoutError } from '../components/checkout/errorHandler';
+import { Checkout } from '../components';
+const { ORDER_STATUS, INITIAL_SHIPPING_INFO } = Checkout;
+const { validateShippingInfo, validateCart } = Checkout;
+const { handleCheckoutError } = Checkout;
 
 export const useCheckout = () => {
     const navigate = useNavigate();

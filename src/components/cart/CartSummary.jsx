@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from '../../styles/CartSummary.module.css';
+import classes from './CartSummary.module.css';
 
 const CartSummary = ({ total, onCheckout, isAuthenticated }) => (
     <div className="d-flex justify-content-between align-items-center">
