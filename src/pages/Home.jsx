@@ -1,4 +1,5 @@
-import Hero from "../components/layout/Hero";
+import { Layout } from '../components';
+const { Hero } = Layout;
 
 const Home = () => {
     return (

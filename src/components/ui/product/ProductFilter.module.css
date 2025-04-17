@@ -1,0 +1,44 @@
+.sidebar {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--tertiary-color);
+}
+
+.form_label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form_select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--tertiary-color);
+    border-radius: 8px;
+    font-size: var(--font-size-small);
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+.form_select:hover {
+    border-color: var(--highlight-color);
+}
+
+.checkbox_container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--primary-color);
+}
+
+.checkbox_label {
+    font-size: var(--font-size-small);
+    cursor: pointer;
+    user-select: none;
+} 

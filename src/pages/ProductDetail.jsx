@@ -4,7 +4,7 @@ import { cartService } from '../services/cartService';
 import { toast } from 'react-toastify';
 import { productService } from '../services/productService';
 import { MEDIA_BASE_URL } from '../constants'
-import classes from '../styles/ProductDetail.module.css'
+import classes from './ProductDetail.module.css'
 
 const ProductDetail = () => {
     const { id } = useParams();

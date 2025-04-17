@@ -1,0 +1,6 @@
+.progress_bar {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    text-align: center;
+    transition:0.5s ease;
+} 

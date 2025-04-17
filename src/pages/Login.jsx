@@ -1,5 +1,6 @@
 import { useLogin } from '../hooks/useLogin';
-import LoginForm from '../components/login/LoginForm';
+import { Auth } from '../components';
+const { LoginForm } = Auth;
 import { useState } from 'react';
 
 const Login = () => {

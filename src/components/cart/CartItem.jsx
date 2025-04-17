@@ -1,6 +1,6 @@
 import React from 'react';
 import { MEDIA_BASE_URL } from '../../constants';
-import classes from '../../styles/CartItem.module.css';
+import classes from './CartItem.module.css';
 
 const CartItem = ({ item, onUpdateQuantity, onRemove }) => {
     return (

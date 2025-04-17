@@ -5,7 +5,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import theme from './styles/theme';
-import Toast from './components/ui/Toast';
+import { UI } from './components';
+const { Common: { Toast } } = UI;
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

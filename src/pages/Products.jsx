@@ -3,9 +3,9 @@ import { toast } from "react-toastify";
 import { cartService } from "../services/cartService";
 import useProducts from "../hooks/useProducts";
 import useProductFilters from "../hooks/useProductFilters";
-import Pagination from "../components/ui/Pagination";
-import Sidebar from "../components/layout/SideBar";
-import ProductList from "../components/ui/ProductList";
+import { UI, Layout } from '../components';
+const { Common: { Pagination }, Product: { ProductList } } = UI;
+const { SideBar } = Layout;
 import { useState } from "react";
 
 const Products = () => {
@@ -60,7 +60,7 @@ const Products = () => {
     return (
         <div className="row">
             <div className="col-md-3 mt-3">
-                <Sidebar
+                <SideBar
                     onSortChange={(e) => setSortOrder(e.target.value)}
                     onStockFilterChange={(e) => setShowInStockOnly(e.target.checked)}
                     showInStockOnly={showInStockOnly}
