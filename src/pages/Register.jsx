@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useForm from '../hooks/useForm';
 import { Auth } from '../components';
+import { API_BASE_URL } from '../constants';
 const { RegisterForm } = Auth;
 
 const Register = () => {
@@ -24,7 +25,7 @@ const Register = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:8000/api/users/register/', formData);
+            const response = await axios.post(`${API_BASE_URL}/users/register/`, formData);
 
             localStorage.setItem('accessToken', response.data.access);
             localStorage.setItem('refreshToken', response.data.refresh);
