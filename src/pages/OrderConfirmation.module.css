@@ -1,0 +1,118 @@
+.order_confirmation {
+    padding: 24px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid var(--tertiary-color);
+}
+
+.success_icon {
+    font-size: 4rem;
+    color: var(--primary-color);
+}
+
+.order_header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.order_header h1 {
+    font-size: var(--font-size-xlarge);
+    color: var(--primary-color);
+    margin-bottom: 8px;
+}
+
+.order_header p {
+    font-size: var(--font-size-base);
+    color: var(--secondary-color);
+}
+
+.section_title {
+    font-size: var(--font-size-large);
+    color: var(--primary-color);
+    margin-bottom: 16px;
+}
+
+.shipping_info {
+    margin-bottom: 24px;
+}
+
+.shipping_info p {
+    font-size: var(--font-size-base);
+    color: var(--secondary-color);
+    margin-bottom: 8px;
+}
+
+.order_details {
+    margin-bottom: 24px;
+}
+
+.order_details p {
+    font-size: var(--font-size-base);
+    color: var(--secondary-color);
+    margin-bottom: 8px;
+}
+
+.order_items {
+    margin-bottom: 24px;
+}
+
+.items_table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.items_table th {
+    text-align: left;
+    padding: 12px;
+    font-size: var(--font-size-base);
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--tertiary-color);
+}
+
+.items_table td {
+    padding: 12px;
+    font-size: var(--font-size-base);
+    color: var(--secondary-color);
+    border-bottom: 1px solid var(--tertiary-color);
+}
+
+.action_buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.continue_button {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: var(--font-size-base);
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    border-bottom: 2px solid var(--highlight-btn-color);
+}
+
+.continue_button:hover {
+    background-color: var(--highlight-color);
+}
+
+.view_orders_button {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: var(--font-size-base);
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+.view_orders_button:hover {
+    background-color: var(--primary-color);
+    color: #ffffff;
+} 
