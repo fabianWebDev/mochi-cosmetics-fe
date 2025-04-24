@@ -13,7 +13,8 @@ const axiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json', // Default content type
   },
-  withCredentials: true // Enable sending cookies in cross-origin requests
+  crossDomain: true,
+  timeout: 10000, // 10 second timeout
 });
 
 /**
