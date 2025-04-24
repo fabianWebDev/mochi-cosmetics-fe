@@ -23,7 +23,6 @@
 
 .order_header p {
     font-size: var(--font-size-base);
-    color: var(--secondary-color);
 }
 
 .section_title {
@@ -38,7 +37,6 @@
 
 .shipping_info p {
     font-size: var(--font-size-base);
-    color: var(--secondary-color);
     margin-bottom: 8px;
 }
 
@@ -48,13 +46,10 @@
 
 .order_details p {
     font-size: var(--font-size-base);
-    color: var(--secondary-color);
     margin-bottom: 8px;
 }
 
-.order_items {
-    margin-bottom: 24px;
-}
+.order_items {}
 
 .items_table {
     width: 100%;
@@ -72,7 +67,6 @@
 .items_table td {
     padding: 12px;
     font-size: var(--font-size-base);
-    color: var(--secondary-color);
     border-bottom: 1px solid var(--tertiary-color);
 }
 
@@ -80,7 +74,6 @@
     display: flex;
     justify-content: center;
     gap: 16px;
-    margin-top: 24px;
 }
 
 .continue_button {
@@ -94,6 +87,7 @@
     cursor: pointer;
     transition: all 0.1s ease;
     border-bottom: 2px solid var(--highlight-btn-color);
+    text-decoration: none;
 }
 
 .continue_button:hover {
@@ -110,9 +104,10 @@
     font-weight: bold;
     cursor: pointer;
     transition: all 0.1s ease;
+    text-decoration: none;
 }
 
 .view_orders_button:hover {
     background-color: var(--primary-color);
     color: #ffffff;
-} 
+}

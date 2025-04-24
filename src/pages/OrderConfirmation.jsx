@@ -76,7 +76,7 @@ const OrderItems = ({ items }) => (
 );
 
 const ActionButtons = () => (
-    <div className={styles.action_buttons}>
+    <div className={`${styles.action_buttons} mt-3`}>
         <Link to="/products" className={styles.continue_button}>
             Continue Shopping
         </Link>
@@ -130,7 +130,7 @@ const OrderConfirmation = () => {
     if (!order) return <div className="mt-4">Order not found</div>;
 
     return (
-        <div className="row justify-content-center mt-2">
+        <div className="row justify-content-center mt-3">
             <div className={`${styles.order_confirmation} col-12 col-md-8 col-lg-8 col-xl-8`}>
                 <OrderHeader orderId={order.order_id} />
                 <div className="row">
