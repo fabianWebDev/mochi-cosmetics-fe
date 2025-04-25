@@ -68,7 +68,6 @@ const Orders = () => {
               <th className={`${styles.table_header_cell} text-center`}>Date</th>
               <th className={`${styles.table_header_cell} text-center`}>Total</th>
               <th className={`${styles.table_header_cell} text-center`}>Status</th>
-              <th className={`${styles.table_header_cell} text-center`}>Products</th>
             </tr>
           </thead>
           <tbody>
@@ -99,11 +98,6 @@ const Orders = () => {
                   <td className={`${styles.table_cell} text-center`}>
                     <Link to={`/orders/${order.order_id}`} className={styles.order_link}>
                       {order.status}
-                    </Link>
-                  </td>
-                  <td className={`${styles.table_cell} text-center`}>
-                    <Link to={`/orders/${order.order_id}`} className={styles.order_link}>
-                      {order.items?.length || 0} products
                     </Link>
                   </td>
                 </tr>

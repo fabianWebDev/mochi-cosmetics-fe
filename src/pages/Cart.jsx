@@ -38,8 +38,8 @@ const CartPage = () => {
                         Please <Link to="/login" className="alert-link">log in</Link> to save your cart and proceed with checkout.
                     </div>
                 )}
-                <div className="card">
-                    <div className="card-body">
+                <div className="">
+                    <div className="">
                         {cart.items.map(item => (
                             <CartItem
                                 key={item.product.id}

@@ -4,7 +4,7 @@ import classes from './CartItem.module.css';
 
 const CartItem = ({ item, onUpdateQuantity, onRemove }) => {
     return (
-        <div className="row mb-4 align-items-center">
+        <div className="row mb-2 align-items-center">
             <div className="col-md-2 d-flex justify-content-center">
                 <img src={`${MEDIA_BASE_URL}/${item.product.image}`} alt={item.product.name} className={`${classes.cart_item_image}`} />
             </div>
