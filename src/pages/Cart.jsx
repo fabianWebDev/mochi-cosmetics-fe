@@ -29,9 +29,9 @@ const CartPage = () => {
     }
 
     return (
-        <div className="row mt-4 justify-content-center">
+        <div className="row mt-3 justify-content-center">
             <div className="col-md-8">
-                <h1 className="mb-4 custom_h1">Your Cart</h1>
+                <h1 className="mb-3 custom_h1">Shopping Cart</h1>
                 {!isAuthenticated && (
                     <div className="alert alert-warning">
                         <i className="bi bi-info-circle me-2"></i>
