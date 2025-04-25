@@ -1,19 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import {
-  Container,
-  Typography,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow
-} from '@mui/material';
 import { authService } from '../services/authService';
 import { orderService } from '../services/orderService';
+import styles from './Orders.module.css';
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -23,7 +13,6 @@ const Orders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        // Verificar autenticación
         if (!authService.isAuthenticated()) {
           toast.dismiss();
           toast.error('Please login to view your orders');
@@ -56,57 +45,74 @@ const Orders = () => {
     console.log('Orders state updated:', orders);
   }, [orders]);
 
-
   if (loading) {
     return (
-      <Container>
-        <Typography variant="h6">Loading orders...</Typography>
-      </Container>
+      <div className="row justify-content-center mt-3">
+        <div className="col-12 col-md-8 col-lg-8 col-xl-8">
+          <div className={styles.loading_container}>
+            <h6 className={styles.loading_text}>Loading orders...</h6>
+          </div>
+        </div>
+      </div>
     );
   }
 
   return (
-    <Container sx={{ py: 4 }}>
-      <Typography variant="h4" gutterBottom>
-        My Orders
-      </Typography>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Order ID</TableCell>
-              <TableCell>Date</TableCell>
-              <TableCell>Total</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Products</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
+    <div className="row justify-content-center mt-3">
+      <div className={`${styles.orders_container} col-12 col-md-8 col-lg-8 col-xl-8`}>
+        <h1 className={`${styles.orders_title} custom_h1 mb-3`}>My Orders</h1>
+        <table className={styles.table_container}>
+          <thead className={styles.table_header}>
+            <tr>
+              <th className={`${styles.table_header_cell} text-center`}>Order ID</th>
+              <th className={`${styles.table_header_cell} text-center`}>Date</th>
+              <th className={`${styles.table_header_cell} text-center`}>Total</th>
+              <th className={`${styles.table_header_cell} text-center`}>Status</th>
+              <th className={`${styles.table_header_cell} text-center`}>Products</th>
+            </tr>
+          </thead>
+          <tbody>
             {orders.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={5} align="center">
+              <tr>
+                <td colSpan="5" className={styles.empty_orders}>
                   No orders to display
-                </TableCell>
-              </TableRow>
+                </td>
+              </tr>
             ) : (
               orders.map((order) => (
-                <TableRow key={order.order_id} hover>
-                  <TableCell>
-                    <Link to={`/orders/${order.order_id}`}>{order.order_id}</Link>
-                  </TableCell>
-                  <TableCell>{new Date(order.created_at).toLocaleDateString()}</TableCell>
-                  <TableCell>${order.total_price}</TableCell>
-                  <TableCell>{order.status}</TableCell>
-                  <TableCell>
-                    {order.items?.length || 0} products
-                  </TableCell>
-                </TableRow>
+                <tr key={order.order_id} className={styles.table_row}>
+                  <td className={`${styles.table_cell} text-center`}>
+                    <Link to={`/orders/${order.order_id}`} className={styles.order_link}>
+                      {order.order_id}
+                    </Link>
+                  </td>
+                  <td className={`${styles.table_cell} text-center`}>
+                    <Link to={`/orders/${order.order_id}`} className={styles.order_link}>
+                      {new Date(order.created_at).toLocaleDateString()}
+                    </Link>
+                  </td>
+                  <td className={`${styles.table_cell} text-center`}>
+                    <Link to={`/orders/${order.order_id}`} className={styles.order_link}>
+                      ${order.total_price}
+                    </Link>
+                  </td>
+                  <td className={`${styles.table_cell} text-center`}>
+                    <Link to={`/orders/${order.order_id}`} className={styles.order_link}>
+                      {order.status}
+                    </Link>
+                  </td>
+                  <td className={`${styles.table_cell} text-center`}>
+                    <Link to={`/orders/${order.order_id}`} className={styles.order_link}>
+                      {order.items?.length || 0} products
+                    </Link>
+                  </td>
+                </tr>
               ))
             )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Container>
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 };
 

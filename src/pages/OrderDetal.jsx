@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { orderService } from '../services/orderService';
-import { Container, Typography, Paper, List, ListItem } from '@mui/material';
+import styles from './OrderDetail.module.css';
 
 const OrderDetal = () => {
     const { orderId } = useParams();
@@ -24,39 +24,60 @@ const OrderDetal = () => {
 
     if (loading) {
         return (
-            <Container>
-                <Typography variant="h6">Loading order details...</Typography>
-            </Container>
+            <div className="row justify-content-center mt-3">
+                <div className="col-12 col-md-8 col-lg-8 col-xl-8">
+                    <div className={styles.loading_container}>
+                        <h6 className={styles.loading_text}>Loading order details...</h6>
+                    </div>
+                </div>
+            </div>
         );
     }
 
     if (!orderDetails) {
         return (
-            <Container>
-                <Typography variant="h6">Order not found.</Typography>
-            </Container>
+            <div className="row justify-content-center mt-3">
+                <div className="col-12 col-md-8 col-lg-8 col-xl-8">
+                    <div className={styles.not_found_container}>
+                        <h6>Order not found.</h6>
+                    </div>
+                </div>
+            </div>
         );
     }
 
     return (
-        <Container sx={{ py: 4 }}>
-            <Typography variant="h4" gutterBottom>
-                Order Details - ID: {orderDetails.order_id}
-            </Typography>
-            <Paper sx={{ padding: 2 }}>
-                <Typography variant="h6">Status: {orderDetails.status}</Typography>
-                <Typography variant="h6">Total: ${orderDetails.total_price}</Typography>
-                <Typography variant="h6">Date: {new Date(orderDetails.created_at).toLocaleDateString()}</Typography>
-                <Typography variant="h6">Products:</Typography>
-                <List>
-                    {orderDetails.items.map((item) => (
-                        <ListItem key={item.product_id}>
-                            {item.product_name} - Quantity: {item.quantity}
-                        </ListItem>
-                    ))}
-                </List>
-            </Paper>
-        </Container>
+        <div className="row justify-content-center mt-3">
+            <div className={`${styles.order_detail_container} col-12 col-md-8 col-lg-8 col-xl-8`}>
+                <h1 className={`${styles.order_detail_title} custom_h1 mb-3`}>
+                    Order Details - ID: {orderDetails.order_id}
+                </h1>
+                <div className={styles.order_info_container}>
+                    <p className={styles.order_info_item}>
+                        <span className={styles.order_info_label}>Status:</span>
+                        {orderDetails.status}
+                    </p>
+                    <p className={styles.order_info_item}>
+                        <span className={styles.order_info_label}>Total:</span>
+                        ${orderDetails.total_price}
+                    </p>
+                    <p className={styles.order_info_item}>
+                        <span className={styles.order_info_label}>Date:</span>
+                        {new Date(orderDetails.created_at).toLocaleDateString()}
+                    </p>
+                    <h6 className={styles.order_info_label}>
+                        Products:
+                    </h6>
+                    <ul className={styles.products_list}>
+                        {orderDetails.items.map((item) => (
+                            <li key={item.product_id} className={styles.product_item}>
+                                {item.product_name} - Quantity: {item.quantity}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+        </div>
     );
 };
 
