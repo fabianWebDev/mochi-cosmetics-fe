@@ -20,9 +20,7 @@ const HeaderIcons = () => {
                 </Link>
             ) : (
                 <>
-                    <Link to="/profile">
-                        <UserIcon className={classes.header_icon} />
-                    </Link>
+                    <UserIcon className={classes.header_icon} />
                     <Logout />
                 </>
             )}

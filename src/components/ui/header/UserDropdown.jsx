@@ -1,15 +1,27 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import classes from './HeaderIcons.module.css';
 
 const UserDropdown = () => {
+    const navigate = useNavigate();
+
+    const handleNavigation = (path) => {
+        navigate(path);
+    };
+
     return (
         <div className={classes.dropdown_menu}>
-            <Link to="/profile" className={classes.dropdown_item}>
+            <div 
+                className={classes.dropdown_item}
+                onClick={() => handleNavigation('/profile')}
+            >
                 Account Information
-            </Link>
-            <Link to="/orders" className={classes.dropdown_item}>
+            </div>
+            <div 
+                className={classes.dropdown_item}
+                onClick={() => handleNavigation('/orders')}
+            >
                 My Orders
-            </Link>
+            </div>
         </div>
     );
 };
