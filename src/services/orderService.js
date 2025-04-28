@@ -73,5 +73,15 @@ export const orderService = {
             logError(error, 'updateProductStock');
             throw error;
         }
+    },
+
+    async cancelOrder(orderId) {
+        try {
+            const response = await axiosInstance.post(`/orders/${orderId}/cancel/`);
+            return response.data;
+        } catch (error) {
+            logError(error, 'cancelOrder');
+            throw error;
+        }
     }
 }; 

@@ -5,13 +5,6 @@
     border: 1px solid var(--tertiary-color);
 }
 
-.order_summary h3 {
-    color: var(--primary-color);
-    font-size: var(--font-size-large);
-    font-weight: 600;
-    margin-bottom: 24px;
-}
-
 .order_items {
     margin-bottom: 16px;
 }
