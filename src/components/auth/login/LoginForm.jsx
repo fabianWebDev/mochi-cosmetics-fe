@@ -35,14 +35,14 @@ const LoginForm = ({ formData, onChange, onSubmit, loading, error }) => {
                     className={classes.input_field}
                 />
             </div>
-            <div className={classes.forgot_password_container}>
-                <Link to="/password-reset" className={classes.forgot_password_link}>
-                    Forgot Password?
-                </Link>
-            </div>
             <button type="submit" className={classes.login_button} disabled={loading}>
                 {loading ? 'Logging in...' : 'Login'}
             </button>
+            <div className={classes.forgot_password_container}>
+                <Link to="/password-reset" className={classes.forgot_password_link}>
+                    Forgot your password?
+                </Link>
+            </div>
             <p className={classes.register_button_container}>Don't have an account yet? <Link to="/register" className={classes.register_button}>Register</Link></p>
         </form>
     );
