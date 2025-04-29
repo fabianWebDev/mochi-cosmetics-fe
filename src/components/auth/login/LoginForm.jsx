@@ -1,6 +1,7 @@
 import { useNavigate, Link } from 'react-router-dom';
 import classes from './LoginForm.module.css';
 
+
 const LoginForm = ({ formData, onChange, onSubmit, loading, error }) => {
     const navigate = useNavigate();
 
@@ -33,6 +34,11 @@ const LoginForm = ({ formData, onChange, onSubmit, loading, error }) => {
                     placeholder="Password"
                     className={classes.input_field}
                 />
+            </div>
+            <div className={classes.forgot_password_container}>
+                <Link to="/password-reset" className={classes.forgot_password_link}>
+                    Forgot Password?
+                </Link>
             </div>
             <button type="submit" className={classes.login_button} disabled={loading}>
                 {loading ? 'Logging in...' : 'Login'}

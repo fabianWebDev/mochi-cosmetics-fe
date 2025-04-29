@@ -15,6 +15,8 @@ import { AuthProvider } from './context/AuthContext'
 const { Navbar, Footer } = Layout
 import About from './pages/About'
 import OrderDetal from './pages/OrderDetal'
+import { PasswordResetRequest } from './components/auth/passwordReset'
+import { PasswordResetConfirm } from './components/auth/passwordReset'
 
 function App() {
   return (
@@ -35,6 +37,8 @@ function App() {
             <Route path="/order-confirmation/:orderId" element={<OrderConfirmation />} />
             <Route path="/orders/:orderId" element={<OrderDetal />} />
             <Route path="/about" element={<About />} />
+            <Route path="/password-reset" element={<PasswordResetRequest />} />
+            <Route path="/reset-password" element={<PasswordResetConfirm />} />
           </Routes>
         </div>
         <Footer />
