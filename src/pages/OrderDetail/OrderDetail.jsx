@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { orderService } from '../services/orderService';
+import { orderService } from '../../services/orderService';
 import styles from './OrderDetail.module.css';
 
-const OrderDetal = () => {
+const OrderDetail = () => {
     const { orderId } = useParams();
     const [orderDetails, setOrderDetails] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -121,4 +121,4 @@ const OrderDetal = () => {
     );
 };
 
-export default OrderDetal;
+export default OrderDetail;

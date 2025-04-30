@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useCart } from '../hooks/useCart';
-import { Cart } from '../components';
+import { useCart } from '../../hooks/useCart';
+import { Cart } from '../../components';
 const { CartItem, CartSummary } = Cart;
 
 const CartPage = () => {

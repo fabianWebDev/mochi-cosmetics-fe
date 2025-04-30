@@ -1,23 +1,23 @@
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
-import Home from './pages/Home'
-import Products from './pages/Products'
-import Login from './pages/Login'
-import Register from './pages/Register'
+import Home from './pages/Home/Home'
+import Products from './pages/Products/Products'
+import Login from './pages/Login/Login'
+import Register from './pages/Register/Register'
 import { Layout } from './components'
-import Contact from './pages/Contact'
-import ProductDetail from './pages/ProductDetail'
-import Cart from './pages/Cart'
-import Checkout from './pages/Checkout'
-import OrderConfirmation from './pages/OrderConfirmation'
-import Orders from './pages/Orders'
+import Contact from './pages/Contact/Contact'
+import ProductDetail from './pages/ProductDetail/ProductDetail'
+import Cart from './pages/Cart/Cart'
+import Checkout from './pages/Checkout/Checkout'
+import OrderConfirmation from './pages/OrderConfirmation/OrderConfirmation'
+import Orders from './pages/Orders/Orders'
 import { AuthProvider } from './context/AuthContext'
 const { Navbar, Footer } = Layout
-import About from './pages/About'
-import OrderDetal from './pages/OrderDetal'
+import About from './pages/About/About'
+import OrderDetail from './pages/OrderDetail/OrderDetail'
 import { PasswordResetRequest } from './components/auth/passwordReset'
 import { PasswordResetConfirm } from './components/auth/passwordReset'
-import UserProfile from './pages/UserProfile'
+import Profile from './pages/Profile/Profile'
 
 function App() {
   return (
@@ -36,11 +36,11 @@ function App() {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/order-confirmation/:orderId" element={<OrderConfirmation />} />
-            <Route path="/orders/:orderId" element={<OrderDetal />} />
+            <Route path="/orders/:orderId" element={<OrderDetail />} />
             <Route path="/about" element={<About />} />
             <Route path="/password-reset" element={<PasswordResetRequest />} />
             <Route path="/reset-password" element={<PasswordResetConfirm />} />
-            <Route path="/profile" element={<UserProfile />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </div>
         <Footer />

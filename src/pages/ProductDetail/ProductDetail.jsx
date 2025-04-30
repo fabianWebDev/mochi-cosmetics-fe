@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { cartService } from '../services/cartService';
+import { cartService } from '../../services/cartService';
 import { toast } from 'react-toastify';
-import { productService } from '../services/productService';
-import { MEDIA_BASE_URL } from '../constants'
+import { productService } from '../../services/productService';
+import { MEDIA_BASE_URL } from '../../constants'
 import classes from './ProductDetail.module.css'
 
 const ProductDetail = () => {

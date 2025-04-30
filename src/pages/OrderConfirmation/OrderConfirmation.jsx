@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { authService } from '../services/authService';
-import { orderService } from '../services/orderService';
+import { authService } from '../../services/authService';
+import { orderService } from '../../services/orderService';
 import styles from './OrderConfirmation.module.css';
 
 const OrderHeader = ({ orderId }) => (

@@ -1,9 +1,9 @@
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { cartService } from "../services/cartService";
-import useProducts from "../hooks/useProducts";
-import useProductFilters from "../hooks/useProductFilters";
-import { UI, Layout } from '../components';
+import { cartService } from "../../services/cartService";
+import useProducts from "../../hooks/useProducts";
+import useProductFilters from "../../hooks/useProductFilters";
+import { UI, Layout } from '../../components';
 const { Common: { Pagination }, Product: { ProductList } } = UI;
 const { SideBar } = Layout;
 import { useState } from "react";

@@ -1,5 +1,5 @@
-import { useLogin } from '../hooks/useLogin';
-import { Auth } from '../components';
+import { useLogin } from '../../hooks/useLogin';
+import { Auth } from '../../components';
 const { LoginForm } = Auth;
 import { useState } from 'react';
 

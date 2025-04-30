@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import useForm from '../hooks/useForm';
-import { Auth } from '../components';
-import { API_BASE_URL } from '../constants';
+import useForm from '../../hooks/useForm';
+import { Auth } from '../../components';
+import { API_BASE_URL } from '../../constants';
 const { RegisterForm } = Auth;
 
 const Register = () => {

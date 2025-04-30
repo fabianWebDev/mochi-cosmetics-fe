@@ -1,8 +1,8 @@
 import React from 'react';
-import { UI, Checkout } from '../components';
+import { UI, Checkout } from '../../components';
 const { Common: { ProgressBar } } = UI;
 const { ShippingInfo, OrderSummary, PaymentMethod } = Checkout;
-import { useCheckout } from '../hooks/useCheckout';
+import { useCheckout } from '../../hooks/useCheckout';
 
 const CheckoutPage = () => {
     const {

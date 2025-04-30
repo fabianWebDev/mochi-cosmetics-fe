@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { authService } from '../services/authService';
-import { orderService } from '../services/orderService';
+import { authService } from '../../services/authService';
+import { orderService } from '../../services/orderService';
 import styles from './Orders.module.css';
 
 const Orders = () => {

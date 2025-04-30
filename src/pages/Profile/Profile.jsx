@@ -1,10 +1,10 @@
-import classes from '../components/profile/ProfileForm.module.css';
-import { useProfileData } from '../hooks/useProfileData';
-import { useProfileForm } from '../hooks/useProfileForm';
-import ProfileView from '../components/profile/ProfileView';
-import ProfileEditForm from '../components/profile/ProfileEditForm';
+import classes from '../../components/profile/ProfileForm.module.css';
+import { useProfileData } from '../../hooks/useProfileData';
+import { useProfileForm } from '../../hooks/useProfileForm';
+import ProfileView from '../../components/profile/ProfileView';
+import ProfileEditForm from '../../components/profile/ProfileEditForm';
 
-const ProfileForm = () => {
+const Profile = () => {
     const { profileData, setProfileData, isLoading, error: fetchError, fetchUserData } = useProfileData();
     const {
         error: formError,
@@ -47,4 +47,4 @@ const ProfileForm = () => {
     );
 };
 
-export default ProfileForm; 
+export default Profile; 
