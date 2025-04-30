@@ -17,7 +17,7 @@ import About from './pages/About'
 import OrderDetal from './pages/OrderDetal'
 import { PasswordResetRequest } from './components/auth/passwordReset'
 import { PasswordResetConfirm } from './components/auth/passwordReset'
-import ProfileForm from './components/profile/ProfileForm'
+import UserProfile from './pages/UserProfile'
 
 function App() {
   return (
@@ -40,7 +40,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/password-reset" element={<PasswordResetRequest />} />
             <Route path="/reset-password" element={<PasswordResetConfirm />} />
-            <Route path="/profile" element={<ProfileForm />} />
+            <Route path="/profile" element={<UserProfile />} />
           </Routes>
         </div>
         <Footer />

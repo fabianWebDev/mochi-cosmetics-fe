@@ -60,7 +60,7 @@ const Orders = () => {
   return (
     <div className="row justify-content-center mt-3">
       <div className={`${styles.orders_container} col-12 col-md-8 col-lg-8 col-xl-8`}>
-        <h1 className={`${styles.orders_title} custom_h1 mb-3`}>My Orders</h1>
+        <h1 className={`${styles.orders_title} custom_h1 mb-3`}>Order History</h1>
         <table className={styles.table_container}>
           <thead className={styles.table_header}>
             <tr>
