@@ -46,4 +46,10 @@
 
 .dropdown_item:hover {
     background-color: #f3f4f6;
-} 
+}
+
+@media (max-width: 768px) {
+    .dropdown_menu {
+        display: none;
+    }
+}
