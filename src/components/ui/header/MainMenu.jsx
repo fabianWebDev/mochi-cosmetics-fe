@@ -5,6 +5,7 @@ import { productService } from '../../../services/productService';
 import Logout from './Logout';
 import CartIconWithCount from '../cart/CartIconWithCount';
 import useAuth from '../../../hooks/useAuth';
+import UserIcon from './UserIcon';
 
 const MainMenu = () => {
     const [categories, setCategories] = useState([]);
@@ -104,6 +105,7 @@ const MainMenu = () => {
             </nav>
             <div className={classes.cart_icon_container}>
                 <CartIconWithCount />
+                <UserIcon className={classes.user_icon} />
             </div>
         </div>
     );
