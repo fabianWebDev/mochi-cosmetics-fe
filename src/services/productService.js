@@ -50,5 +50,22 @@ export const productService = {
         } catch (error) {
             throw error;
         }
+    },
+
+    async getLatestProducts(limit = 3) {
+        try {
+            const response = await axiosInstance.get('/products/latest/', {
+                params: { limit }
+            });
+            return response.data;
+        } catch (error) {
+            if (error.response?.status === 401) {
+                const response = await axiosInstance.get('/products/latest/public/', {
+                    params: { limit }
+                });
+                return response.data;
+            }
+            throw error;
+        }
     }
 }; 
