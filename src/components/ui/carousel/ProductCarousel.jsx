@@ -12,7 +12,7 @@ const ProductCarousel = () => {
     const [addingToCart, setAddingToCart] = useState({});
 
     const handleViewDetails = (productId) => {
-        // Implementar la lógica para ver detalles del producto
+        // TODO: Implementar la lógica para ver detalles del producto
         console.log('Viewing product:', productId);
     };
 
