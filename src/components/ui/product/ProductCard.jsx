@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './ProductCard.module.css';
+import Button from '../common/Button';
 
 const Card = ({ name, description, image, price, stock, onAddToCart, onClick, isAdding }) => {
   const handleAddToCart = () => {
@@ -24,13 +25,12 @@ const Card = ({ name, description, image, price, stock, onAddToCart, onClick, is
           <p className={classes.stock}>Stock: <span className={classes.stock_span}>{stock}</span></p>
         </div>
         <div className={`${classes.product_card_button_container} mt-3`}>
-          <button
+          <Button
             onClick={handleAddToCart}
             disabled={stock === 0 || isAdding}
-            className={`${classes.product_card_button} ${stock === 0 ? classes.product_card_button_disabled : ''}`}
           >
             {stock === 0 ? 'Out of stock' : isAdding ? 'Adding...' : 'Add to cart'}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

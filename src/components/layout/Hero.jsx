@@ -1,4 +1,5 @@
 import classes from "./Hero.module.css";
+import Button from "../ui/common/Button";
 
 const Hero = () => {
     return (
@@ -9,9 +10,9 @@ const Hero = () => {
             <div className="row mt-3">
                 <div className="col"></div>
                 <div className={`${classes.hero_button_container} col-md-6`}>
-                    <button className={classes.hero_button}>
+                    <Button>
                         See more
-                    </button>
+                    </Button>
                 </div>
             </div>
         </div>
