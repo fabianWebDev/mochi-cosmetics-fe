@@ -6,15 +6,14 @@ import ProductSlider from './ProductSlider';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { cartService } from '../../../services/cartService';
+import { useNavigate } from 'react-router-dom';
 
 const ProductCarousel = () => {
     const { products, loading, error } = useLatestProducts();
     const [addingToCart, setAddingToCart] = useState({});
+    const navigate = useNavigate();
 
-    const handleViewDetails = (productId) => {
-        // TODO: Implementar la lógica para ver detalles del producto
-        console.log('Viewing product:', productId);
-    };
+    const handleViewDetails = (productId) => navigate(`/product/${productId}`);
 
     const handleAddToCart = async (product) => {
         if (addingToCart[product.id]) return;
@@ -25,9 +24,9 @@ const ProductCarousel = () => {
             await cartService.addToCart(product.id, 1);
             toast.success(
                 <div>
-                    Producto agregado al carrito!
+                    {product.name} added to cart!
                     <Link to="/cart" style={{ marginLeft: "5px", color: "#007bff" }}>
-                        Ir al carrito
+                        Go to cart
                     </Link>
                 </div>
             );
@@ -35,8 +34,8 @@ const ProductCarousel = () => {
             await new Promise(resolve => setTimeout(resolve, 1500));
         } catch (error) {
             const message = error.response?.data?.error === "Not enough stock available"
-                ? "Lo sentimos, este producto está agotado"
-                : "Error al agregar el producto al carrito";
+                ? "Sorry, this product is out of stock"
+                : "Error adding product to cart";
             toast.dismiss();
             toast.error(message);
         } finally {
@@ -53,9 +52,9 @@ const ProductCarousel = () => {
     }
 
     return (
-        <div className="w-full max-w-7xl mx-auto px-4 py-8">
-            <h2 className="text-2xl font-bold mb-6 text-center">Latest Products</h2>
-            <ProductSlider 
+        <div className="mt-3">
+            <h2 className="text-center custom_h1 mb-3">Latest Products</h2>
+            <ProductSlider
                 products={products}
                 onViewDetails={handleViewDetails}
                 onAddToCart={handleAddToCart}

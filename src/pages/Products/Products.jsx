@@ -35,9 +35,9 @@ const Products = () => {
             await cartService.addToCart(product.id, 1);
             toast.success(
                 <div>
-                    Producto agregado al carrito!
+                    {product.name} added to cart!
                     <Link to="/cart" style={{ marginLeft: "5px", color: "#007bff" }}>
-                        Ir al carrito
+                        Go to cart
                     </Link>
                 </div>
             );
@@ -45,8 +45,8 @@ const Products = () => {
             await new Promise(resolve => setTimeout(resolve, 1500));
         } catch (error) {
             const message = error.response?.data?.error === "Not enough stock available"
-                ? "Lo sentimos, este producto está agotado"
-                : "Error al agregar el producto al carrito";
+                ? "Sorry, this product is out of stock"
+                : "Error adding product to cart";
             toast.dismiss();
             toast.error(message);
         } finally {
@@ -54,7 +54,7 @@ const Products = () => {
         }
     };
 
-    if (loading) return <div className="mt-4">Cargando...</div>;
+    if (loading) return <div className="mt-4">Loading...</div>;
     if (error) return <div className="mt-4">{error}</div>;
 
     return (
