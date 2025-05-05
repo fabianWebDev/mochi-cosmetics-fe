@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { authService } from '../../services/authService';
 import { orderService } from '../../services/orderService';
 import styles from './OrderConfirmation.module.css';
+import Button from '../../components/ui/common/Button';
 
 const OrderHeader = ({ orderId }) => (
     <div className={styles.order_header}>
@@ -78,10 +79,10 @@ const OrderItems = ({ items }) => (
 const ActionButtons = () => (
     <div className={`${styles.action_buttons} mt-3`}>
         <Link to="/products" className={styles.continue_button}>
-            Continue Shopping
+            <Button>Continue Shopping</Button>
         </Link>
         <Link to="/orders" className={styles.view_orders_button}>
-            View All Orders
+            <Button>View All Orders</Button>
         </Link>
     </div>
 );

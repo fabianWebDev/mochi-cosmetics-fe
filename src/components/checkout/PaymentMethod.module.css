@@ -6,9 +6,7 @@
 }
 
 .payment_method h3 {
-    color: var(--primary-color);
-    font-size: var(--font-size-large);
-    font-weight: 600;
+    font-size: var(--font-size-xlarge);
     margin-bottom: 24px;
 }
 
@@ -18,7 +16,6 @@
 
 .payment_info p {
     font-size: var(--font-size-base);
-    color: var(--secondary-color);
     line-height: 1.6;
 }
 
@@ -44,21 +41,3 @@
     background-color: var(--secondary-color);
     color: #ffffff;
 }
-
-.place_order_button {
-    flex: 1;
-    background-color: var(--primary-color);
-    color: #ffffff;
-    border: none;
-    border-radius: 8px;
-    padding: 12px;
-    font-size: var(--font-size-base);
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.1s ease;
-    border-bottom: 2px solid var(--highlight-btn-color);
-}
-
-.place_order_button:hover {
-    background-color: var(--highlight-color);
-} 

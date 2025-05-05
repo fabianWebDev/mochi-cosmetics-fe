@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { productService } from '../../services/productService';
 import { MEDIA_BASE_URL } from '../../constants'
 import classes from './ProductDetail.module.css'
+import Button from '../../components/ui/common/Button';
 
 const ProductDetail = () => {
     const { id } = useParams();
@@ -69,7 +70,7 @@ const ProductDetail = () => {
                 <img src={`${MEDIA_BASE_URL}${product.image}`} alt={product.name} className="img-fluid" />
             </div>
             <div className={`${classes.product_info} col-md-4`}>
-                <h1>{product.name}</h1>
+                <h1 className="custom_h1 mb-3">{product.name}</h1>
                 <p>{product.description}</p>
             </div>
             <div className={`col-md-2`}>
@@ -95,13 +96,12 @@ const ProductDetail = () => {
                             +
                         </button>
                     </div>
-                    <button
+                    <Button
                         onClick={handleAddToCart}
                         disabled={product.stock === 0 || isAddingToCart}
-                        className={`${classes.add_to_cart_button} ${product.stock === 0 ? classes.product_card_button_disabled : ''}`}
                     >
                         {product.stock === 0 ? 'Out of stock' : isAddingToCart ? 'Adding...' : 'Add to cart'}
-                    </button>
+                    </Button>
                     <p className="text-center">
                         <span className={`${classes.product_stock}`}>Stock: {product.stock}</span>
                     </p>

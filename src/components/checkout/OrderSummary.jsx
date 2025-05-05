@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './OrderSummary.module.css';
+import Button from '../ui/common/Button';
 
 const OrderSummary = ({ cart, onBack, onNext }) => {
     const calculateTotal = () => {
@@ -14,8 +15,8 @@ const OrderSummary = ({ cart, onBack, onNext }) => {
             <div className={classes.order_items}>
                 {cart?.items.map((item) => (
                     <div key={item.product.id} className={classes.order_item}>
-                        <span className={classes.item_name}>{item.product.name} x {item.quantity}</span>
-                        <span className={classes.item_price}>${(item.product.price * item.quantity).toFixed(2)}</span>
+                        <span>{item.product.name} x {item.quantity}</span>
+                        <span>${(item.product.price * item.quantity).toFixed(2)}</span>
                     </div>
                 ))}
             </div>
@@ -24,8 +25,8 @@ const OrderSummary = ({ cart, onBack, onNext }) => {
                 <span className={classes.total_amount}>${calculateTotal().toFixed(2)}</span>
             </div>
             <div className={classes.button_group}>
-                <button onClick={onBack} className={classes.back_button}>Back</button>
-                <button onClick={onNext} className={classes.next_button}>Next</button>
+                <Button onClick={onBack}>Back</Button>
+                <Button onClick={onNext}>Next</Button>
             </div>
         </div>
     );

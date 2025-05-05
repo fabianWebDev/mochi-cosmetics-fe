@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './PaymentMethod.module.css';
+import Button from '../ui/common/Button';
 
 const PaymentMethod = ({ onBack, onSubmit }) => {
     return (
@@ -9,8 +10,8 @@ const PaymentMethod = ({ onBack, onSubmit }) => {
                 <p>Currently, the only payment method available is SINPE Móvil.</p>
             </div>
             <div className={classes.button_group}>
-                <button onClick={onBack} className={classes.back_button}>Back</button>
-                <button onClick={onSubmit} className={classes.place_order_button}>Place Order</button>
+                <Button onClick={onBack}>Back</Button>
+                <Button onClick={onSubmit}>Place Order</Button>
             </div>
         </div>
     );

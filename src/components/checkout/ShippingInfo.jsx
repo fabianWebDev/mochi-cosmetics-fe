@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './ShippingInfo.module.css';
+import Button from '../ui/common/Button';
 
 const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
     return (
@@ -14,7 +15,7 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
                         name="full_name"
                         value={shippingInfo.full_name}
                         onChange={onInputChange}
-                        required={!shippingInfo.pickup}
+                        required={true}
                         placeholder="Full Name"
                     />
                 </div>
@@ -94,7 +95,7 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
                     <label htmlFor="pickup" className={classes.checkbox_label}>Pick up in store</label>
                 </div>
                 <div className={classes.button_container}>
-                    <button type="submit" className={classes.next_button}>Next</button>
+                    <Button type="submit">Next</Button>
                 </div>
             </form>
         </div>

@@ -5,9 +5,12 @@
     border: 1px solid var(--tertiary-color);
 }
 
-.order_items {
-    margin-bottom: 16px;
+.order_summary h3 {
+    font-size: var(--font-size-xlarge);
+    margin-bottom: 24px;
 }
+
+.order_items {}
 
 .order_item {
     display: flex;
@@ -21,40 +24,25 @@
     border-bottom: none;
 }
 
-.item_name {
-    font-size: var(--font-size-base);
-    color: var(--secondary-color);
-}
-
-.item_price {
-    font-size: var(--font-size-base);
-    font-weight: 600;
-}
-
 .total {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 16px 0;
-    border-top: 2px solid var(--tertiary-color);
-    margin-top: 16px;
+    border-top: 1px solid var(--tertiary-color);
 }
 
 .total_label {
-    font-size: var(--font-size-base);
-    font-weight: 600;
+    font-size: var(--font-size-large);
 }
 
 .total_amount {
     font-size: var(--font-size-large);
-    font-weight: 600;
-    color: var(--primary-color);
 }
 
 .button_group {
     display: flex;
-    gap: 16px;
-    margin-top: 24px;
+    gap: 8px;
 }
 
 .back_button {
@@ -74,21 +62,3 @@
     background-color: var(--secondary-color);
     color: #ffffff;
 }
-
-.next_button {
-    flex: 1;
-    background-color: var(--primary-color);
-    color: #ffffff;
-    border: none;
-    border-radius: 8px;
-    padding: 12px;
-    font-size: var(--font-size-base);
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.1s ease;
-    border-bottom: 2px solid var(--highlight-btn-color);
-}
-
-.next_button:hover {
-    background-color: var(--highlight-color);
-} 

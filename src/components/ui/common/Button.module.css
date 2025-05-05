@@ -10,13 +10,11 @@
     font-size: var(--font-size-base);
     cursor: pointer;
     font-weight: bold;
-    border-bottom: 2px solid var(--highlight-btn-color);
     transition: all 0.1s ease;
 }
 
 .button:hover {
     background-color: var(--highlight-color);
-    border-bottom: 2px solid var(--highlight-btn-color);
 }
 
 .button:disabled {

@@ -1,12 +1,16 @@
 import React from 'react';
-import classes from './CartSummary.module.css';
+import Button from '../ui/common/Button';
 
 const CartSummary = ({ total, onCheckout, isAuthenticated }) => (
     <div className="d-flex justify-content-between align-items-center mt-2">
-        <h4>Total: ${total.toFixed(2)}</h4>
-        <button className={`${classes.cart_summary_button}`} onClick={onCheckout}>
-            {isAuthenticated ? 'Proceed to Checkout' : 'Sign in to Checkout'}
-        </button>
+        <div className="d-flex flex-column">
+            <h4>Total: ${total.toFixed(2)}</h4>
+        </div>
+        <div className="d-flex flex-column">
+            <Button onClick={onCheckout}>
+                {isAuthenticated ? 'Proceed to Checkout' : 'Sign in to Checkout'}
+            </Button>
+        </div>
     </div>
 );
 
