@@ -3,28 +3,25 @@ import classes from './ProductCard.module.css';
 
 const Card = ({ name, description, image, price, stock, onAddToCart, onClick, isAdding }) => {
   const handleAddToCart = () => {
-    if (typeof onAddToCart === 'function') {
-      onAddToCart();
-    } else {
-      console.error('onAddToCart no es una función');
-    }
+    onAddToCart();
   };
 
   return (
     <div className={classes.product_card_container}>
-      <div className={classes.product_card_image_container} onClick={onClick}>
+      <div className={classes.product_card_image_container}>
         <img
           src={image}
           alt={name}
           className={classes.product_card_image}
+          onClick={onClick}
         />
       </div>
       <div className={`${classes.product_card_details} mt-2`}>
         <h3 className={classes.product_card_name} onClick={onClick}>{name}</h3>
         <p className={classes.product_card_description}>{description}</p>
         <div className={`${classes.product_card_price_stock}`}>
-          <p>${price}</p>
-          <p>Stock: <span>{stock}</span></p>
+          <p className={classes.product_card_price}>${price}</p>
+          <p className={classes.stock}>Stock: <span className={classes.stock_span}>{stock}</span></p>
         </div>
         <div className={`${classes.product_card_button_container} mt-3`}>
           <button

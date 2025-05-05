@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { cartService } from '../../../services/cartService';
 import { useNavigate } from 'react-router-dom';
+import classes from './ProductCarousel.module.css';
 
 const ProductCarousel = () => {
     const { products, loading, error } = useLatestProducts();
@@ -52,8 +53,8 @@ const ProductCarousel = () => {
     }
 
     return (
-        <div className="mt-3">
-            <h2 className="text-center custom_h1 mb-3">Latest Products</h2>
+        <div className={`${classes.carousel_container} mt-3`}>
+            <h2 className="custom_h1 mb-3">Latest Products</h2>
             <ProductSlider
                 products={products}
                 onViewDetails={handleViewDetails}

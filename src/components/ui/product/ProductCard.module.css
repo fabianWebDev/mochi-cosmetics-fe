@@ -96,3 +96,19 @@
     background-color: var(--secondary-color);
     border-bottom: none;
 }
+
+.stock {
+    font-size: var(--font-size-small);
+    font-weight: 400;
+    background-color: var(--tertiary-color);
+    padding: 2px 8px;
+    border-radius: 8px;
+}
+
+.product_card_price {
+    font-size: var(--font-size-base);
+}
+
+.stock_span {
+    font-size: var(--font-size-small);
+}   

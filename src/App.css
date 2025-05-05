@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Creepster&family=UnifrakturMaguntia&display=swap');
+
 :root {
   --font-size-xlarge: 2rem;
   --font-size-large: 1.5rem;
@@ -9,9 +11,9 @@
   --tertiary-color: #efeded;
   --highlight-color: #772baa;
   --highlight-btn-color: #3b0e57;
-  --toastify-icon-color-success: #5a1588!important; 
-  --toastify-icon-color-error: #ff1744;  
-  --toastify-icon-color-info: #00b0ff;   
+  --toastify-icon-color-success: #5a1588 !important;
+  --toastify-icon-color-error: #ff1744;
+  --toastify-icon-color-info: #00b0ff;
 }
 
 .custom_h1 {
@@ -29,7 +31,7 @@
 }
 
 .Toastify__toast--custom {
-  background: #efeded ;
-  width: auto!important;
-  font-size: var(--font-size-small)!important;
+  background: #efeded;
+  width: auto !important;
+  font-size: var(--font-size-small) !important;
 }
