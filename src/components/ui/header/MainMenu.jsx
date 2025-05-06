@@ -6,6 +6,7 @@ import Logout from './Logout';
 import CartIconWithCount from '../cart/CartIconWithCount';
 import useAuth from '../../../hooks/useAuth';
 import UserIcon from './UserIcon';
+import { FaChevronDown } from 'react-icons/fa';
 
 const MainMenu = () => {
     const [categories, setCategories] = useState([]);
@@ -74,6 +75,7 @@ const MainMenu = () => {
                             onClick={handleLinkClick}
                         >
                             Products
+                            <FaChevronDown className={`${classes.arrow_icon} ${showSubMenu ? classes.arrow_icon_rotated : ''}`} />
                         </Link>
                         {showSubMenu && (
                             <div className={`${classes.sub_menu}`}>

@@ -8,6 +8,7 @@
     align-items: center;
     gap: 36px;
     margin: 0 auto;
+    font-weight: bold;
 }
 
 .sub_menu {
@@ -16,7 +17,7 @@
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 8px;
-    padding: 0px 8px;
+    padding: 4px 8px;
     min-width: 200px;
 }
 
@@ -27,7 +28,7 @@
 
 .nav_item {
     text-decoration: none;
-    color: #000000;
+    color: #000;
     font-size: var(--font-size-base);
     letter-spacing: 0.05em;
 }
@@ -60,6 +61,17 @@
 
 .cart_icon_container {
     display: none;
+}
+
+.arrow_icon {
+    margin-left: 4px;
+    font-size: 0.8em;
+    transition: transform 0.3s ease;
+    font-weight: normal;
+}
+
+.arrow_icon_rotated {
+    transform: rotate(180deg);
 }
 
 @media (max-width: 768px) {
@@ -110,6 +122,10 @@
     .user_icon {
         font-size: 24px;
         color: var(--primary-color);
+    }
+
+    .arrow_icon {
+        display: none;
     }
 
 }
