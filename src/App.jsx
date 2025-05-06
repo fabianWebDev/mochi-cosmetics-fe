@@ -15,8 +15,8 @@ import { AuthProvider } from './context/AuthContext'
 const { Navbar, Footer } = Layout
 import About from './pages/About/About'
 import OrderDetail from './pages/OrderDetail/OrderDetail'
-import { PasswordResetRequest } from './components/auth/passwordReset'
-import { PasswordResetConfirm } from './components/auth/passwordReset'
+import PasswordResetRequestPage from './pages/PasswordReset/PasswordResetRequestPage'
+import PasswordResetConfirmPage from './pages/PasswordReset/PasswordResetComfirmPage'
 import Profile from './pages/Profile/Profile'
 
 function App() {
@@ -38,8 +38,8 @@ function App() {
             <Route path="/order-confirmation/:orderId" element={<OrderConfirmation />} />
             <Route path="/orders/:orderId" element={<OrderDetail />} />
             <Route path="/about" element={<About />} />
-            <Route path="/password-reset" element={<PasswordResetRequest />} />
-            <Route path="/reset-password" element={<PasswordResetConfirm />} />
+            <Route path="/password-reset" element={<PasswordResetRequestPage />} />
+            <Route path="/reset-password" element={<PasswordResetConfirmPage />} />
             <Route path="/profile" element={<Profile />} />
           </Routes>
         </div>

@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { Button, TextField, Box, Typography, Container } from '@mui/material';
 import { API_BASE_URL } from '../../../constants';
+import classes from './PasswordResetRequest.module.css';
+import Button from '../../ui/common/Button';
 
 const PasswordResetRequest = () => {
   const [email, setEmail] = useState('');
@@ -30,50 +31,39 @@ const PasswordResetRequest = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
+
+    <form onSubmit={handleSubmit} className={`${classes.password_reset_form} col-md-8`}>
+      <h1 className="custom_h1 mb-3">Reset Password</h1>
+      <div className={classes.form_group}>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          autoComplete="email"
+          autoFocus
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className={classes.input_field}
+          placeholder="Email"
+          disabled={loading}
+        />
+      </div>
+      <Button
+        type="submit"
+        disabled={loading}
+        className="mb-2"
       >
-        <Typography component="h1" variant="h5">
-          Reset Password
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            disabled={loading}
-          >
-            {loading ? 'Sending...' : 'Send Reset Link'}
-          </Button>
-          <Button
-            fullWidth
-            variant="text"
-            onClick={() => navigate('/login')}
-          >
-            Back to Login
-          </Button>
-        </Box>
-      </Box>
-    </Container>
+        {loading ? 'Sending...' : 'Send Reset Link'}
+      </Button>
+      <Button
+        type="button"
+        onClick={() => navigate('/login')}
+        variant="secondary"
+      >
+        Back to Login
+      </Button>
+    </form>
   );
 };
 
