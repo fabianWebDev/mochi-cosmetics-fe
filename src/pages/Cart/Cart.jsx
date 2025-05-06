@@ -19,10 +19,12 @@ const CartPage = () => {
 
     if (!cart || !cart.items || cart.items.length === 0) {
         return (
-            <div className="mt-4">
-                <h1 className="mb-4">Shopping Cart</h1>
-                <div className="alert alert-info">
-                    Your cart is empty. <Link to="/products" className="alert-link">Continue shopping</Link>
+            <div className="row mt-3 justify-content-center">
+                <div className="col-md-8">
+                    <h1 className="mb-3 custom_h1">Shopping Cart</h1>
+                    <div className="alert alert-info">
+                        Your cart is empty. <Link to="/products" className="alert-link">Continue shopping</Link>
+                    </div>
                 </div>
             </div>
         );
