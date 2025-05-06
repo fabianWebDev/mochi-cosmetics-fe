@@ -82,7 +82,7 @@ const ActionButtons = () => (
             <Button>Continue Shopping</Button>
         </Link>
         <Link to="/orders" className={styles.view_orders_button}>
-            <Button>View All Orders</Button>
+            <Button variant="secondary">View All Orders</Button>
         </Link>
     </div>
 );

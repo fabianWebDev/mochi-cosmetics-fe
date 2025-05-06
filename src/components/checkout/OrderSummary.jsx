@@ -22,7 +22,7 @@ const OrderSummary = ({ cart, onBack, onNext }) => {
             </div>
             <div className={classes.total}>
                 <span className={classes.total_label}>Total</span>
-                <span className={classes.total_amount}>${calculateTotal().toFixed(2)}</span>
+                <span className={classes.total_amount}>₡{calculateTotal().toFixed(2)}</span>
             </div>
             <div className={classes.button_group}>
                 <Button onClick={onBack} variant="secondary">Back</Button>
