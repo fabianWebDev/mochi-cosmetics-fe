@@ -76,6 +76,11 @@ export const authService = {
         return !!(token && user);
     },
 
+    isAdmin() {
+        const user = this.getUser();
+        return user?.is_admin;
+    },
+
     getToken() {
         return localStorage.getItem(STORAGE_KEYS.TOKEN);
     },
