@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import classes from './RegisterForm.module.css';
+import Button from '../../ui/common/Button';
 
 const RegisterForm = ({ formData, onChange, onSubmit, error }) => {
     return (
         <form onSubmit={onSubmit} className={`${classes.register_form} col-md-8`}>
-            <h1 className={classes.register_form_title}>Create new account</h1>
+            <h1 className="custom_h1 mb-3">Create new account</h1>
             {error && <div className={classes.error_message}>{error}</div>}
 
             <div className={classes.form_group}>
@@ -72,9 +73,9 @@ const RegisterForm = ({ formData, onChange, onSubmit, error }) => {
                 />
             </div>
 
-            <button type="submit" className={classes.register_button}>
+            <Button type="submit">
                 Register
-            </button>
+            </Button>
             <p className={classes.register_button_container}>Already have an account? <Link to="/login" className={classes.login_button}>Login</Link></p>
         </form>
     );

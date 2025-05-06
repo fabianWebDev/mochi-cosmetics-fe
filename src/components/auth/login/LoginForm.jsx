@@ -1,14 +1,14 @@
 import { useNavigate, Link } from 'react-router-dom';
 import classes from './LoginForm.module.css';
-
+import Button from '../../ui/common/Button';
 
 const LoginForm = ({ formData, onChange, onSubmit, loading, error }) => {
     const navigate = useNavigate();
 
     return (
         <form onSubmit={onSubmit} className={`${classes.login_form} col-md-8`}>
-            <h1 className={classes.login_form_title}>Sign in</h1>
-            {error && <div className="error-message">{error}</div>}
+            <h1 className="custom_h1 mb-3">Sign in</h1>
+            {error && <div className={classes.error_message}>{error}</div>}
             <div className={classes.form_group}>
                 <input
                     type="email"
@@ -35,9 +35,9 @@ const LoginForm = ({ formData, onChange, onSubmit, loading, error }) => {
                     className={classes.input_field}
                 />
             </div>
-            <button type="submit" className={classes.login_button} disabled={loading}>
+            <Button type="submit" disabled={loading} className={classes.login_button}>
                 {loading ? 'Logging in...' : 'Login'}
-            </button>
+            </Button>
             <div className={classes.forgot_password_container}>
                 <Link to="/password-reset" className={classes.forgot_password_link}>
                     Forgot your password?

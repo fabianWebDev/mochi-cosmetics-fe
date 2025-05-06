@@ -4,14 +4,6 @@
     flex-direction: column;
 }
 
-.register_form_title {
-    text-align: start;
-    margin-bottom: 16px;
-    color: #333;
-    font-size: var(--font-size-xlarge);
-    font-weight: bold;
-}
-
 .form_group {
     margin-bottom: 8px;
 }
