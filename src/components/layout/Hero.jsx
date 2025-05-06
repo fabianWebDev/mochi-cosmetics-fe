@@ -1,6 +1,6 @@
 import classes from "./Hero.module.css";
 import Button from "../ui/common/Button";
-
+import { Link } from "react-router-dom";
 const Hero = () => {
     return (
         <div className={`${classes.hero_container} mt-4`}>
@@ -10,9 +10,11 @@ const Hero = () => {
             <div className="row mt-3">
                 <div className="col"></div>
                 <div className={`${classes.hero_button_container} col-md-6`}>
-                    <Button>
-                        See more
-                    </Button>
+                    <Link to="/products">
+                        <Button>
+                            See more
+                        </Button>
+                    </Link>
                 </div>
             </div>
         </div>

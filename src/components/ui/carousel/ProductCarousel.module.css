@@ -5,3 +5,7 @@
     flex-direction: column;
     justify-content: center;
 }
+
+.carousel_container h2 {
+    font-size: var(--font-size-xlarge);
+}

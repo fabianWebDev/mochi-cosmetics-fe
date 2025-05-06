@@ -9,6 +9,7 @@
     border: 1px solid var(--tertiary-color);
     width: 100%;
     transition: all 0.1s ease;
+    cursor: pointer;
 }
 
 .search_input:focus {
@@ -33,4 +34,4 @@
 
 .search_button:hover {
     color: var(--highlight-color);
-} 
+}
