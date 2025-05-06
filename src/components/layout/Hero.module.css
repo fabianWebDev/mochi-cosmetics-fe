@@ -18,7 +18,6 @@
     font-weight: bold;
     color: #ffffff;
     text-align: start;
-    padding: ;
 }
 
 .hero_button_container {
@@ -28,17 +27,12 @@
     align-items: center;
 }
 
-.hero_button {
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    background-color: var(--primary-color);
-    color: #ffffff;
-    border: none;
-    border-radius: 8px;
-    padding: 8px;
-    font-size: var(--font-size-large);
-    cursor: pointer;
-    font-weight: bold;
-    border-bottom: 2px solid var(--highlight-btn-color);
+@media (max-width: 768px) {
+    .hero_container {
+        height: 35vh;
+    }
+
+    .hero_title {
+        font-size: 24px;
+    }
 }

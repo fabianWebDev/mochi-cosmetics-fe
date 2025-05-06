@@ -5,7 +5,7 @@ const Hero = () => {
     return (
         <div className={`${classes.hero_container} mt-4`}>
             <div className="row">
-                <h1 className={classes.hero_title}>Enter the Shadows of Minas Morgul — Where Darkness Deals the Cards.</h1>
+                <h1 className={classes.hero_title}>Minas Morgul Cards — Where Legends Linger in Shadow, and Power Lies in Every Draw.</h1>
             </div>
             <div className="row mt-3">
                 <div className="col"></div>

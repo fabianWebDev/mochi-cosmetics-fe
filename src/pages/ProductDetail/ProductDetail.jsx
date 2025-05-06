@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { cartService } from '../../services/cartService';
 import { toast } from 'react-toastify';
 import { productService } from '../../services/productService';
@@ -41,19 +41,26 @@ const ProductDetail = () => {
         if (isAddingToCart) return;
 
         setIsAddingToCart(true);
+        toast.dismiss();
         try {
             await cartService.addToCart(product.id, quantity);
-            toast.dismiss();
-            toast.success('Producto agregado al carrito!');
+            toast.success(
+                <div>
+                    {product.name} added to cart!
+                    <Link to="/cart" style={{ marginLeft: "5px", color: "#007bff" }}>
+                        Go to cart
+                    </Link>
+                </div>
+            );
             setQuantity(1); // Reset quantity after adding to cart
-            // Wait 1 second before allowing another addition
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            // Wait 1.5 seconds before allowing another addition
+            await new Promise(resolve => setTimeout(resolve, 1500));
         } catch (error) {
-            if (error.response?.data?.error === 'Not enough stock available') {
-                toast.error('Lo sentimos, este producto está agotado');
-            } else {
-                toast.error('Error al agregar el producto al carrito');
-            }
+            const message = error.response?.data?.error === "Not enough stock available"
+                ? "Sorry, this product is out of stock"
+                : "Error adding product to cart";
+            toast.dismiss();
+            toast.error(message);
             console.error('Error adding to cart:', error);
         } finally {
             setIsAddingToCart(false);

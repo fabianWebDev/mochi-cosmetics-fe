@@ -4,7 +4,7 @@ import Card from '../product/ProductCard';
 import { MEDIA_BASE_URL } from '../../../constants';
 import { carouselSettings } from './carouselSettings';
 
-const ProductSlider = ({ products, onViewDetails, onAddToCart }) => {
+const ProductSlider = ({ products, onViewDetails, onAddToCart, addingToCart }) => {
     return (
         <Slider {...carouselSettings}>
             {products.map((product) => (
@@ -16,7 +16,8 @@ const ProductSlider = ({ products, onViewDetails, onAddToCart }) => {
                         price={product.price}
                         stock={product.stock}
                         onClick={() => onViewDetails(product.id)}
-                        onAddToCart={() => onAddToCart(product)} 
+                        onAddToCart={() => onAddToCart(product)}
+                        isAdding={addingToCart[product.id]}
                     />
                 </div>
             ))}
