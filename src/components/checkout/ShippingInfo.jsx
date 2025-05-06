@@ -95,7 +95,7 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
                     <label htmlFor="pickup" className={classes.checkbox_label}>Pick up in store</label>
                 </div>
                 <div className={classes.button_container}>
-                    <Button type="submit">Next</Button>
+                    <Button type="submit">Order Summary</Button>
                 </div>
             </form>
         </div>

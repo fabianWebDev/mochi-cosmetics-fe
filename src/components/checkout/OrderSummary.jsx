@@ -25,8 +25,8 @@ const OrderSummary = ({ cart, onBack, onNext }) => {
                 <span className={classes.total_amount}>${calculateTotal().toFixed(2)}</span>
             </div>
             <div className={classes.button_group}>
-                <Button onClick={onBack}>Back</Button>
-                <Button onClick={onNext}>Next</Button>
+                <Button onClick={onBack} variant="secondary">Back</Button>
+                <Button onClick={onNext}>Payment Method</Button>
             </div>
         </div>
     );

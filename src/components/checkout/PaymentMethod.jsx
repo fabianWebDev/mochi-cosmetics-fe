@@ -10,7 +10,7 @@ const PaymentMethod = ({ onBack, onSubmit }) => {
                 <p>Currently, the only payment method available is SINPE Móvil.</p>
             </div>
             <div className={classes.button_group}>
-                <Button onClick={onBack}>Back</Button>
+                <Button onClick={onBack} variant="secondary">Back</Button>
                 <Button onClick={onSubmit}>Place Order</Button>
             </div>
         </div>
