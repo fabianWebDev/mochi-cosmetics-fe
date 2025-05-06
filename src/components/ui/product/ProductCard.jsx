@@ -24,7 +24,7 @@ const Card = ({ name, description, image, price, stock, onAddToCart, onClick, is
           <p className={classes.product_card_price}>${price}</p>
           <p className={classes.stock}>Stock: <span className={classes.stock_span}>{stock}</span></p>
         </div>
-        <div className={`${classes.product_card_button_container} mt-3`}>
+        <div className={`${classes.product_card_button_container} mt-2`}>
           <Button
             onClick={handleAddToCart}
             disabled={stock === 0 || isAdding}
