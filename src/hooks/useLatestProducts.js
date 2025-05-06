@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { productService } from '../services/productService';
 
-export const useLatestProducts = (limit = 3) => {
+export const useLatestProducts = (limit = 4) => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);

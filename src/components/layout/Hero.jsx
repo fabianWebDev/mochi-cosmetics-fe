@@ -3,7 +3,7 @@ import Button from "../ui/common/Button";
 import { Link } from "react-router-dom";
 const Hero = () => {
     return (
-        <div className={`${classes.hero_container} mt-4`}>
+        <div className={`${classes.hero_container} mt-3`}>
             <div className="row">
                 <h1 className={classes.hero_title}>Minas Morgul Cards — Where Legends Linger in Shadow, and Power Lies in Every Draw.</h1>
             </div>

@@ -16,9 +16,11 @@
     z-index: 1000;
     background-color: white;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
     padding: 4px 8px;
     min-width: 200px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .sub_menu_item {

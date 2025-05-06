@@ -181,21 +181,24 @@ class CartService {
                 // Intentar limpiar el carrito en el backend
                 const cart = this.loadCartFromLocalStorage();
                 for (const item of cart.items) {
-                    await this.removeFromCart(item.product.id);
+                    if (item.cartItemId) {
+                        try {
+                            await this.removeFromCart(item.product.id);
+                        } catch (error) {
+                            console.warn(`Failed to remove item ${item.product.id} from backend:`, error);
+                            // Continue with next item even if one fails
+                        }
+                    }
                 }
-            } else {
-                // Limpiar localStorage
-                localStorage.removeItem(STORAGE_KEYS.CART);
-                this.cart = { items: [] };
             }
+            // Always clear local storage regardless of backend status
+            localStorage.removeItem(STORAGE_KEYS.CART);
+            this.cart = { items: [] };
         } catch (error) {
-            if (error.response?.status === 401) {
-                // Si falla la autenticación, limpiar localStorage
-                localStorage.removeItem(STORAGE_KEYS.CART);
-                this.cart = { items: [] };
-            } else {
-                throw error;
-            }
+            console.error('Error clearing cart:', error);
+            // Even if there's an error, clear the local cart
+            localStorage.removeItem(STORAGE_KEYS.CART);
+            this.cart = { items: [] };
         }
     }
 
