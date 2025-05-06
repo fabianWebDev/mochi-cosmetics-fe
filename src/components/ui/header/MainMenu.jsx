@@ -68,7 +68,11 @@ const MainMenu = () => {
                         onMouseEnter={() => setShowSubMenu(true)}
                         onMouseLeave={() => setShowSubMenu(false)}
                     >
-                        <Link to="/products" className={classes.nav_item} onClick={handleLinkClick}>
+                        <Link
+                            to="/products"
+                            className={`${classes.nav_item} ${showSubMenu ? classes.sub_menu_x : ''}`}
+                            onClick={handleLinkClick}
+                        >
                             Products
                         </Link>
                         {showSubMenu && (

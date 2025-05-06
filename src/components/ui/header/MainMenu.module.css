@@ -1,5 +1,4 @@
 .main_menu {
-    margin: 8px 0;
     padding: 0;
     position: relative;
 }
@@ -17,13 +16,13 @@
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 8px;
-    padding: 8px;
+    padding: 0px 8px;
     min-width: 200px;
 }
 
 .sub_menu_item {
     display: block;
-    padding: 8px 0;
+    padding: 2px 0;
 }
 
 .nav_item {
@@ -34,7 +33,7 @@
 }
 
 .nav_item:hover {
-    color: #5a1588;
+    color: var(--primary-color);
 }
 
 .sub_menu_container {
