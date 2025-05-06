@@ -4,6 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import classes from './PasswordResetConfirm.module.css';
 import { API_BASE_URL } from '../../../constants';
+import Button from '../../ui/common/Button';
 
 const PasswordResetConfirm = () => {
     const [formData, setFormData] = useState({
@@ -69,8 +70,8 @@ const PasswordResetConfirm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className={classes.reset_form}>
-            <h1 className={classes.reset_form_title}>Reset Password</h1>
+        <form onSubmit={handleSubmit} className={`${classes.reset_form} col-md-8`}>
+            <h1 className="custom_h1 mb-3">Reset Password</h1>
             {error && <div className={classes.error_message}>{error}</div>}
             <div className={classes.form_group}>
                 <input
@@ -98,16 +99,20 @@ const PasswordResetConfirm = () => {
                     className={classes.input_field}
                 />
             </div>
-            <button type="submit" className={classes.reset_button} disabled={loading}>
+            <Button
+                type="submit"
+                disabled={loading}
+                className="mb-2"
+            >
                 {loading ? 'Resetting...' : 'Reset Password'}
-            </button>
-            <button
+            </Button>
+            <Button
                 type="button"
-                className={classes.back_button}
                 onClick={() => navigate('/login')}
+                variant="secondary"
             >
                 Back to Login
-            </button>
+            </Button>
         </form>
     );
 };

@@ -1,8 +1,8 @@
 import classes from './Button.module.css';
 
-const Button = ({ children, onClick, className, disabled }) => {
+const Button = ({ children, onClick, className, disabled, variant }) => {
     return (
-        <button onClick={onClick} className={`${classes.button} ${className}`} disabled={disabled}>
+        <button onClick={onClick} className={`${className} ${variant === 'secondary' ? classes.button_secondary : classes.button}`} disabled={disabled}>
             {children}
         </button>
     );
