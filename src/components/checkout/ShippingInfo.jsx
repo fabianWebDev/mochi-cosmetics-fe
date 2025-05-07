@@ -5,7 +5,7 @@ import Button from '../ui/common/Button';
 const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
     return (
         <div className={classes.shipping_info}>
-            <h3>Shipping Information</h3>
+            <h1 className="custom_h1 mb-3">Shipping Information</h1>
             <form onSubmit={onSubmit}>
                 <div className={classes.form_group}>
                     <input
@@ -94,7 +94,7 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
                     />
                     <label htmlFor="pickup" className={classes.checkbox_label}>Pick up in store</label>
                 </div>
-                <div className={classes.button_container}>
+                <div className={`${classes.button_container} mt-2`}>
                     <Button type="submit">Order Summary</Button>
                 </div>
             </form>

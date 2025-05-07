@@ -1,22 +1,8 @@
 .payment_method {
-    padding: 24px;
+    padding: 16px 24px;
     background-color: #ffffff;
     border-radius: 8px;
     border: 1px solid var(--tertiary-color);
-}
-
-.payment_method h3 {
-    font-size: var(--font-size-xlarge);
-    margin-bottom: 24px;
-}
-
-.payment_info {
-    margin-bottom: 24px;
-}
-
-.payment_info p {
-    font-size: var(--font-size-base);
-    line-height: 1.6;
 }
 
 .button_group {

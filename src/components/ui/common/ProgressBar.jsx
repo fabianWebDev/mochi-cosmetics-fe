@@ -5,7 +5,7 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
     const percentage = (currentStep / totalSteps) * 100;
 
     return (
-        <div className="progress mb-4">
+        <div className="progress mb-3">
             <div 
                 className={classes.progress_bar} 
                 role="progressbar" 

@@ -19,7 +19,7 @@ const CheckoutPage = () => {
     if (loading) return <div className="mt-4">Loading...</div>;
 
     return (
-        <div className="mt-4">
+        <div className="mt-3">
             <div className="row justify-content-center">
                 <div className="col-12 col-md-8 col-lg-8 col-xl-8">
                     <ProgressBar currentStep={currentStep} totalSteps={3} />
