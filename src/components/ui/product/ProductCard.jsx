@@ -13,7 +13,7 @@ const Card = ({ name, description, image, price, stock, onAddToCart, onClick, is
         <img
           src={image}
           alt={name}
-          className={classes.product_card_image}
+          className={`${classes.product_card_image} ${stock === 0 ? classes.product_card_image_disabled : ''}`}
           onClick={onClick}
         />
       </div>

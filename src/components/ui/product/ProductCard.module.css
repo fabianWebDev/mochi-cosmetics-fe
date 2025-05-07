@@ -21,6 +21,15 @@
     transition: transform 0.1s ease;
 }
 
+.product_card_image_disabled {
+    opacity: 0.5;
+}
+
+.product_card_image_disabled:hover {
+    transform: none;
+    transition: transform 0.1s ease;
+}
+
 .product_card_details {
     background-color: transparent;
     padding: 16px;
