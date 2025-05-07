@@ -1,5 +1,6 @@
 import axiosInstance from './axios';
 import { STORAGE_KEYS } from '../constants';
+import { toast } from 'react-toastify';
 
 export const authService = {
     async login(credentials) {
@@ -50,6 +51,8 @@ export const authService = {
             const refreshToken = this.getRefreshToken();
             if (refreshToken) {
                 await axiosInstance.post('/users/logout/', { refresh: refreshToken });
+                toast.dismiss();
+                toast.success('Successfully logged out!');
             }
         } catch (error) {
             console.error('Error during logout:', error);
