@@ -60,7 +60,11 @@ const MainMenu = () => {
                     <span className={classes.hamburger_line}></span>
                     <span className={classes.hamburger_line}></span>
                 </button>
+
                 <div className={`${classes.nav_items} ${isMobileMenuOpen ? classes.nav_items_open : ''}`}>
+                    <Link to="/" className={classes.nav_item} onClick={handleLinkClick}>
+                        Home
+                    </Link>
                     <Link to="/products?search=mtg" className={classes.nav_item} onClick={handleLinkClick}>
                         Magic The Gathering
                     </Link>
@@ -94,9 +98,6 @@ const MainMenu = () => {
                     </div>
                     <Link to="/contact" className={classes.nav_item} onClick={handleLinkClick}>
                         Contact
-                    </Link>
-                    <Link to="/about" className={classes.nav_item} onClick={handleLinkClick}>
-                        About
                     </Link>
                     {isMobileMenuOpen && (
                         isAuthenticated ? (

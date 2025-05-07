@@ -41,3 +41,32 @@
     margin-bottom: 16px;
     justify-content: start !important;
 }
+
+.radio_label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: var(--font-size-small);
+    color: var(--text-color);
+}
+
+.radio_group {
+    display: flex;
+    gap: 8px;
+}
+
+.radio_option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: var(--font-size-small);
+}
+
+.radio_option input[type="radio"] {
+    cursor: pointer;
+    accent-color: var(--primary-color);
+}
+
+.mb_none {
+    margin-bottom: 0 !important;
+}
