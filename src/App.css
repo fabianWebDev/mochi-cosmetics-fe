@@ -39,3 +39,11 @@
 .smooth-col {
   transition: width 0.3s ease;
 }
+
+.custom_p {
+  font-size: var(--font-size-small);
+}
+
+.text_decoration_none {
+  text-decoration: none;
+}

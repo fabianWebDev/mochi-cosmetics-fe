@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { API_BASE_URL } from '../../../constants';
 import classes from './PasswordResetRequest.module.css';
 import Button from '../../ui/common/Button';
+import { Link } from 'react-router-dom';
 
 const PasswordResetRequest = () => {
   const [email, setEmail] = useState('');
@@ -33,6 +34,7 @@ const PasswordResetRequest = () => {
   return (
     <form onSubmit={handleSubmit} className={`${classes.password_reset_form}`}>
       <h1 className="custom_h1 mb-3">Reset Password</h1>
+      <p className="mb-2 custom_p">Enter your email address and a password reset link will be sent to you.</p>
       <div className={classes.form_group}>
         <input
           type="email"
@@ -51,17 +53,12 @@ const PasswordResetRequest = () => {
       <Button
         type="submit"
         disabled={loading}
-        className="mb-2"
       >
         {loading ? 'Sending...' : 'Send Reset Link'}
       </Button>
-      <Button
-        type="button"
-        onClick={() => navigate('/login')}
-        variant="secondary"
-      >
-        Back to Login
-      </Button>
+      <div className="text-center">
+        <Link to="/login" className="text_decoration_none custom_p">Back to Login</Link>
+      </div>
     </form>
   );
 };
