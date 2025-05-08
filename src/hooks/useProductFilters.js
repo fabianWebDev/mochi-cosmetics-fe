@@ -5,7 +5,7 @@ const useProductFilters = (products) => {
     const [showInStockOnly, setShowInStockOnly] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalProducts, setTotalProducts] = useState(0);
-    const productsPerPage = 9;
+    const productsPerPage = 6;
 
     const sortedProducts = () => {
         let filteredProducts = [...products];
