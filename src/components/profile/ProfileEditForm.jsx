@@ -1,5 +1,5 @@
 import classes from './ProfileForm.module.css';
-
+import Button from '../ui/common/Button';
 const ProfileEditForm = ({ profileData, onChange, onSubmit, onCancel }) => {
     return (
         <form onSubmit={onSubmit} className={`${classes.profile_form}`}>
@@ -64,16 +64,16 @@ const ProfileEditForm = ({ profileData, onChange, onSubmit, onCancel }) => {
             </div>
 
             <div className={classes.button_group}>
-                <button type="submit" className={classes.save_button}>
+                <Button type="submit" variant="secondary">
                     Save Changes
-                </button>
-                <button
+                </Button>
+                <Button
                     type="button"
                     onClick={onCancel}
-                    className={`${classes.cancel_button} btn btn-danger`}
+                    className={classes.cancel_button}
                 >
                     Cancel
-                </button>
+                </Button>
             </div>
         </form>
     );

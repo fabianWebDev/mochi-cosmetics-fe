@@ -70,7 +70,7 @@ const PasswordResetConfirm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className={`${classes.reset_form} col-md-8`}>
+        <form onSubmit={handleSubmit} className={`${classes.reset_form}`}>
             <h1 className="custom_h1 mb-3">Reset Password</h1>
             {error && <div className={classes.error_message}>{error}</div>}
             <div className={classes.form_group}>

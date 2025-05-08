@@ -8,8 +8,7 @@
 .profile_info {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    padding: 0 8px;
+    gap: 2px;
 }
 
 .info_row {

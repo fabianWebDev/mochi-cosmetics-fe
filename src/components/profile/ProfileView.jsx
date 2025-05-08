@@ -1,5 +1,7 @@
 import classes from './ProfileForm.module.css';
 import { Link } from 'react-router-dom';
+import Button from '../ui/common/Button';
+
 const ProfileView = ({ profileData, onEditClick }) => {
     return (
         <div className={classes.profile_view}>
@@ -19,14 +21,14 @@ const ProfileView = ({ profileData, onEditClick }) => {
                 <div className={classes.info_row}>
                     <Link to="/orders" className={classes.info_value}>Order History</Link>
                 </div>
-                <div className={classes.info_row}>
-                    <button
-                        type="button"
-                        onClick={onEditClick}
-                        className={`${classes.edit_button}`}
-                    >
-                        Edit Profile
-                    </button>
+                <div className="row">
+                    <div className="col-6 col-md-6 col-lg-4 col-xl-2 smooth-col">
+                        <Button
+                            onClick={onEditClick}
+                        >
+                            Edit Profile
+                        </Button>
+                    </div>
                 </div>
             </div>
         </div>

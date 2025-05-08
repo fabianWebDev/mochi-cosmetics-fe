@@ -31,8 +31,7 @@ const PasswordResetRequest = () => {
   };
 
   return (
-
-    <form onSubmit={handleSubmit} className={`${classes.password_reset_form} col-md-8`}>
+    <form onSubmit={handleSubmit} className={`${classes.password_reset_form}`}>
       <h1 className="custom_h1 mb-3">Reset Password</h1>
       <div className={classes.form_group}>
         <input

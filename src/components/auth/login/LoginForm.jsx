@@ -6,7 +6,7 @@ const LoginForm = ({ formData, onChange, onSubmit, loading, error }) => {
     const navigate = useNavigate();
 
     return (
-        <form onSubmit={onSubmit} className={`${classes.login_form} col-md-8`}>
+        <form onSubmit={onSubmit} className={`${classes.login_form}`}>
             <h1 className="custom_h1 mb-3">Sign in</h1>
             {error && <div className={classes.error_message}>{error}</div>}
             <div className={classes.form_group}>

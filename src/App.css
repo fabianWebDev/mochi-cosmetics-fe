@@ -35,3 +35,7 @@
   width: auto !important;
   font-size: var(--font-size-small) !important;
 }
+
+.smooth-col {
+  transition: width 0.3s ease;
+}
