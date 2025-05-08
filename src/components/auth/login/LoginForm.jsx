@@ -38,12 +38,12 @@ const LoginForm = ({ formData, onChange, onSubmit, loading, error }) => {
             <Button type="submit" disabled={loading} className={classes.login_button}>
                 {loading ? 'Logging in...' : 'Login'}
             </Button>
-            <div className={classes.forgot_password_container}>
+            <div className={`${classes.forgot_password_container}`} >
                 <Link to="/password-reset" className={classes.forgot_password_link}>
                     Forgot your password?
                 </Link>
             </div>
-            <p className={classes.register_button_container}>Don't have an account yet? <Link to="/register" className={classes.register_button}>Register</Link></p>
+            <p className={`${classes.register_button_container}`}>Don't have an account yet? <Link to="/register" className={classes.register_button}>Register</Link></p>
         </form>
     );
 };

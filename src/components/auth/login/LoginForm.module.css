@@ -50,10 +50,7 @@
     font-size: var(--font-size-small);
 }
 
-.forgot_password_container {
-    text-align: right;
-    margin-bottom: 16px;
-}
+
 
 .forgot_password_link {
     color: var(--primary-color);
