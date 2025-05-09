@@ -6,7 +6,7 @@
   --font-size-base: 1rem;
   --font-size-small: 14px;
   --font-size-xsmall: 12px;
-  --primary-color: #8426c5;
+  --primary-color: #5a1588;
   --secondary-color: #9F9F9F;
   --tertiary-color: #efeded;
   --highlight-color: #772baa;
@@ -14,6 +14,13 @@
   --toastify-icon-color-success: #5a1588 !important;
   --toastify-icon-color-error: #ff1744;
   --toastify-icon-color-info: #00b0ff;
+  --background-color: #F5F5F5;
+  --white-background-color: #FAFAFA;
+
+}
+
+body {
+  background-color: var(--background-color) !important;
 }
 
 .custom_h1 {

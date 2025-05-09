@@ -8,6 +8,7 @@
     /* background: radial-gradient(circle at center, #5a1588 0%, #3e0d5c 50%, #1f052f 100%); */
     background: linear-gradient(135deg, #5a1588 0%, #8426c5 40%, #b347f5 75%, #d08cfb 100%);
     /* background: linear-gradient(315deg, #5a1588 0%, #3e0d5c 50%, #1f052f 100%); */
+    /* background: var(--gradient-soft-pink); */
 }
 
 .footer_row {
@@ -82,3 +83,4 @@
         justify-content: center;
     }
 }
+

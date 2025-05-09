@@ -17,7 +17,7 @@ const Card = ({ name, description, image, price, stock, onAddToCart, onClick, is
           onClick={onClick}
         />
       </div>
-      <div className={`${classes.product_card_details} mt-2`}>
+      <div className={`${classes.product_card_details}`}>
         <h3 className={classes.product_card_name} onClick={onClick}>{name}</h3>
         <p className={classes.product_card_description}>{description}</p>
         <div className={`${classes.product_card_price_stock}`}>
