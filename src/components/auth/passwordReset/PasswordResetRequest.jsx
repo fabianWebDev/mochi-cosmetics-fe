@@ -6,6 +6,7 @@ import { API_BASE_URL } from '../../../constants';
 import classes from './PasswordResetRequest.module.css';
 import Button from '../../ui/common/Button';
 import { Link } from 'react-router-dom';
+import Input from '../../ui/common/Input';
 
 const PasswordResetRequest = () => {
   const [email, setEmail] = useState('');
@@ -35,21 +36,19 @@ const PasswordResetRequest = () => {
     <form onSubmit={handleSubmit} className={`${classes.password_reset_form}`}>
       <h1 className="custom_h1 mb-3">Reset Password</h1>
       <p className="mb-2 custom_p">Enter your email address and a password reset link will be sent to you.</p>
-      <div className={classes.form_group}>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          required
-          autoComplete="email"
-          autoFocus
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className={classes.input_field}
-          placeholder="Email"
-          disabled={loading}
-        />
-      </div>
+      <Input
+        label=""
+        type="email"
+        id="email"
+        name="email"
+        required
+        autoComplete="email"
+        autoFocus
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Email"
+        disabled={loading}
+      />
       <Button
         type="submit"
         disabled={loading}

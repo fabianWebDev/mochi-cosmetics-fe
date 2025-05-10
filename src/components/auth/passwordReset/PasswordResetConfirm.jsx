@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 import classes from './PasswordResetConfirm.module.css';
 import { API_BASE_URL } from '../../../constants';
 import Button from '../../ui/common/Button';
+import Input from '../../ui/common/Input';
+import { Link } from 'react-router-dom';
 
 const PasswordResetConfirm = () => {
     const [formData, setFormData] = useState({
@@ -73,46 +75,39 @@ const PasswordResetConfirm = () => {
         <form onSubmit={handleSubmit} className={`${classes.reset_form}`}>
             <h1 className="custom_h1 mb-3">Reset Password</h1>
             {error && <div className={classes.error_message}>{error}</div>}
-            <div className={classes.form_group}>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                    disabled={loading}
-                    placeholder="New Password"
-                    className={classes.input_field}
-                />
-            </div>
-            <div className={classes.form_group}>
-                <input
-                    type="password"
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    required
-                    disabled={loading}
-                    placeholder="Confirm New Password"
-                    className={classes.input_field}
-                />
-            </div>
+            <Input
+                label=""
+                type="password"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                disabled={loading}
+                placeholder="New Password"
+                className={classes.input_field}
+            />
+            <Input
+                label=""
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                required
+                disabled={loading}
+                placeholder="Confirm New Password"
+                className={classes.input_field}
+            />
             <Button
                 type="submit"
                 disabled={loading}
-                className="mb-2"
             >
                 {loading ? 'Resetting...' : 'Reset Password'}
             </Button>
-            <Button
-                type="button"
-                onClick={() => navigate('/login')}
-                variant="secondary"
-            >
-                Back to Login
-            </Button>
+            <div className="text-center">
+                <Link to="/login" className="text_decoration_none custom_p">Back to Login</Link>
+            </div>
         </form>
     );
 };
