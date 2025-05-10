@@ -31,16 +31,14 @@ body {
 
 .custom_h2 {
   font-size: var(--font-size-large);
-  font-weight: bold;
 }
 
 .custom_h3 {
   font-size: var(--font-size-base);
-  font-weight: bold;
 }
 
 .Toastify__toast--custom {
-  background: #efeded;
+  background: var(--tertiary-color);
   width: auto !important;
   font-size: var(--font-size-small) !important;
 }
