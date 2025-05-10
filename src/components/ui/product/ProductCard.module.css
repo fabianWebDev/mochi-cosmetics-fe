@@ -81,7 +81,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #ffffff;
+    background-color: var(--white-background-color);
     padding: 8px;
     font-size: var(--font-size-small);
     border-bottom: 0px solid var(--secondary-color);

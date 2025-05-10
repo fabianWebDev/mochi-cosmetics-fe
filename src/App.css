@@ -8,15 +8,17 @@
   --font-size-xsmall: 12px;
   --primary-color: #5a1588;
   --secondary-color: #9F9F9F;
-  --tertiary-color: #efeded;
-  --highlight-color: #772baa;
+  --tertiary-color: #ECECEC;
+  --highlight-color: #8426c5;
   --highlight-btn-color: #3b0e57;
   --toastify-icon-color-success: #5a1588 !important;
   --toastify-icon-color-error: #ff1744;
   --toastify-icon-color-info: #00b0ff;
   --background-color: #F5F5F5;
   --white-background-color: #FAFAFA;
-
+  --gradient-soft-pink: linear-gradient(135deg, #5a1588 0%, #8426c5 40%, #b347f5 75%, #d08cfb 100%);
+  --gradient-soft-pink-2: linear-gradient(315deg, #5a1588 0%, #3e0d5c 50%, #1f052f 100%);
+  --gradient-soft-pink-3: linear-gradient(135deg, #1f052f 0%, #3e0d5c 50%, #5a1588 100%);
 }
 
 body {

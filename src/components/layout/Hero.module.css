@@ -27,6 +27,18 @@
     align-items: center;
 }
 
+
+@media (max-width: 1440px) {
+    .hero_container {
+        height: 40vh;
+    }
+
+    .hero_title {
+        font-size: 32px;
+    }
+
+}
+
 @media (max-width: 768px) {
     .hero_container {
         height: 35vh;
