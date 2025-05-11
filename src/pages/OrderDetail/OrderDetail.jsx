@@ -3,11 +3,19 @@ import { useParams } from 'react-router-dom';
 import { orderService } from '../../services/orderService';
 import styles from './OrderDetail.module.css';
 
+// Import modular components
+import OrderInfo from '../../components/orders/OrderInfo';
+import OrderProducts from '../../components/orders/OrderProducts';
+import CancelOrderModal from '../../components/orders/CancelOrderModal';
+import LoadingState from '../../components/orders/LoadingState';
+import NotFoundState from '../../components/orders/NotFoundState';
+
 const OrderDetail = () => {
     const { orderId } = useParams();
     const [orderDetails, setOrderDetails] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [showCancelModal, setShowCancelModal] = useState(false);
 
     useEffect(() => {
         const fetchOrderDetails = async () => {
@@ -34,13 +42,14 @@ const OrderDetail = () => {
                     'increase'
                 );
             }
-            
+
             // Then cancel the order
             await orderService.cancelOrder(orderId);
-            
+
             // Refresh order details after cancellation
             const updatedOrder = await orderService.getOrderById(orderId);
             setOrderDetails(updatedOrder);
+            setShowCancelModal(false);
         } catch (error) {
             console.error('Error canceling order:', error);
             setError('Error canceling order');
@@ -48,27 +57,11 @@ const OrderDetail = () => {
     };
 
     if (loading) {
-        return (
-            <div className="row justify-content-center mt-3">
-                <div className="col-12 col-md-8 col-lg-8 col-xl-8">
-                    <div className={styles.loading_container}>
-                        <h6 className={styles.loading_text}>Loading order details...</h6>
-                    </div>
-                </div>
-            </div>
-        );
+        return <LoadingState />;
     }
 
     if (!orderDetails) {
-        return (
-            <div className="row justify-content-center mt-3">
-                <div className="col-12 col-md-8 col-lg-8 col-xl-8">
-                    <div className={styles.not_found_container}>
-                        <h6>Order not found.</h6>
-                    </div>
-                </div>
-            </div>
-        );
+        return <NotFoundState />;
     }
 
     const canCancelOrder = orderDetails.status === 'pending';
@@ -84,39 +77,19 @@ const OrderDetail = () => {
                         {error}
                     </div>
                 )}
-                <div className={styles.order_info_container}>
-                    <p className={styles.order_info_item}>
-                        <span className={styles.order_info_label}>Status:</span>
-                        {orderDetails.status}
-                    </p>
-                    <p className={styles.order_info_item}>
-                        <span className={styles.order_info_label}>Total:</span>
-                        ${orderDetails.total_price}
-                    </p>
-                    <p className={styles.order_info_item}>
-                        <span className={styles.order_info_label}>Date:</span>
-                        {new Date(orderDetails.created_at).toLocaleDateString()}
-                    </p>
-                    {canCancelOrder && (
-                        <button 
-                            className="btn btn-danger"
-                            onClick={handleCancelOrder}
-                        >
-                            Cancel Order
-                        </button>
-                    )}
-                    <h6 className={`${styles.order_info_label} mt-2`}>
-                        Products:
-                    </h6>
-                    <ul className={styles.products_list}>
-                        {orderDetails.items.map((item) => (
-                            <li key={item.product} className={styles.product_item}>
-                                {item.product_name} - Quantity: {item.quantity}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                <OrderInfo
+                    orderDetails={orderDetails}
+                    onCancelClick={() => setShowCancelModal(true)}
+                    canCancelOrder={canCancelOrder}
+                />
+                <OrderProducts items={orderDetails.items} />
             </div>
+
+            <CancelOrderModal
+                show={showCancelModal}
+                onClose={() => setShowCancelModal(false)}
+                onConfirm={handleCancelOrder}
+            />
         </div>
     );
 };
