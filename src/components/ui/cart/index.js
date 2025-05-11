@@ -1,2 +1,2 @@
-export { default as CartIcon } from './CartIcon';
-export { default as CartIconWithCount } from './CartIconWithCount'; 
+export { default as CartIcon } from '../../cart/CartIcon';
+export { default as CartIconWithCount } from '../../cart/CartIconWithCount'; 

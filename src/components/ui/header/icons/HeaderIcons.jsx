@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import UserIcon from '../user/UserIcon';
 import classes from './HeaderIcons.module.css';
 import Logout from '../user/Logout';
-import CartIconWithCount from '../../cart/CartIconWithCount';
+import CartIconWithCount from '../../../cart/CartIconWithCount';
 import useAuth from '../../../../hooks/useAuth';
 
 const HeaderIcons = () => {

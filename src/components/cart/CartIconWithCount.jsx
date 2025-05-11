@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiShoppingCart } from "react-icons/fi";
-import { cartService } from '../../../services/cartService';
-import { eventService } from '../../../services/eventService';
+import { cartService } from '../../services/cartService';
+import { eventService } from '../../services/eventService';
 import classes from './CartIcon.module.css';
 import classes2 from './CartIconWithCount.module.css';
 
