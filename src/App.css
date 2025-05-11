@@ -19,6 +19,7 @@
   --gradient-soft-pink: linear-gradient(135deg, #5a1588 0%, #8426c5 40%, #b347f5 75%, #d08cfb 100%);
   --gradient-soft-pink-2: linear-gradient(315deg, #5a1588 0%, #3e0d5c 50%, #1f052f 100%);
   --gradient-soft-pink-3: linear-gradient(135deg, #1f052f 0%, #3e0d5c 50%, #5a1588 100%);
+  --soft-charcoal: #4F4F4F;
 }
 
 body {
@@ -49,6 +50,11 @@ body {
 
 .custom_p {
   font-size: var(--font-size-small);
+  color: var(--soft-charcoal);
+}
+
+.box_padding {
+  padding: 0px 8px 0 8px;
 }
 
 .text_decoration_none {

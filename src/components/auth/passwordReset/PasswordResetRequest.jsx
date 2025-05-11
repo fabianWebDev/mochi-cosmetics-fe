@@ -56,7 +56,7 @@ const PasswordResetRequest = () => {
         {loading ? 'Sending...' : 'Send Reset Link'}
       </Button>
       <div className="text-center">
-        <Link to="/login" className="text_decoration_none custom_p">Back to Login</Link>
+        <Link to="/login" className="custom_p">Back to Login</Link>
       </div>
     </form>
   );

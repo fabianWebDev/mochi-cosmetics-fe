@@ -13,26 +13,9 @@
     font-size: 0.9rem;
 }
 
-.login_button:hover {
-    background-color: var(--highlight-color);
-}
-
-.register_button {
-    text-decoration: none;
-}
-
-.login_form_title {
-    font-size: var(--font-size-xlarge);
-    font-weight: bold;
-    margin-bottom: 16px;
-    justify-content: start !important;
-}
-
 .register_button_container {
     font-size: var(--font-size-small);
 }
-
-
 
 .forgot_password_link {
     color: var(--primary-color);
