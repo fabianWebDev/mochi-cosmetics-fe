@@ -6,9 +6,9 @@
 
 .product_item {
     padding: 0.5rem 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--tertiary-color);
 }
 
 .order_info_label {
     font-weight: bold;
-} 
+}

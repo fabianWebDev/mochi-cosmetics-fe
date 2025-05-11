@@ -20,6 +20,8 @@
   --gradient-soft-pink-2: linear-gradient(315deg, #5a1588 0%, #3e0d5c 50%, #1f052f 100%);
   --gradient-soft-pink-3: linear-gradient(135deg, #1f052f 0%, #3e0d5c 50%, #5a1588 100%);
   --soft-charcoal: #4F4F4F;
+  --danger-red: #ef4444;
+  --danger-red-hover: #dc2626;
 }
 
 body {

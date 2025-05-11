@@ -1,5 +1,5 @@
 .order_info_container {
-    margin-bottom: 1rem;
+    padding:0px 24px;
 }
 
 .order_info_item {
@@ -9,4 +9,12 @@
 .order_info_label {
     font-weight: bold;
     margin-right: 0.5rem;
-} 
+}
+
+.order_cancel_button {
+    background-color: var(--danger-red);
+}
+
+.order_cancel_button:hover {
+    background-color: var(--danger-red-hover);
+}
