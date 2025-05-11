@@ -19,5 +19,5 @@
 }
 
 .cart_icon:hover .cart_count {
-    color: var(--highlight-color);
+    background-color: var(--highlight-color);
 }

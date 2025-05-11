@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { productService } from '../../../../services/productService';
 import Logout from '../user/Logout';
-import CartIconWithCount from '../../../cart/CartIconWithCount';
+import { CartIcon } from '../../../cart';
 import useAuth from '../../../../hooks/useAuth';
 import UserIcon from '../user/UserIcon';
 import { FaChevronDown } from 'react-icons/fa';
@@ -111,7 +111,10 @@ const MainMenu = () => {
                 </div>
             </nav>
             <div className={classes.cart_icon_container}>
-                <CartIconWithCount />
+                <CartIcon 
+                    useDynamicCount={true}
+                    linkToCart={true}
+                />
                 <UserIcon className={classes.user_icon} />
             </div>
         </div>
