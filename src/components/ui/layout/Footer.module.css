@@ -5,7 +5,6 @@
     flex-direction: column;
     align-items: center;
     margin-top: 2rem !important;
-    background: var(--gradient-soft-pink-3);
 }
 
 .footer_row {

@@ -60,3 +60,11 @@ body {
 .text_decoration_none {
   text-decoration: none;
 }
+
+.footer_background {
+  background: var(--gradient-soft-pink);
+}
+
+.text_small {
+  font-size: var(--font-size-small);
+}

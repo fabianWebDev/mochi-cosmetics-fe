@@ -5,7 +5,7 @@ import FooterSocial from '../footer/FooterSocial';
 
 const Footer = () => {
     return (
-        <footer className={classes.footer_container}>
+        <footer className={`${classes.footer_container} footer_background`}>
             <div className={`row ${classes.footer_row} gx-0 gy-4 mt-5`}>
                 <div className={`col-12 col-md-6 col-lg-3 ${classes.footer_col}`}>
                     <FooterMenu className={classes.footer_menu} />

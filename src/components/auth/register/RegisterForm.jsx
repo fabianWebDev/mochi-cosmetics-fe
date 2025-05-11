@@ -66,7 +66,7 @@ const RegisterForm = ({ formData, onChange, onSubmit, error }) => {
             <Button type="submit">
                 Register
             </Button>
-            <p className={classes.register_button_container}>Already have an account? <Link to="/login" className={classes.login_button}>Login</Link></p>
+            <p className="text_small">Already have an account? <Link to="/login" className={classes.login_button}>Login</Link></p>
         </form>
     );
 };
