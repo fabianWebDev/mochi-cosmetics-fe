@@ -1,5 +1,5 @@
 import classes from './Logout.module.css';
-import { authService } from '../../../services/authService';
+import { authService } from '../../../../services/authService';
 import { useNavigate } from 'react-router-dom';
 
 const Logout = () => {

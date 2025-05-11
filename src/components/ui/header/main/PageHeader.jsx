@@ -1,6 +1,6 @@
 import classes from './PageHeader.module.css';
-import HeaderLogo from './HeaderLogo';
-import HeaderIcons from './HeaderIcons';
+import HeaderLogo from '../logo/HeaderLogo';
+import HeaderIcons from '../icons/HeaderIcons';
 
 const PageHeader = () => {
 

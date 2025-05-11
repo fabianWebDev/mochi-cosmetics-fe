@@ -1,6 +1,6 @@
 import React from 'react';
 import Slider from 'react-slick';
-import Card from '../product/ProductCard';
+import Card from '../../product/ProductCard';
 import { MEDIA_BASE_URL } from '../../../constants';
 import { carouselSettings } from './carouselSettings';
 

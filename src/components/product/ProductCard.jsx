@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './ProductCard.module.css';
-import Button from '../common/Button';
+import Button from '../ui/common/Button';
 
 const Card = ({ name, description, image, price, stock, onAddToCart, onClick, isAdding }) => {
   const handleAddToCart = () => {

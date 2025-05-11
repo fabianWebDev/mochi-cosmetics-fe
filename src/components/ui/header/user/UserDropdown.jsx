@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import classes from './HeaderIcons.module.css';
-import { authService } from '../../../services/authService';
+import classes from './UserDropdown.module.css';
+import { authService } from '../../../../services/authService';
 
 const UserDropdown = () => {
     const navigate = useNavigate();

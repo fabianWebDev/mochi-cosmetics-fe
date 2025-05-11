@@ -1,7 +1,7 @@
-import FooterMenu from '../ui/footer/FooterMenu';
+import FooterMenu from '../footer/FooterMenu';
 import classes from './Footer.module.css';
-import FooterContactUs from '../ui/footer/FooterContactUs';
-import FooterSocial from '../ui/footer/FooterSocial';
+import FooterContactUs from '../footer/FooterContactUs';
+import FooterSocial from '../footer/FooterSocial';
 
 const Footer = () => {
     return (

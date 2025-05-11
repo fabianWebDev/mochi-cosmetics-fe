@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from './ProductCard';
-import { MEDIA_BASE_URL } from '../../../constants';
+import { MEDIA_BASE_URL } from '../../constants';
 
 const ProductList = ({ products, handleViewDetails, handleAddToCart, addingToCart }) => {
     return (

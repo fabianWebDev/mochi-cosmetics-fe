@@ -1,5 +1,5 @@
 import classes from "./Hero.module.css";
-import Button from "../ui/common/Button";
+import Button from "../common/Button";
 import { Link } from "react-router-dom";
 const Hero = () => {
     return (

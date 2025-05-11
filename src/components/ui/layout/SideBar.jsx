@@ -1,4 +1,4 @@
-import ProductFilter from '../ui/product/ProductFilter';
+import ProductFilter from '../../product/ProductFilter';
 
 const Sidebar = ({ onSortChange, onStockFilterChange, showInStockOnly }) => {
     return (

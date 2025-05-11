@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import UserIcon from './UserIcon';
+import UserIcon from '../user/UserIcon';
 import classes from './HeaderIcons.module.css';
-import Logout from './Logout';
-import CartIconWithCount from '../cart/CartIconWithCount';
-import useAuth from '../../../hooks/useAuth';
+import Logout from '../user/Logout';
+import CartIconWithCount from '../../cart/CartIconWithCount';
+import useAuth from '../../../../hooks/useAuth';
 
 const HeaderIcons = () => {
     const { isAuthenticated, getUser } = useAuth();

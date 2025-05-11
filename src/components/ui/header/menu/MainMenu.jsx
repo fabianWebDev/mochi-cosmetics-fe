@@ -1,11 +1,11 @@
 import classes from './MainMenu.module.css';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { productService } from '../../../services/productService';
-import Logout from './Logout';
-import CartIconWithCount from '../cart/CartIconWithCount';
-import useAuth from '../../../hooks/useAuth';
-import UserIcon from './UserIcon';
+import { productService } from '../../../../services/productService';
+import Logout from '../user/Logout';
+import CartIconWithCount from '../../cart/CartIconWithCount';
+import useAuth from '../../../../hooks/useAuth';
+import UserIcon from '../user/UserIcon';
 import { FaChevronDown } from 'react-icons/fa';
 
 const MainMenu = () => {
