@@ -1,6 +1,6 @@
 .shipping_info {
-    padding:16px 24px;
-    background-color: #ffffff;
+    padding: 16px 24px;
+    background-color: var(--white-background-color);
     border-radius: 8px;
     border: 1px solid var(--tertiary-color);
 }

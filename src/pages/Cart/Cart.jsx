@@ -20,7 +20,7 @@ const CartPage = () => {
     if (!cart || !cart.items || cart.items.length === 0) {
         return (
             <div className="row mt-3 justify-content-center">
-                <div className="col-md-8">
+                <div className="col-12 col-md-8 col-lg-8 col-xl-8">
                     <h1 className="mb-3 custom_h1">Shopping Cart</h1>
                     <div className="alert alert-info">
                         Your cart is empty. <Link to="/products" className="alert-link">Continue shopping</Link>
@@ -32,7 +32,7 @@ const CartPage = () => {
 
     return (
         <div className="row mt-3 justify-content-center">
-            <div className="col-md-8">
+            <div className="col-12 col-md-8 col-lg-8 col-xl-8">
                 <h1 className="mb-3 custom_h1">Shopping Cart</h1>
                 {!isAuthenticated && (
                     <div className="alert alert-warning">
@@ -40,24 +40,20 @@ const CartPage = () => {
                         Please <Link to="/login" className="alert-link">log in</Link> to save your cart and proceed with checkout.
                     </div>
                 )}
-                <div className="">
-                    <div className="">
-                        {cart.items.map(item => (
-                            <CartItem
-                                key={item.product.id}
-                                item={item}
-                                onUpdateQuantity={updateQuantity}
-                                onRemove={removeItem}
-                            />
-                        ))}
-                        <hr />
-                        <CartSummary
-                            total={calculateTotal()}
-                            onCheckout={handleCheckout}
-                            isAuthenticated={isAuthenticated}
-                        />
-                    </div>
-                </div>
+                {cart.items.map(item => (
+                    <CartItem
+                        key={item.product.id}
+                        item={item}
+                        onUpdateQuantity={updateQuantity}
+                        onRemove={removeItem}
+                    />
+                ))}
+                <hr />
+                <CartSummary
+                    total={calculateTotal()}
+                    onCheckout={handleCheckout}
+                    isAuthenticated={isAuthenticated}
+                />
             </div>
         </div>
     );

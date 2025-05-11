@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { orderService } from '../../services/orderService';
-import styles from './OrderDetail.module.css';
-
-// Import modular components
 import OrderInfo from '../../components/orders/OrderInfo';
-import OrderProducts from '../../components/orders/OrderProducts';
 import CancelOrderModal from '../../components/orders/CancelOrderModal';
 import LoadingState from '../../components/orders/LoadingState';
 import NotFoundState from '../../components/orders/NotFoundState';
@@ -68,10 +64,7 @@ const OrderDetail = () => {
 
     return (
         <div className="row justify-content-center mt-3">
-            <div className={`${styles.order_detail_container} col-12 col-md-8 col-lg-8 col-xl-8`}>
-                <h1 className={`${styles.order_detail_title} custom_h1 mb-3`}>
-                    Order Details - ID: {orderDetails.order_id}
-                </h1>
+            <div className={`col-12 col-md-8 col-lg-8 col-xl-8`}>
                 {error && (
                     <div className="alert alert-danger" role="alert">
                         {error}
@@ -82,9 +75,7 @@ const OrderDetail = () => {
                     onCancelClick={() => setShowCancelModal(true)}
                     canCancelOrder={canCancelOrder}
                 />
-                <OrderProducts items={orderDetails.items} />
             </div>
-
             <CancelOrderModal
                 show={showCancelModal}
                 onClose={() => setShowCancelModal(false)}
