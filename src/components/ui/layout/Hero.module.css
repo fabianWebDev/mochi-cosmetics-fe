@@ -7,7 +7,8 @@
     justify-content: center;
     border-radius: 8px;
     align-items: center;
-    background-image: url("src/assets/hero.jpg");
+    /* background-image: url("src/assets/hero.jpg"); */
+    background: var(--gradient-soft-pink);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
