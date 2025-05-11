@@ -1,0 +1,12 @@
+.order_info_container {
+    margin-bottom: 1rem;
+}
+
+.order_info_item {
+    margin-bottom: 0.5rem;
+}
+
+.order_info_label {
+    font-weight: bold;
+    margin-right: 0.5rem;
+} 
