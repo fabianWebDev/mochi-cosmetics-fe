@@ -19,12 +19,13 @@ const ProfileView = ({ profileData, onEditClick }) => {
                     <span className={classes.info_value}>{profileData.last_name}</span>
                 </div>
                 <div className={classes.info_row}>
-                    <Link to="/orders" className={classes.info_value}>Order History</Link>
+                    <Link to="/orders" className="text_decoration_none">Order History</Link>
                 </div>
                 <div className="row">
                     <div className="col-6 col-md-6 col-lg-4 col-xl-2 smooth-col">
                         <Button
                             onClick={onEditClick}
+                            variant="tertiary"
                         >
                             Edit Profile
                         </Button>

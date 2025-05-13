@@ -1,4 +1,6 @@
-.profile_container {}
+.profile_container {
+    padding: 0px 24px;
+}
 
 .profile_view {
     display: flex;
@@ -76,38 +78,4 @@
 .button_group {
     display: flex;
     gap: 8px;
-}
-
-.edit_button,
-.save_button,
-.cancel_button {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    font-size: var(--font-size-base);
-    cursor: pointer;
-    transition: ease-in-out 0.1s;
-    font-weight: 600;
-}
-
-.edit_button {
-    background-color: #007bff;
-    color: white;
-    align-self: flex-start;
-}
-
-.edit_button:hover {
-    background-color: #0056b3;
-}
-
-.save_button {
-    border: 2px solid #28a745;
-    background-color: #fff;
-    color: #28a745;
-
-}
-
-.save_button:hover {
-    background-color: #28a745;
-    color: white;
 }
