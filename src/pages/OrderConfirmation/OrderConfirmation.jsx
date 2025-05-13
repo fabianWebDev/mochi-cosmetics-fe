@@ -116,8 +116,8 @@ const OrderConfirmation = () => {
                 }
                 toast.dismiss();
                 toast.error(
-                    error.response?.data?.detail || 
-                    error.response?.data?.error || 
+                    error.response?.data?.detail ||
+                    error.response?.data?.error ||
                     'Error fetching order details'
                 );
                 setLoading(false);
@@ -135,19 +135,19 @@ const OrderConfirmation = () => {
             <div className={`${styles.order_confirmation} col-12 col-md-8 col-lg-8 col-xl-8`}>
                 <OrderHeader orderId={order.order_id} />
                 <div className="row">
-                <div className="col-md-8">
-                    <ShippingInfo 
-                        shippingAddress={order.shipping_address} 
-                        isPickup={order.pickup} 
-                    />
+                    <div className="col-md-8">
+                        <ShippingInfo
+                            shippingAddress={order.shipping_address}
+                            isPickup={order.pickup}
+                        />
+                    </div>
+                    <div className="col-md-4">
+                        <OrderDetails order={order} />
+                    </div>
                 </div>
-                <div className="col-md-4">
-                    <OrderDetails order={order} />
-                </div>
-            </div>
-            {order.items && order.items.length > 0 && (
-                <OrderItems items={order.items} />
-            )}
+                {order.items && order.items.length > 0 && (
+                    <OrderItems items={order.items} />
+                )}
                 <ActionButtons />
             </div>
         </div>
