@@ -15,11 +15,7 @@
 
 .search_input:focus {
     outline: none;
-    border-color: var(--highlight-color);
-}
-
-.search_input:hover {
-    border-color: var(--highlight-color);
+    border: 1px solid var(--highlight-color);
 }
 
 .search_button {

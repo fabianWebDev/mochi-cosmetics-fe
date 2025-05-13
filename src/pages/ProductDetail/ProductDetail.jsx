@@ -30,13 +30,13 @@ const ProductDetail = () => {
 
     return (
         <div className="row mt-3 justify-content-center">
-            <div className="col-12 col-md-4">
+            <div className="col-12 col-md-4 col-lg-3">
                 <ProductImage image={product.image} name={product.name} />
             </div>
-            <div className="col-12 col-md-4">
+            <div className="col-12 col-md-4 col-lg-3">
                 <ProductInfo name={product.name} description={product.description} />
             </div>
-            <div className="col-12 col-md-4 col-lg-2">
+            <div className="col-12 col-md-6 col-lg-2">
                 <ProductActionsContainer product={product} />
             </div>
         </div>
