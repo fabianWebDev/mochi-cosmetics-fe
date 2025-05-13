@@ -111,7 +111,7 @@ const MainMenu = () => {
                 </div>
             </nav>
             <div className={classes.cart_icon_container}>
-                <CartIcon 
+                <CartIcon
                     useDynamicCount={true}
                     linkToCart={true}
                     className={classes.user_icon}
