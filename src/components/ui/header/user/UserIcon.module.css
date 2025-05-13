@@ -3,7 +3,6 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-    padding: 8px;
     border-radius: 50%;
     transition: background-color 0.2s ease;
 }
@@ -15,5 +14,9 @@
 @media (max-width: 768px) {
     .user_icon_container {
         position: static;
+    }
+
+    .user_icon_container {
+        padding-right: 8px;
     }
 }
