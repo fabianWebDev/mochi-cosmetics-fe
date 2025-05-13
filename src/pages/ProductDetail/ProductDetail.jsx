@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { productService } from '../../services/productService';
-import { ProductImage, ProductInfo, ProductActions, ProductPrice } from '../../components/product/detail';
+import { ProductImage, ProductInfo, ProductActionsContainer } from '../../components/product/detail';
 
 const ProductDetail = () => {
     const { id } = useParams();
@@ -37,8 +37,7 @@ const ProductDetail = () => {
                 <ProductInfo name={product.name} description={product.description} />
             </div>
             <div className="col-12 col-md-4 col-lg-2">
-                <ProductPrice price={product.price} stock={product.stock} />
-                <ProductActions product={product} />
+                <ProductActionsContainer product={product} />
             </div>
         </div>
     );
