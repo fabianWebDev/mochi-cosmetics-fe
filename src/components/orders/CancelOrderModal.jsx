@@ -26,14 +26,14 @@ const CancelOrderModal = ({ show, onClose, onConfirm }) => {
                         <div className="modal-footer d-flex">
                             <div className="col-3 p-0">
                                 <Button type="button" 
-                                        className="modal-button modal-button-secondary" 
+                                        variant="tertiary"
                                         onClick={onClose}>
                                 Close
                             </Button>
                             </div>
                             <div className="col-6 p-0">
                             <Button type="button" 
-                                    className="modal-button-danger" 
+                                    variant="danger"
                                     onClick={onConfirm}>
                                 Confirm Cancel
                             </Button>

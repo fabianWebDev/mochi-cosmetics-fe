@@ -33,8 +33,8 @@ const OrderInfo = ({ orderDetails, onCancelClick, canCancelOrder }) => {
             {canCancelOrder && (
                 <div className="col-6 col-md-3 mt-2">
                     <Button
-                        className={styles.order_cancel_button}
                         onClick={onCancelClick}
+                        variant="danger"
                     >
                         Cancel Order
                     </Button>
