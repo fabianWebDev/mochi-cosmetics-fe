@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from './ShippingInfo.module.css';
 import Button from '../ui/common/Button';
+import Input from '../ui/common/Input';
 
 const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
     return (
@@ -8,7 +9,7 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
             <h1 className="custom_h1 mb-3">Shipping Information</h1>
             <form onSubmit={onSubmit}>
                 <div className={classes.form_group}>
-                    <input
+                    <Input
                         type="text"
                         className={classes.form_control}
                         id="full_name"
@@ -22,7 +23,7 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
                 {!shippingInfo.pickup && (
                     <>
                         <div className={classes.form_group}>
-                            <input
+                            <Input
                                 type="text"
                                 className={classes.form_control}
                                 id="province"
@@ -34,7 +35,7 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
                             />
                         </div>
                         <div className={classes.form_group}>
-                            <input
+                            <Input
                                 type="text"
                                 className={classes.form_control}
                                 id="canton"
@@ -46,7 +47,7 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
                             />
                         </div>
                         <div className={classes.form_group}>
-                            <input
+                            <Input
                                 type="text"
                                 className={classes.form_control}
                                 id="district"
@@ -58,7 +59,7 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
                             />
                         </div>
                         <div className={classes.form_group}>
-                            <input
+                            <Input
                                 type="text"
                                 className={classes.form_control}
                                 id="exact_address"
@@ -70,7 +71,7 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
                             />
                         </div>
                         <div className={classes.form_group}>
-                            <input
+                            <Input
                                 type="text"
                                 className={classes.form_control}
                                 id="shipping_phone"

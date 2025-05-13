@@ -5,28 +5,6 @@
     border: 1px solid var(--tertiary-color);
 }
 
-.form_group {
-    margin-bottom: 8px;
-}
-
-.form_control {
-    width: 100%;
-    padding: 8px 16px;
-    border: 1px solid var(--tertiary-color);
-    border-radius: 8px;
-    font-size: var(--font-size-small);
-    transition: all 0.1s ease;
-}
-
-.form_control:focus {
-    outline: none;
-    border-color: var(--highlight-color);
-}
-
-.form_control:hover {
-    border-color: var(--highlight-color);
-}
-
 .checkbox_container {
     display: flex;
     align-items: center;

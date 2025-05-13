@@ -6,6 +6,7 @@
     cursor: pointer;
     width: 100%;
     transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    background-color: var(--white-background-color);
 }
 
 .input_field:focus {
