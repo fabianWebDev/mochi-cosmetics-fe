@@ -1,0 +1,15 @@
+.product_price {
+    font-size: var(--font-size-large);
+}
+
+.in_stock {
+    font-size: var(--font-size-small);
+    color: var(--green-color);
+    font-weight: 600;
+}
+
+.out_of_stock {
+    font-size: var(--font-size-small);
+    color: var(--red-color);
+    font-weight: 600;
+}
