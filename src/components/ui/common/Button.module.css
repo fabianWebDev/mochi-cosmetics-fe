@@ -49,3 +49,11 @@
     background-color: var(--primary-color);
     color: var(--white-background-color);
 }
+
+.button_danger {
+    background-color: var(--danger-red);
+}
+
+.button_danger:hover {
+    background-color: var(--danger-red-hover);
+}
