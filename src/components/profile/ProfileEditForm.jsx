@@ -70,7 +70,6 @@ const ProfileEditForm = ({ profileData, onChange, onSubmit, onCancel }) => {
                 <Button
                     type="button"
                     onClick={onCancel}
-                    className={classes.cancel_button}
                 >
                     Cancel
                 </Button>

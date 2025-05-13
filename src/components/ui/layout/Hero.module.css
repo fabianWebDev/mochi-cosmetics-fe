@@ -28,6 +28,9 @@
     align-items: center;
 }
 
+.hero_button_container a {
+    text-decoration: none;
+}
 
 @media (max-width: 1440px) {
     .hero_container {
