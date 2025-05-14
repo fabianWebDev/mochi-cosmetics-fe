@@ -5,6 +5,7 @@ import Button from '../ui/common/Button';
 const ProfileView = ({ profileData, onEditClick }) => {
     return (
         <div className={classes.profile_view}>
+            <h1 className="custom_h1 mb-3">My Profile</h1>
             <div className={classes.profile_info}>
                 <div className={classes.info_row}>
                     <span className={classes.info_label}>Email:</span>

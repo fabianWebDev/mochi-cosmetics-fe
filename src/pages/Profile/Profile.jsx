@@ -22,8 +22,7 @@ const Profile = () => {
 
     return (
         <div className="row justify-content-center mt-3">
-            <div className={`${classes.profile_container} col-12 col-md-8 col-lg-8 col-xl-8`}>
-                <h1 className="custom_h1 mb-3">My Profile</h1>
+            <div className={`col-12 col-md-8 col-lg-8 col-xl-8`}>
                 {(fetchError || formError) && (
                     <div className={classes.error_message}>{fetchError || formError}</div>
                 )}

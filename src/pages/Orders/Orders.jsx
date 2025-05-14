@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { authService } from '../../services/authService';
 import { orderService } from '../../services/orderService';
-import styles from './Orders.module.css';
+import LoadingOrders from '../../components/orders/LoadingOrders';
+import OrdersTable from '../../components/orders/OrdersTable';
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -21,8 +22,12 @@ const Orders = () => {
         }
 
         const data = await orderService.getOrders();
-        console.log('Fetched orders:', data);
-        setOrders(data);
+        // Sort orders by date, newest first
+        const sortedOrders = data.sort((a, b) => 
+          new Date(b.created_at) - new Date(a.created_at)
+        );
+        console.log('Fetched orders:', sortedOrders);
+        setOrders(sortedOrders);
       } catch (error) {
         console.error('Error loading orders:', error);
         if (error.response?.status === 401) {
@@ -46,65 +51,13 @@ const Orders = () => {
   }, [orders]);
 
   if (loading) {
-    return (
-      <div className="row justify-content-center mt-3">
-        <div className="col-12 col-md-8 col-lg-8 col-xl-8">
-          <div className={styles.loading_container}>
-            <h6 className={styles.loading_text}>Loading orders...</h6>
-          </div>
-        </div>
-      </div>
-    );
+    return <LoadingOrders />;
   }
 
   return (
     <div className="row justify-content-center mt-3">
-      <div className={`${styles.orders_container} col-12 col-md-8 col-lg-8 col-xl-8`}>
-        <h1 className={`${styles.orders_title} custom_h1 mb-3`}>Order History</h1>
-        <table className={styles.table_container}>
-          <thead className={styles.table_header}>
-            <tr>
-              <th className={`${styles.table_header_cell} text-center`}>Order ID</th>
-              <th className={`${styles.table_header_cell} text-center`}>Date</th>
-              <th className={`${styles.table_header_cell} text-center`}>Total</th>
-              <th className={`${styles.table_header_cell} text-center`}>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.length === 0 ? (
-              <tr>
-                <td colSpan="5" className={styles.empty_orders}>
-                  No orders to display
-                </td>
-              </tr>
-            ) : (
-              orders.map((order) => (
-                <tr key={order.order_id} className={styles.table_row}>
-                  <td className={`${styles.table_cell} text-center`}>
-                    <Link to={`/orders/${order.order_id}`} className={styles.order_link}>
-                      {order.order_id}
-                    </Link>
-                  </td>
-                  <td className={`${styles.table_cell} text-center`}>
-                    <Link to={`/orders/${order.order_id}`} className={styles.order_link}>
-                      {new Date(order.created_at).toLocaleDateString()}
-                    </Link>
-                  </td>
-                  <td className={`${styles.table_cell} text-center`}>
-                    <Link to={`/orders/${order.order_id}`} className={styles.order_link}>
-                      ${order.total_price}
-                    </Link>
-                  </td>
-                  <td className={`${styles.table_cell} text-center`}>
-                    <Link to={`/orders/${order.order_id}`} className={styles.order_link}>
-                      {order.status}
-                    </Link>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+      <div className="col-12 col-md-8 col-lg-8 col-xl-8">
+        <OrdersTable orders={orders} />
       </div>
     </div>
   );
