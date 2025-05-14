@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { orderService } from '../../services/orderService';
-import OrderInfo from '../../components/orders/OrderInfo';
-import CancelOrderModal from '../../components/orders/CancelOrderModal';
-import LoadingState from '../../components/orders/LoadingState';
-import NotFoundState from '../../components/orders/NotFoundState';
+import OrderInfo from '../../components/orders/detail/OrderInfo';
+import CancelOrderModal from '../../components/orders/detail/CancelOrderModal';
+import LoadingState from '../../components/orders/detail/LoadingState';
+import NotFoundState from '../../components/orders/detail/NotFoundState';
 
 const OrderDetail = () => {
     const { orderId } = useParams();

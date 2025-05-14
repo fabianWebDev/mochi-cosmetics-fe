@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './OrderInfo.module.css';
-import Button from '../ui/common/Button';
+import Button from '../../ui/common/Button';
 import OrderProducts from './OrderProducts';
 
 const OrderInfo = ({ orderDetails, onCancelClick, canCancelOrder }) => {

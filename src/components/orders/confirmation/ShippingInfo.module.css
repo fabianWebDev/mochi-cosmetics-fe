@@ -1,0 +1,22 @@
+.shipping_info {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.section_title {
+    color: #333;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.shipping_info p {
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+.shipping_info strong {
+    color: #333;
+    margin-right: 0.5rem;
+} 

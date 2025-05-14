@@ -1,6 +1,6 @@
 import React from 'react';
 import './CancelOrderModal.css';
-import Button from '../ui/common/Button';
+import Button from '../../ui/common/Button';
 
 const CancelOrderModal = ({ show, onClose, onConfirm }) => {
     return (
