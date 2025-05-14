@@ -1,10 +1,12 @@
 import classes from './ProfileForm.module.css';
 import Button from '../ui/common/Button';
+import Input from '../ui/common/Input';
 const ProfileEditForm = ({ profileData, onChange, onSubmit, onCancel }) => {
     return (
-        <form onSubmit={onSubmit} className={`${classes.profile_form}`}>
-            <div className={classes.form_group}>
-                <input
+        <div className={classes.profile_view}>
+            <h1 className="custom_h1 mb-3">Edit Profile</h1>
+            <form onSubmit={onSubmit}>
+                <Input
                     type="email"
                     id="email"
                     name="email"
@@ -13,10 +15,7 @@ const ProfileEditForm = ({ profileData, onChange, onSubmit, onCancel }) => {
                     className={classes.input_field}
                     placeholder="Email"
                 />
-            </div>
-
-            <div className={classes.form_group}>
-                <input
+                <Input
                     type="text"
                     id="first_name"
                     name="first_name"
@@ -25,10 +24,7 @@ const ProfileEditForm = ({ profileData, onChange, onSubmit, onCancel }) => {
                     className={classes.input_field}
                     placeholder="First Name"
                 />
-            </div>
-
-            <div className={classes.form_group}>
-                <input
+                <Input
                     type="text"
                     id="last_name"
                     name="last_name"
@@ -37,10 +33,7 @@ const ProfileEditForm = ({ profileData, onChange, onSubmit, onCancel }) => {
                     className={classes.input_field}
                     placeholder="Last Name"
                 />
-            </div>
-
-            <div className={classes.form_group}>
-                <input
+                <Input
                     type="password"
                     id="password"
                     name="password"
@@ -49,10 +42,7 @@ const ProfileEditForm = ({ profileData, onChange, onSubmit, onCancel }) => {
                     className={classes.input_field}
                     placeholder="New Password (leave blank to keep current)"
                 />
-            </div>
-
-            <div className={classes.form_group}>
-                <input
+                <Input
                     type="password"
                     id="password2"
                     name="password2"
@@ -61,20 +51,19 @@ const ProfileEditForm = ({ profileData, onChange, onSubmit, onCancel }) => {
                     className={classes.input_field}
                     placeholder="Confirm New Password"
                 />
-            </div>
-
-            <div className={classes.button_group}>
-                <Button type="submit" variant="secondary">
-                    Save Changes
-                </Button>
-                <Button
-                    type="button"
-                    onClick={onCancel}
-                >
-                    Cancel
-                </Button>
-            </div>
-        </form>
+                <div className={classes.button_group}>
+                    <Button type="submit" variant="secondary">
+                        Save Changes
+                    </Button>
+                    <Button
+                        type="button"
+                        onClick={onCancel}
+                    >
+                        Cancel
+                    </Button>
+                </div>
+            </form>
+        </div>
     );
 };
 

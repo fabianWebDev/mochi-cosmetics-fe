@@ -1,0 +1,28 @@
+.table_container {
+    width: 100%;
+    border-collapse: collapse;
+    padding: 0px 24px;
+}
+
+.table {
+    width: 100%;
+    margin-top: 1rem;
+    table-layout: fixed;
+}
+
+.table_header {
+    background-color: var(--tertiary-color);
+}
+
+.table_header_cell {
+    padding: 16px;
+    font-weight: bold;
+    border-bottom: 1px solid var(--tertiary-color);
+    text-align: center;
+}
+
+.empty_orders {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+}

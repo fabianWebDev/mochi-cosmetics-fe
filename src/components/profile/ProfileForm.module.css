@@ -1,10 +1,11 @@
 .profile_container {
-    padding: 0px 24px;
+    
 }
 
 .profile_view {
     display: flex;
     flex-direction: column;
+    padding: 0px 24px;
 }
 
 .profile_info {
@@ -21,35 +22,6 @@
 .info_label {
     font-size: var(--font-size-base);
     width: 120px;
-}
-
-.profile_form {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.form_group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.form_group label {
-    font-weight: 500;
-    color: #555;
-}
-
-.input_field {
-    padding: 8px 16px;
-    border: 1px solid var(--tertiary-color);
-    border-radius: 8px;
-    font-size: var(--font-size-base);
-}
-
-.input_field:disabled {
-    background-color: #f5f5f5;
-    cursor: not-allowed;
 }
 
 .error_message {
