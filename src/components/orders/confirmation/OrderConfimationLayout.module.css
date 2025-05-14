@@ -1,0 +1,17 @@
+.order_confirmation_container {
+    padding: 0px 24px;
+
+}
+
+.order_confirmation {
+    background-color: var(--white-background-color);
+    border-radius: 8px;
+    border: 1px solid var(--tertiary-color);
+    padding: 24px;
+}
+
+@media (max-width: 768px) {
+    .order_confirmation {
+        padding: 16px;
+    }
+}

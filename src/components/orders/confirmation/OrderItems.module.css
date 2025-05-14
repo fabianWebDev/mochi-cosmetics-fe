@@ -1,0 +1,32 @@
+.order_items {
+    margin-bottom: 2rem;
+}
+
+.section_title {
+    color: #333;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.items_table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.items_table th,
+.items_table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.items_table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #333;
+}
+
+.items_table tr:hover {
+    background-color: #f8f9fa;
+} 
