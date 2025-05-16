@@ -1,0 +1,35 @@
+.card_container {
+    background-image: url("https://wallpapercave.com/wp/wp2106516.png");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    min-height: 200px;
+    color: white;
+    border-radius: 8px;
+}
+
+.overlay_container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 16px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s ease;
+}
+
+.overlay_container:hover {
+    background-color: rgba(0, 0, 0, 0.0);
+}
+
+.card_title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+    text-align: center;
+}
