@@ -1,35 +1,44 @@
 @import url('https://fonts.googleapis.com/css2?family=Creepster&family=UnifrakturMaguntia&display=swap');
 
 :root {
+  /* Typography */
   --font-size-xlarge: 2rem;
   --font-size-large: 1.5rem;
   --font-size-base: 1rem;
   --font-size-small: 14px;
   --font-size-xsmall: 12px;
+
+  /* Color Palette */
   --primary-color: #5a1588;
   --secondary-color: #9F9F9F;
   --tertiary-color: #ECECEC;
   --highlight-color: #8426c5;
   --highlight-btn-color: #3b0e57;
-  --toastify-icon-color-success: #5a1588 !important;
-  --toastify-icon-color-error: #ff1744;
-  --toastify-icon-color-info: #00b0ff;
+  --soft-charcoal: #4F4F4F;
   --background-color: #F5F5F5;
   --white-background-color: #FAFAFA;
-  --gradient-soft-pink: linear-gradient(135deg, #5a1588 0%, #8426c5 40%, #b347f5 75%, #d08cfb 100%);
-  --gradient-soft-pink-2: linear-gradient(315deg, #5a1588 0%, #3e0d5c 50%, #1f052f 100%);
-  --gradient-soft-pink-3: linear-gradient(135deg, #1f052f 0%, #3e0d5c 50%, #5a1588 100%);
-  --soft-charcoal: #4F4F4F;
+
+  /* Status Colors */
   --danger-red: #ef4444;
   --danger-red-hover: #dc2626;
   --green-color: #008000;
   --red-color: #ff0000;
+
+  /* Toast Colors */
+  --toastify-icon-color-success: #5a1588 !important;
+  --toastify-icon-color-error: #ff1744;
+  --toastify-icon-color-info: #00b0ff;
+
+  /* Gradients */
+  --gradient-soft-pink: linear-gradient(135deg, #5a1588 0%, #8426c5 40%, #b347f5 75%, #d08cfb 100%);
 }
 
+/* Base Styles */
 body {
   background-color: var(--background-color) !important;
 }
 
+/* Typography Classes */
 .custom_h1 {
   font-size: var(--font-size-xlarge);
 }
@@ -42,33 +51,44 @@ body {
   font-size: var(--font-size-base);
 }
 
-.Toastify__toast--custom {
-  background: var(--tertiary-color);
-  width: auto !important;
-  font-size: var(--font-size-small) !important;
-}
-
-.smooth-col {
-  transition: width 0.3s ease;
-}
-
 .custom_p {
   font-size: var(--font-size-small);
   color: var(--soft-charcoal);
+}
+
+.text_small {
+  font-size: var(--font-size-small);
+}
+
+/* Utility Classes */
+.text_decoration_none {
+  text-decoration: none;
 }
 
 .box_padding {
   padding: 0px 8px 0 8px;
 }
 
-.text_decoration_none {
-  text-decoration: none;
+.smooth-col {
+  transition: width 0.3s ease;
+}
+
+/* Component Styles */
+.Toastify__toast--custom {
+  background: var(--tertiary-color);
+  width: auto !important;
+  font-size: var(--font-size-small) !important;
 }
 
 .footer_background {
   background: var(--gradient-soft-pink);
 }
 
-.text_small {
-  font-size: var(--font-size-small);
+/* Button Styles */
+.hero_button_color {
+  background: var(--highlight-color)!important;
+}
+
+.hero_button_color:hover {
+  background: var(--primary-color)!important;
 }

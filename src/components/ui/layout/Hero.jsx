@@ -11,7 +11,7 @@ const Hero = () => {
                 <div className="col"></div>
                 <div className={`${classes.hero_button_container} col-md-6`}>
                     <Link to="/products">
-                        <Button>
+                        <Button className="hero_button_color">
                             See more
                         </Button>
                     </Link>

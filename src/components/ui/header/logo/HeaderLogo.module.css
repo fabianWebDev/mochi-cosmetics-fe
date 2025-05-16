@@ -26,7 +26,7 @@
 
 @media (max-width: 768px) {
     .logo {
-       display: none;
+        display: none;
     }
 
     .logo_title {
@@ -38,4 +38,4 @@
         width: 100%;
         margin-top: 8px !important;
     }
-} 
+}
