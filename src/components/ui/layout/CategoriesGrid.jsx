@@ -34,6 +34,7 @@ const CategoriesGrid = () => {
       for (let i = 1; i < count; i++) {
         columns.push('col-6 px-2');
       }
+      console.log(categories);
       return { columns };
     }
     
