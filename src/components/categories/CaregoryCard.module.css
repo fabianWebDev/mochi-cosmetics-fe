@@ -5,6 +5,7 @@
     min-height: 200px;
     color: white;
     border-radius: 8px;
+    cursor: pointer;
 }
 
 .overlay_container {

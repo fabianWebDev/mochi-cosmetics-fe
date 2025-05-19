@@ -11,7 +11,7 @@ const CategoryCard = ({ category }) => {
 
     return (
         <div 
-            className={`${classes.card_container} card mb-3`} 
+            className={`${classes.card_container} card mb-2`} 
             onClick={handleClick}
             style={{
                 backgroundImage: `url(${MEDIA_BASE_URL}${category.image})`

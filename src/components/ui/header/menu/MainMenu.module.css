@@ -14,8 +14,8 @@
 .sub_menu {
     position: absolute;
     z-index: 1000;
-    background-color: white;
-    border: 1px solid #ccc;
+    background-color: var(--white-background-color);
+    border: 1px solid var(--tertiary-color);
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
     padding: 4px 8px;

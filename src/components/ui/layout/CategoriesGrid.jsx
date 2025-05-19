@@ -26,21 +26,20 @@ const CategoriesGrid = () => {
   };
 
   const getGridConfig = (count) => {
-    if (count === 1) return { columns: ['col-12 px-2'] };
+    if (count === 1) return { columns: ['col-12 px-1'] };
     
     if (isPrime(count)) {
       // Para números primos, la primera columna es completa y el resto en dos columnas
-      const columns = ['col-12 px-2'];
+      const columns = ['col-12 px-1'];
       for (let i = 1; i < count; i++) {
-        columns.push('col-6 px-2');
+        columns.push('col-6 px-1');
       }
-      console.log(categories);
       return { columns };
     }
     
     // Para números pares, todo en dos columnas
     return {
-      columns: Array(count).fill('col-6 px-2')
+      columns: Array(count).fill('col-6 px-1')
     };
   };
 
