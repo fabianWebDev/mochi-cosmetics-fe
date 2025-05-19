@@ -7,13 +7,14 @@ const FooterSocial = ({ className }) => {
     return (
         <div className={className}>
             <h3>Follow us</h3>
-            <div className="social-media justify-content-center">
+            <div className="social-media justify-content-center d-flex gap-2">
                 <Link to="https://www.facebook.com/profile.php?id=61552798884871" target="_blank">
-                    <FontAwesomeIcon icon={faFacebook} className={classes.footer_social_icon} />
+                    <FontAwesomeIcon icon={faFacebook} className={`${classes.footer_social_icon} ${classes.facebook_icon}`} />
                 </Link>
                 <Link to="https://www.instagram.com/minas_morgul_cards/" target="_blank">
-                    <FontAwesomeIcon icon={faInstagram} className={classes.footer_social_icon} />
+                    <FontAwesomeIcon icon={faInstagram} className={`${classes.footer_social_icon} ${classes.instagram_icon}`} />
                 </Link>
+              
             </div>
         </div>
     )

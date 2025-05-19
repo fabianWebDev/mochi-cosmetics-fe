@@ -1,15 +1,22 @@
 .footer_link:hover {
     text-decoration: underline;
-    color: var(--highlight-color);
 }
 
 .footer_social_icon {
     width: 40px;
     height: 40px;
     color: var(--white-background-color);
-    margin-left: 8px;
+    transition: color 0.1s ease;
 }
 
-.footer_social_icon:hover {
-    color: var(--highlight-color);
+.facebook_icon:hover {
+    color: #5f8bd8;
+}
+
+.instagram_icon:hover {
+    color: #b06c99;
+}
+
+.whatsapp_icon:hover {
+    color: #6cc98b;
 }
