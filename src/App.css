@@ -30,7 +30,8 @@
   --toastify-icon-color-info: #00b0ff;
 
   /* Gradients */
-  --gradient-soft-pink: linear-gradient(135deg, #5a1588 0%, #8426c5 40%, #b347f5 75%, #d08cfb 100%);
+  --footer-gradient: linear-gradient(135deg, #3b0e57 0%, #5a1588 50%, #8426c5 100%);
+
 }
 
 /* Base Styles */
@@ -81,14 +82,14 @@ body {
 }
 
 .footer_background {
-  background: var(--gradient-soft-pink);
+  background: var(--footer-gradient);
 }
 
 /* Button Styles */
 .hero_button_color {
-  background: var(--highlight-color)!important;
+  background: var(--primary-color) !important;
 }
 
 .hero_button_color:hover {
-  background: var(--primary-color)!important;
+  background: var(--highlight-color) !important;
 }

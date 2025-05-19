@@ -11,7 +11,7 @@
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    margin-top: 0px!important;
+    margin-top: 0px !important;
 }
 
 .footer_col {
@@ -51,10 +51,6 @@
     transition: color 0.2s;
 }
 
-.footer_col ul li a:hover {
-    color: var(--primary-color);
-}
-
 .footer_hr {
     border: none;
     border-top: 1px solid #ddd;
@@ -79,4 +75,3 @@
         justify-content: center;
     }
 }
-
