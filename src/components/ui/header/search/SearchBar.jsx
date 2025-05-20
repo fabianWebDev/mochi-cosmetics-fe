@@ -17,7 +17,7 @@ const SearchBar = () => {
     };
 
     return (
-        <div className="col">
+        <div className="col p-1">
             <div className={classes.search_container}>
                 <form onSubmit={handleSearch}>
                     <input

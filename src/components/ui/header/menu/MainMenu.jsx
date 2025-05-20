@@ -59,7 +59,7 @@ const MainMenu = () => {
     const handleMouseLeave = () => {
         closeTimeoutRef.current = setTimeout(() => {
             setShowSubMenu(false);
-        }, 500);
+        }, 100);
     };
 
     useEffect(() => {
