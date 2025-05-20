@@ -49,7 +49,7 @@ const MainMenu = () => {
     };
 
     return (
-        <div className={classes.main_menu_container}>
+        <div className={`${classes.main_menu_container} bg_primary_color p-2`}>
             <nav className={`${classes.main_menu} navbar`}>
                 <button
                     className={classes.hamburger_button}

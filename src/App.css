@@ -39,6 +39,7 @@ body {
   background-color: var(--background-color) !important;
 }
 
+
 /* Typography Classes */
 .custom_h1 {
   font-size: var(--font-size-xlarge);
@@ -92,4 +93,8 @@ body {
 
 .hero_button_color:hover {
   background: var(--highlight-color) !important;
+}
+
+.bg_primary_color {
+  background-color: #0f1114;
 }

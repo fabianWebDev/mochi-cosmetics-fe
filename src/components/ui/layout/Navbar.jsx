@@ -6,10 +6,7 @@ const Navbar = () => {
     return (
         <>
             <PageHeader />
-            <div className="container">
-                <MainMenu />
-                <SearchBar />
-            </div >
+            <MainMenu />
         </>
     );
 }

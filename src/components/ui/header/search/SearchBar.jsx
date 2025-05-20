@@ -17,22 +17,20 @@ const SearchBar = () => {
     };
 
     return (
-        <div className="row justify-content-center">
-            <div className="col-md-8 col-sm-12 smooth-col">
-                <div className={classes.search_container}>
-                    <form onSubmit={handleSearch}>
-                        <input
-                            type="text"
-                            placeholder=""
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className={`${classes.search_input}`}
-                        />
-                        <button type="submit" className={classes.search_button}>
-                            <FontAwesomeIcon icon={faMagnifyingGlass} className={classes.search_icon} />
-                        </button>
-                    </form>
-                </div>
+        <div className="col">
+            <div className={classes.search_container}>
+                <form onSubmit={handleSearch}>
+                    <input
+                        type="text"
+                        placeholder=""
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className={`${classes.search_input}`}
+                    />
+                    <button type="submit" className={classes.search_button}>
+                        <FontAwesomeIcon icon={faMagnifyingGlass} className={classes.search_icon} />
+                    </button>
+                </form>
             </div>
         </div>
     );

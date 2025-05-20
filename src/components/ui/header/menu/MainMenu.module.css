@@ -23,16 +23,18 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.sub_menu_item {
-    display: block;
-    padding: 2px 0;
-}
 
 .nav_item {
     text-decoration: none;
-    color: #000;
+    color: var(--white-background-color);
     font-size: var(--font-size-base);
     letter-spacing: 0.05em;
+}
+
+.sub_menu_item {
+    display: block;
+    padding: 2px 0;
+    color: black;
 }
 
 .nav_item:hover {
