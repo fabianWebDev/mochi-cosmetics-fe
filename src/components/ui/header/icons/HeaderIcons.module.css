@@ -1,27 +1,29 @@
 .header_icons {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 .header_icon {
-    color: var(--primary-color);
+    color: var(--white-background-color);
     font-size: var(--font-size-large);
     margin-right: 8px;
 }
 
 .logout_button {
     background-color: transparent;
-    border: 2px solid var(--primary-color);
+    border: 2px solid var(--white-background-color);
     border-radius: 50px;
-    color: var(--primary-color);
+    color: var(--white-background-color);
     padding: 8px 16px;
     font-weight: bold;
     transition: all 0.1s ease;
 }
 
 .logout_button:hover {
-    background-color: var(--primary-color);
-    color: var(--white-background-color);
+    background-color: var(--white-background-color);
+    color: var(--primary-color);
 }
 
 .user_icon_container {

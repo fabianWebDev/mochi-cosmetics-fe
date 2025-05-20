@@ -2,8 +2,8 @@
     position: absolute;
     top: -4px;
     right: -8px;
-    background-color: var(--primary-color);
-    color: white;
+    background-color: var(--white-background-color);
+    color: var(--primary-color);
     font-size: 0.75rem;
     min-width: 24px;
     height: 24px;

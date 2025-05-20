@@ -18,21 +18,24 @@
     border: 1px solid var(--tertiary-color);
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
+    border-top: none;
     padding: 4px 8px;
     min-width: 200px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 8px;
+}
+
+.nav_item {
+    text-decoration: none;
+    color: var(--white-background-color);
+    font-size: var(--font-size-base);
+    letter-spacing: 0.05em;
 }
 
 .sub_menu_item {
     display: block;
     padding: 2px 0;
-}
-
-.nav_item {
-    text-decoration: none;
-    color: #000;
-    font-size: var(--font-size-base);
-    letter-spacing: 0.05em;
+    color: black;
 }
 
 .nav_item:hover {

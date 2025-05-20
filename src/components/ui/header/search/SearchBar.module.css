@@ -5,12 +5,12 @@
 .search_input {
     height: 40px;
     border-radius: 30px;
-    padding-left: 24px;
     border: 1px solid var(--tertiary-color);
     width: 100%;
     transition: all 0.1s ease;
     cursor: pointer;
     background-color: var(--white-background-color);
+    padding: 0px;
 }
 
 .search_input:focus {
