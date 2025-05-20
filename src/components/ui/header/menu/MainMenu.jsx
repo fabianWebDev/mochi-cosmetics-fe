@@ -1,6 +1,6 @@
 import classes from './MainMenu.module.css';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { productService } from '../../../../services/productService';
 import Logout from '../user/Logout';
 import { CartIcon } from '../../../cart';
@@ -13,6 +13,7 @@ const MainMenu = () => {
     const [showSubMenu, setShowSubMenu] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const { isAuthenticated } = useAuth();
+    const closeTimeoutRef = useRef(null);
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -48,6 +49,27 @@ const MainMenu = () => {
         setShowSubMenu(false);
     };
 
+    const handleMouseEnter = () => {
+        if (closeTimeoutRef.current) {
+            clearTimeout(closeTimeoutRef.current);
+        }
+        setShowSubMenu(true);
+    };
+
+    const handleMouseLeave = () => {
+        closeTimeoutRef.current = setTimeout(() => {
+            setShowSubMenu(false);
+        }, 500);
+    };
+
+    useEffect(() => {
+        return () => {
+            if (closeTimeoutRef.current) {
+                clearTimeout(closeTimeoutRef.current);
+            }
+        };
+    }, []);
+
     return (
         <div className={`${classes.main_menu_container} bg_primary_color p-2`}>
             <nav className={`${classes.main_menu} navbar`}>
@@ -70,8 +92,8 @@ const MainMenu = () => {
                     </Link>
                     <div
                         className={classes.sub_menu_container}
-                        onMouseEnter={() => setShowSubMenu(true)}
-                        onMouseLeave={() => setShowSubMenu(false)}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
                     >
                         <Link
                             to="/products"
