@@ -1,5 +1,4 @@
 .shipping_info {
-    max-width: 600px;
     margin: 0 auto;
     padding: 16px 24px;
     background-color: var(--white-background-color);
@@ -60,7 +59,6 @@
 
 .shipping_method_option {
     margin-bottom: 8px;
-    font-size: var(--font-size-small);
 }
 
 .shipping_method_option:last-child {
@@ -68,20 +66,23 @@
 }
 
 .radio {
-    margin-right: 10px;
+    margin-right: 8px;
     cursor: pointer;
+}
+
+.radio:checked {
+    accent-color: var(--primary-color);
 }
 
 .radio_label {
     cursor: pointer;
-    font-size: 16px;
-    color: #333;
+    font-size: var(--font-size-small);
 }
 
 .loading {
     text-align: center;
     padding: 10px;
-    color: #666;
+    color: var(--secondary-color);
 }
 
 /* Responsive styles */
