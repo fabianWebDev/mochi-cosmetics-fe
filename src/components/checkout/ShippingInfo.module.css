@@ -1,8 +1,24 @@
 .shipping_info {
+    max-width: 600px;
+    margin: 0 auto;
     padding: 16px 24px;
     background-color: var(--white-background-color);
     border-radius: 8px;
     border: 1px solid var(--tertiary-color);
+}
+
+.form_group {
+    transform: translateY(0);
+    transition: all 0.3s ease-in-out;
+}
+
+.form_group.hidden {
+    opacity: 0;
+    transform: translateY(-10px);
+    height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
 .checkbox_container {
@@ -11,12 +27,7 @@
     gap: 8px;
 }
 
-.checkbox {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-    accent-color: var(--primary-color);
-}
+
 
 .checkbox_label {
     font-size: var(--font-size-small);
@@ -27,9 +38,63 @@
 .button_container {
     display: flex;
     justify-content: flex-end;
-    width: 100%;
 }
 
 .button_container button {
     width: 50%;
+}
+
+/* Shipping Methods Styles */
+.shipping_methods_container {
+    margin-bottom: 8px;
+    padding: 16px;
+    border: 1px solid var(--tertiary-color);
+    border-radius: 8px;
+    background-color: var(--white-background-color);
+}
+
+.shipping_methods_title {
+    margin-bottom: 16px;
+    font-size: var(--font-size-medium);
+}
+
+.shipping_method_option {
+    margin-bottom: 8px;
+    font-size: var(--font-size-small);
+}
+
+.shipping_method_option:last-child {
+    margin-bottom: 0;
+}
+
+.radio {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.radio_label {
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+}
+
+.loading {
+    text-align: center;
+    padding: 10px;
+    color: #666;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .shipping_info {
+        padding: 15px;
+    }
+
+    .shipping_methods_container {
+        padding: 10px;
+    }
+
+    .shipping_method_option {
+        padding: 8px;
+    }
 }
