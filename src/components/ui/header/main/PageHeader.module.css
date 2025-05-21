@@ -2,7 +2,7 @@
     display: flex;
     padding-top: 8px;
     padding-bottom: 8px;
-    background: var(--primary-color);
+    background: var(--footer-gradient);
 }
 
 .logo_container {

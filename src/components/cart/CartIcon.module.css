@@ -12,12 +12,18 @@
     justify-content: center;
     border-radius: 50%;
     padding: 4px;
+    font-weight: bold;
 }
 
 .cart_icon {
     position: relative;
 }
 
+.cart_icon:hover {
+    color: var(--highlight-color);
+}
+
 .cart_icon:hover .cart_count {
     background-color: var(--highlight-color);
+    color: var(--white-background-color);
 }
