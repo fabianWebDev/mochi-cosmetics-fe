@@ -75,6 +75,16 @@ export const orderService = {
         }
     },
 
+    async getShippingMethods() {
+        try {
+            const response = await axiosInstance.get('/shipping-methods/');
+            return response.data;
+        } catch (error) {
+            logError(error, 'getShippingMethods');
+            throw error;
+        }
+    },
+
     async cancelOrder(orderId) {
         try {
             const response = await axiosInstance.post(`/orders/${orderId}/cancel/`);

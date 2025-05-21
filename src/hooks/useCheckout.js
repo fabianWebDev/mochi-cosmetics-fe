@@ -9,12 +9,18 @@ const { ORDER_STATUS, INITIAL_SHIPPING_INFO } = Checkout;
 const { validateShippingInfo, validateCart } = Checkout;
 const { handleCheckoutError } = Checkout;
 
+// Update INITIAL_SHIPPING_INFO to include shipping_method
+const updatedInitialShippingInfo = {
+    ...INITIAL_SHIPPING_INFO,
+    shipping_method: ''
+};
+
 export const useCheckout = () => {
     const navigate = useNavigate();
     const [cart, setCart] = useState(null);
     const [loading, setLoading] = useState(true);
     const [currentStep, setCurrentStep] = useState(1);
-    const [shippingInfo, setShippingInfo] = useState(INITIAL_SHIPPING_INFO);
+    const [shippingInfo, setShippingInfo] = useState(updatedInitialShippingInfo);
     const [userId, setUserId] = useState(null);
 
     useEffect(() => {
@@ -55,7 +61,7 @@ export const useCheckout = () => {
 
     const handleNextStep = () => {
         if (currentStep === 1) {
-            if (!shippingInfo.pickup) {
+            if (shippingInfo.shipping_method !== '2') { // Not Store Pickup
                 const errors = validateShippingInfo(shippingInfo);
                 if (errors.length > 0) {
                     errors.forEach(error => {
@@ -78,13 +84,16 @@ export const useCheckout = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const shippingErrors = validateShippingInfo(shippingInfo);
-        if (shippingErrors.length > 0) {
-            shippingErrors.forEach(error => {
-                toast.dismiss();
-                toast.error(error);
-            });
-            return;
+        // Only validate shipping info if not Store Pickup
+        if (shippingInfo.shipping_method !== '2') {
+            const shippingErrors = validateShippingInfo(shippingInfo);
+            if (shippingErrors.length > 0) {
+                shippingErrors.forEach(error => {
+                    toast.dismiss();
+                    toast.error(error);
+                });
+                return;
+            }
         }
 
         const cartErrors = validateCart(cart);
@@ -107,9 +116,10 @@ export const useCheckout = () => {
                 user: userId,
                 status: ORDER_STATUS.PENDING,
                 total_price: calculateTotal(),
-                shipping_address: shippingInfo.pickup
-                    ? 'Pick up in store'
+                shipping_address: shippingInfo.shipping_method === '1'
+                    ? 'Store Pickup'
                     : `${shippingInfo.full_name}\n${shippingInfo.exact_address}\n${shippingInfo.district}, ${shippingInfo.canton}, ${shippingInfo.province}\nPhone: ${shippingInfo.shipping_phone}`,
+                shipping_method: shippingInfo.shipping_method,
                 items: cart.items.map(item => ({
                     product: item.product.id,
                     quantity: item.quantity,
