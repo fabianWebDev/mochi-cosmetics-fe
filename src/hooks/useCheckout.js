@@ -61,15 +61,13 @@ export const useCheckout = () => {
 
     const handleNextStep = () => {
         if (currentStep === 1) {
-            if (shippingInfo.shipping_method !== '2') { // Not Store Pickup
-                const errors = validateShippingInfo(shippingInfo);
-                if (errors.length > 0) {
-                    errors.forEach(error => {
-                        toast.dismiss();
-                        toast.error(error);
-                    });
-                    return;
-                }
+            const errors = validateShippingInfo(shippingInfo);
+            if (errors.length > 0) {
+                errors.forEach(error => {
+                    toast.dismiss();
+                    toast.error(error);
+                });
+                return;
             }
         }
         setCurrentStep(prev => prev + 1);
@@ -84,16 +82,13 @@ export const useCheckout = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Only validate shipping info if not Store Pickup
-        if (shippingInfo.shipping_method !== '2') {
-            const shippingErrors = validateShippingInfo(shippingInfo);
-            if (shippingErrors.length > 0) {
-                shippingErrors.forEach(error => {
-                    toast.dismiss();
-                    toast.error(error);
-                });
-                return;
-            }
+        const shippingErrors = validateShippingInfo(shippingInfo);
+        if (shippingErrors.length > 0) {
+            shippingErrors.forEach(error => {
+                toast.dismiss();
+                toast.error(error);
+            });
+            return;
         }
 
         const cartErrors = validateCart(cart);

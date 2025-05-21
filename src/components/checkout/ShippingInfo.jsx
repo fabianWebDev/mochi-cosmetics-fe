@@ -33,6 +33,8 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
         return method?.name === 'Store Pickup';
     };
 
+    const isButtonDisabled = !shippingInfo.shipping_method;
+
     return (
         <div className={classes.shipping_info}>
             <h1 className="custom_h1 mb-3">Shipping Information</h1>
@@ -70,7 +72,7 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
                         name="full_name"
                         value={shippingInfo.full_name}
                         onChange={onInputChange}
-                        required={true}
+                        required={!!shippingInfo.shipping_method}
                         placeholder="Full Name"
                     />
                 </div>
@@ -83,7 +85,7 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
                         name="shipping_phone"
                         value={shippingInfo.shipping_phone}
                         onChange={onInputChange}
-                        required
+                        required={shippingInfo.shipping_method === '1' || shippingInfo.shipping_method === '2'}
                         placeholder="Phone Number"
                     />
                 </div>
@@ -97,7 +99,7 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
                         name="province"
                         value={shippingInfo.province}
                         onChange={onInputChange}
-                        required
+                        required={isCorreosMethod(shippingInfo.shipping_method)}
                         placeholder="Province"
                     />
                 </div>
@@ -110,7 +112,7 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
                         name="canton"
                         value={shippingInfo.canton}
                         onChange={onInputChange}
-                        required
+                        required={isCorreosMethod(shippingInfo.shipping_method)}
                         placeholder="Canton"
                     />
                 </div>
@@ -123,7 +125,7 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
                         name="district"
                         value={shippingInfo.district}
                         onChange={onInputChange}
-                        required
+                        required={isCorreosMethod(shippingInfo.shipping_method)}
                         placeholder="District"
                     />
                 </div>
@@ -136,13 +138,18 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
                         name="exact_address"
                         value={shippingInfo.exact_address}
                         onChange={onInputChange}
-                        required
+                        required={isCorreosMethod(shippingInfo.shipping_method)}
                         placeholder="Exact Address"
                     />
                 </div>
 
                 <div className={`${classes.button_container} mt-2`}>
-                    <Button type="submit">Order Summary</Button>
+                    <Button 
+                        type="submit" 
+                        disabled={isButtonDisabled}
+                    >
+                         Order Summary
+                    </Button>
                 </div>
             </form>
         </div>

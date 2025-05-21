@@ -1,6 +1,6 @@
 .order_summary {
     padding: 16px 24px;
-    background-color: #ffffff;
+    background-color: var(--white-background-color);
     border-radius: 8px;
     border: 1px solid var(--tertiary-color);
 }
