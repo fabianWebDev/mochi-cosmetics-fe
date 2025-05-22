@@ -9,6 +9,12 @@
 }
 
 .logout_button:hover {
-    background-color: var(--white-background-color);
     color: var(--highlight-color);
+}
+
+@media (max-width: 768px) {
+    .logout_button {
+        border: none!important;
+        color: var(--primary-color);
+    }
 }
