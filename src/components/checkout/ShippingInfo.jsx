@@ -41,7 +41,7 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
             <form onSubmit={onSubmit}>
                 <div className={classes.shipping_methods_container}>
                     <h3 className={classes.shipping_methods_title}>Select Shipping Method</h3>
-                    
+
                     {loading ? (
                         <div className={classes.loading}>Loading shipping methods...</div>
                     ) : (
@@ -144,11 +144,11 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
                 </div>
 
                 <div className={`${classes.button_container} mt-2`}>
-                    <Button 
-                        type="submit" 
+                    <Button
+                        type="submit"
                         disabled={isButtonDisabled}
                     >
-                         Order Summary
+                        Order Summary
                     </Button>
                 </div>
             </form>
