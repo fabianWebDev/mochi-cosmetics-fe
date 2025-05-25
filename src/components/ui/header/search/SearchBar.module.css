@@ -10,7 +10,7 @@
     transition: all 0.1s ease;
     cursor: pointer;
     background-color: var(--white-background-color);
-    padding: 0px;
+    padding: 0px 0px 0px 16px;
 }
 
 .search_input:focus {
