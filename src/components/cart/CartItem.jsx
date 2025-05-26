@@ -8,11 +8,11 @@ const CartItem = ({ item, onUpdateQuantity, onRemove }) => {
             <div className="col-4 col-md-2 d-flex justify-content-center">
                 <img src={`${MEDIA_BASE_URL}/${item.product.image}`} alt={item.product.name} className={`${classes.cart_item_image}`} />
             </div>
-            <div className="col-8 col-lg-4 text-center">
+            <div className="col-8 col-md-4 col-lg-4 text-center">
                 <h5>{item.product.name}</h5>
                 <p className="text-muted mb-0">${item.product.price} /ea.</p>
             </div>
-            <div className="col-4 col-lg-2">
+            <div className="col-4 col-md-3 col-lg-3">
                 <div className="input-group">
                     <button
                         className="btn btn-outline-secondary"
