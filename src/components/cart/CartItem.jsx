@@ -12,7 +12,7 @@ const CartItem = ({ item, onUpdateQuantity, onRemove }) => {
                 <h5>{item.product.name}</h5>
                 <p className="text-muted mb-0">${item.product.price}</p>
             </div>
-            <div className="col-md-3">
+            <div className="col-4 col-md-2">
                 <div className="input-group">
                     <button
                         className="btn btn-outline-secondary"
@@ -39,10 +39,10 @@ const CartItem = ({ item, onUpdateQuantity, onRemove }) => {
                     </button>
                 </div>
             </div>
-            <div className="col-md-2">
+            <div className="col-6 col-md-2 text-center">
                 <p className="h5 mb-0">${(item.product.price * item.quantity).toFixed(2)}</p>
             </div>
-            <div className="col-md-1">
+            <div className="col-2 col-md-1">
                 <button className="btn btn-outline-danger btn-sm" onClick={() => onRemove(item.product.id)}>
                     <i className="bi bi-trash"></i>
                 </button>
