@@ -10,6 +10,7 @@
 
 .logout_button:hover {
     color: var(--highlight-color);
+    background-color: var(--white-background-color);
 }
 
 @media (max-width: 768px) {
