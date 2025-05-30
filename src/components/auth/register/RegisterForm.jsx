@@ -3,7 +3,7 @@ import classes from './RegisterForm.module.css';
 import Button from '../../ui/common/Button';
 import Input from '../../ui/common/Input';
 
-const RegisterForm = ({ formData, onChange, onSubmit, error }) => {
+const RegisterForm = ({ formData, onChange, onSubmit, error, fieldErrors }) => {
     return (
         <form onSubmit={onSubmit} className={`${classes.register_form}`}>
             <h1 className="custom_h1 mb-3">Create new account</h1>
@@ -18,6 +18,7 @@ const RegisterForm = ({ formData, onChange, onSubmit, error }) => {
                 required
                 placeholder="Email"
                 className={classes.input_field}
+                error={fieldErrors?.email}
             />
             <Input
                 label=""
@@ -29,6 +30,7 @@ const RegisterForm = ({ formData, onChange, onSubmit, error }) => {
                 required
                 placeholder="First Name"
                 className={classes.input_field}
+                error={fieldErrors?.first_name}
             />
             <Input
                 label=""
@@ -40,6 +42,7 @@ const RegisterForm = ({ formData, onChange, onSubmit, error }) => {
                 required
                 placeholder="Last Name"
                 className={classes.input_field}
+                error={fieldErrors?.last_name}
             />
             <Input
                 label=""
@@ -51,6 +54,7 @@ const RegisterForm = ({ formData, onChange, onSubmit, error }) => {
                 required
                 placeholder="Password"
                 className={classes.input_field}
+                error={fieldErrors?.password}
             />
             <Input
                 label=""
@@ -62,6 +66,7 @@ const RegisterForm = ({ formData, onChange, onSubmit, error }) => {
                 required
                 placeholder="Confirm Password"
                 className={classes.input_field}
+                error={fieldErrors?.password2}
             />
             <Button type="submit">
                 Register

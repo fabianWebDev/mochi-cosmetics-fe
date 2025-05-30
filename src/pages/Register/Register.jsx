@@ -1,9 +1,33 @@
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import * as Yup from 'yup';
 import useForm from '../../hooks/useForm';
 import { Auth } from '../../components';
 import { API_BASE_URL } from '../../constants';
+import { useState } from 'react';
 const { RegisterForm } = Auth;
+
+const validationSchema = Yup.object().shape({
+    email: Yup.string()
+        .email('Email must be valid')
+        .required('Email is required'),
+    password: Yup.string()
+        .min(8, 'Password must be at least 8 characters')
+        .matches(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+            'Password must be at least 8 characters and contain at least one uppercase letter, one lowercase letter, and one number'
+        )
+        .required('Password is required'),
+    password2: Yup.string()
+        .oneOf([Yup.ref('password'), null], 'Passwords must match')
+        .required('Password confirmation is required'),
+    first_name: Yup.string()
+        .min(2, 'First name must be at least 2 characters')
+        .required('First name is required'),
+    last_name: Yup.string()
+        .min(2, 'Last name must be at least 2 characters')
+        .required('Last name is required')
+});
 
 const Register = () => {
     const navigate = useNavigate();
@@ -15,16 +39,17 @@ const Register = () => {
         last_name: ''
     });
 
+    const [fieldErrors, setFieldErrors] = useState({});
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
-
-        if (formData.password !== formData.password2) {
-            setError('Las contraseñas no coinciden');
-            return;
-        }
+        setFieldErrors({});
 
         try {
+            // Validate form data
+            await validationSchema.validate(formData, { abortEarly: false });
+
             const response = await axios.post(`${API_BASE_URL}/users/register/`, formData);
 
             localStorage.setItem('accessToken', response.data.access);
@@ -32,13 +57,21 @@ const Register = () => {
 
             navigate('/login');
         } catch (err) {
-            if (err.response?.data) {
+            if (err instanceof Yup.ValidationError) {
+                // Handle Yup validation errors
+                const errors = {};
+                err.inner.forEach((error) => {
+                    errors[error.path] = error.message;
+                });
+                setFieldErrors(errors);
+            } else if (err.response?.data) {
+                // Handle backend errors
                 const backendErrors = Object.entries(err.response.data)
                     .map(([key, value]) => `${key}: ${value}`)
                     .join(', ');
                 setError(backendErrors);
             } else {
-                setError('Error al registrar usuario');
+                setError('Error registering user');
             }
         }
     };
@@ -51,6 +84,7 @@ const Register = () => {
                     onChange={handleChange}
                     onSubmit={handleSubmit}
                     error={error}
+                    fieldErrors={fieldErrors}
                 />
             </div>
         </div>
