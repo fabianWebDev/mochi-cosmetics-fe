@@ -32,8 +32,6 @@
     margin-left: 4px;
 }
 
-
-
 .error_message {
     color: var(--red-color);
     font-size: var(--font-size-xsmall);
@@ -57,6 +55,6 @@
 }
 
 .form_group {
-    margin-bottom: 16px;
+    margin-bottom: 8px;
     position: relative;
 }

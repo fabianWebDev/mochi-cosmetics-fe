@@ -3,7 +3,7 @@ import classes from './LoginForm.module.css';
 import Button from '../../ui/common/Button';
 import Input from '../../ui/common/Input';
 
-const LoginForm = ({ formData, onChange, onSubmit, loading, error }) => {
+const LoginForm = ({ formData, onChange, onSubmit, loading, error, fieldErrors }) => {
 
     return (
         <form onSubmit={onSubmit} className={`${classes.login_form}`}>
@@ -14,21 +14,21 @@ const LoginForm = ({ formData, onChange, onSubmit, loading, error }) => {
                 name="email"
                 value={formData.email}
                 onChange={onChange}
-                required
                 disabled={loading}
                 placeholder="Email"
                 className={classes.input_field}
+                error={fieldErrors.email}
             />
             <Input
                 label=""
                 name="password"
                 value={formData.password}
                 onChange={onChange}
-                required
                 disabled={loading}
                 placeholder="Password"
                 className={classes.input_field}
                 type="password"
+                error={fieldErrors.password}
             />
             <Button type="submit" disabled={loading} className={classes.login_button}>
                 {loading ? 'Logging in...' : 'Login'}

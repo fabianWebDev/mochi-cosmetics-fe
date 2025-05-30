@@ -4,15 +4,6 @@
     flex-direction: column;
 }
 
-.error_message {
-    color: #dc3545;
-    margin-bottom: 1rem;
-    padding: 0.5rem;
-    background-color: #f8d7da;
-    border-radius: 4px;
-    font-size: 0.9rem;
-}
-
 .register_button_container {
     font-size: var(--font-size-small);
 }
