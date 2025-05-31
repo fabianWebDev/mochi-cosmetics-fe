@@ -15,7 +15,6 @@ const RegisterForm = ({ formData, onChange, onSubmit, error, fieldErrors }) => {
                 name="email"
                 value={formData.email}
                 onChange={onChange}
-                required
                 placeholder="Email"
                 className={classes.input_field}
                 error={fieldErrors?.email}
@@ -27,7 +26,6 @@ const RegisterForm = ({ formData, onChange, onSubmit, error, fieldErrors }) => {
                 name="first_name"
                 value={formData.first_name}
                 onChange={onChange}
-                required
                 placeholder="First Name"
                 className={classes.input_field}
                 error={fieldErrors?.first_name}
@@ -39,7 +37,6 @@ const RegisterForm = ({ formData, onChange, onSubmit, error, fieldErrors }) => {
                 name="last_name"
                 value={formData.last_name}
                 onChange={onChange}
-                required
                 placeholder="Last Name"
                 className={classes.input_field}
                 error={fieldErrors?.last_name}
@@ -51,7 +48,6 @@ const RegisterForm = ({ formData, onChange, onSubmit, error, fieldErrors }) => {
                 name="password"
                 value={formData.password}
                 onChange={onChange}
-                required
                 placeholder="Password"
                 className={classes.input_field}
                 error={fieldErrors?.password}
@@ -63,7 +59,6 @@ const RegisterForm = ({ formData, onChange, onSubmit, error, fieldErrors }) => {
                 name="password2"
                 value={formData.password2}
                 onChange={onChange}
-                required
                 placeholder="Confirm Password"
                 className={classes.input_field}
                 error={fieldErrors?.password2}
