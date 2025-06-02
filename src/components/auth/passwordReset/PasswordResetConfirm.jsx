@@ -82,7 +82,6 @@ const PasswordResetConfirm = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                required
                 disabled={loading}
                 placeholder="New Password"
                 className={classes.input_field}
@@ -94,7 +93,6 @@ const PasswordResetConfirm = () => {
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                required
                 disabled={loading}
                 placeholder="Confirm New Password"
                 className={classes.input_field}
