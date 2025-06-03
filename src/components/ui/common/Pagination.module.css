@@ -9,7 +9,7 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    gap: 8px;
+    gap: 0.5rem;
 }
 
 .page_item {
@@ -19,20 +19,19 @@
 }
 
 .page_button {
-    min-width: 24px;
-    height: 24px;
-    border: none;
+    min-width: 2rem;
+    height: 2rem;
+    border: 1px solid var(--secondary-color);
     border-radius: 8px;
     background-color: transparent;
     color: var(--secondary-color);
-    font-weight: 100;
+    font-weight: 500;
     cursor: pointer;
-    transition: 0.1s ease;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: var(--font-size-small);
-    transition: all 0.1s ease;
+    transition: all 0.2s ease;
 }
 
 .page_button:hover:not(:disabled) {
@@ -43,17 +42,20 @@
 
 .page_button.active {
     background-color: var(--secondary-color);
-    color: #ffffff;
+    color: var(--background-color);
 }
 
 .page_button:disabled {
-    border-color: var(--secondary-color);
-    color: var(--secondary-color);
+    border-color: #e0e0e0;
+    color: #e0e0e0;
     cursor: not-allowed;
     transform: none;
+    box-shadow: none;
 }
 
-.page_button:disabled:hover {
-    background-color: white;
-    color: var(--secondary-color);
+.showing_text {
+    color: var(--soft-charcoal);
+    font-size: var(--font-size-small);
+    font-weight: 500;
+    text-align: left;
 }
