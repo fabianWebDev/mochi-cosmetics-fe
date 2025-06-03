@@ -15,6 +15,18 @@ const updatedInitialShippingInfo = {
     shipping_method: ''
 };
 
+const parsePrice = (price) => {
+    if (typeof price === 'number') return price;
+    return parseFloat(price) || 0;
+};
+
+// Shipping cost constants
+const SHIPPING_COSTS = {
+    '1': 0, // Store Pickup
+    '2': 5, // Standard Shipping
+    '3': 10 // Express Shipping
+};
+
 export const useCheckout = () => {
     const navigate = useNavigate();
     const [cart, setCart] = useState(null);
@@ -22,33 +34,47 @@ export const useCheckout = () => {
     const [currentStep, setCurrentStep] = useState(1);
     const [shippingInfo, setShippingInfo] = useState(updatedInitialShippingInfo);
     const [userId, setUserId] = useState(null);
+    const [shippingMethods, setShippingMethods] = useState([]);
 
     useEffect(() => {
-        if (!authService.isAuthenticated()) {
-            toast.dismiss();
-            toast.error('Please login to proceed with checkout');
-            navigate('/login');
-            return;
-        }
+        const initializeCheckout = async () => {
+            if (!authService.isAuthenticated()) {
+                toast.dismiss();
+                toast.error('Please login to proceed with checkout');
+                navigate('/login');
+                return;
+            }
 
-        const user = authService.getUser();
-        if (!user || !user.id) {
-            toast.dismiss();
-            toast.error('Error loading user data');
-            navigate('/login');
-            return;
-        }
-        setUserId(user.id);
+            const user = authService.getUser();
+            if (!user || !user.id) {
+                toast.dismiss();
+                toast.error('Error loading user data');
+                navigate('/login');
+                return;
+            }
+            setUserId(user.id);
 
-        const cartItems = cartService.getCartItems();
-        if (!cartItems || cartItems.length === 0) {
-            toast.dismiss();
-            toast.error('Your cart is empty');
-            navigate('/cart');
-            return;
-        }
-        setCart({ items: cartItems });
-        setLoading(false);
+            const cartItems = cartService.getCartItems();
+            if (!cartItems || cartItems.length === 0) {
+                toast.dismiss();
+                toast.error('Your cart is empty');
+                navigate('/cart');
+                return;
+            }
+            setCart({ items: cartItems });
+
+            try {
+                const methods = await orderService.getShippingMethods();
+                setShippingMethods(methods);
+            } catch (error) {
+                console.error('Error fetching shipping methods:', error);
+                toast.error('Error loading shipping methods');
+            }
+
+            setLoading(false);
+        };
+
+        initializeCheckout();
     }, [navigate]);
 
     const handleInputChange = (e) => {
@@ -73,10 +99,25 @@ export const useCheckout = () => {
         setCurrentStep(prev => prev + 1);
     };
 
+    const calculateShippingCost = () => {
+        if (!shippingInfo.shipping_method) return 0;
+        const method = shippingMethods.find(m => m.id.toString() === shippingInfo.shipping_method);
+        return method ? parsePrice(method.price) : 0;
+    };
+
+    const calculateSubtotal = () => {
+        if (!cart?.items) return 0;
+        return cart.items.reduce((total, item) => {
+            const itemPrice = parsePrice(item.product.price);
+            const quantity = parseInt(item.quantity) || 0;
+            return total + (itemPrice * quantity);
+        }, 0);
+    };
+
     const calculateTotal = () => {
-        return cart?.items.reduce((total, item) =>
-            total + (item.product.price * item.quantity), 0
-        ) || 0;
+        const subtotal = calculateSubtotal();
+        const shipping = calculateShippingCost();
+        return subtotal + shipping;
     };
 
     const handleSubmit = async (e) => {
@@ -118,7 +159,7 @@ export const useCheckout = () => {
                 items: cart.items.map(item => ({
                     product: item.product.id,
                     quantity: item.quantity,
-                    price_at_time: item.product.price
+                    price_at_time: parsePrice(item.product.price)
                 }))
             };
 
@@ -158,10 +199,13 @@ export const useCheckout = () => {
         loading,
         currentStep,
         shippingInfo,
+        shippingMethods,
         handleInputChange,
         handleNextStep,
         handleSubmit,
         setCurrentStep,
-        calculateTotal
+        calculateTotal,
+        calculateSubtotal,
+        calculateShippingCost
     };
 }; 
