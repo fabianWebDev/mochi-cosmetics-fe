@@ -25,7 +25,7 @@ const CheckoutPage = () => {
     return (
         <div className="container mt-3">
             <div className="row justify-content-center">
-                <div className="col-12 col-md-8 col-lg-6">
+                <div className="col-12 col-md-8 col-lg-6 box_padding">
                     <ProgressBar currentStep={currentStep} totalSteps={3} />
                     {currentStep === 1 && (
                         <ShippingInfo
@@ -48,7 +48,7 @@ const CheckoutPage = () => {
                         />
                     )}
                 </div>
-                <div className="col-12 col-md-4 col-lg-3">
+                <div className="col-12 col-md-4 col-lg-3 box_padding">
                     <CheckoutSidebar 
                         cart={cart}
                         calculateTotal={calculateTotal}
