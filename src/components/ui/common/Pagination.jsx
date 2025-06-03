@@ -22,40 +22,48 @@ const Pagination = ({ currentPage, totalItems, itemsPerPage, onPageChange }) => 
         return pageNumbers;
     };
 
+    const startItem = (currentPage - 1) * itemsPerPage + 1;
+    const endItem = Math.min(currentPage * itemsPerPage, totalItems);
+
     return (
-        <nav className={classes.pagination_container} aria-label="Page navigation">
-            <ul className={classes.pagination_list}>
-                <li className={classes.page_item}>
-                    <button
-                        className={classes.page_button}
-                        onClick={() => onPageChange(currentPage - 1)}
-                        disabled={currentPage === 1}
-                    >
-                        <span aria-hidden="true">&laquo;</span>
-                    </button>
-                </li>
-                {getPageNumbers().map((pageNumber) => (
-                    <li key={pageNumber} className={classes.page_item}>
-                        <button
-                            className={`${classes.page_button} ${currentPage === pageNumber ? classes.active : ''}`}
-                            onClick={() => onPageChange(pageNumber)}
-                        >
-                            {pageNumber}
-                        </button>
-                    </li>
-                ))}
-                {currentPage < totalPages && (
+        <div className={classes.pagination_wrapper}>
+            <div className={classes.showing_text}>
+                Showing {startItem}-{endItem} of {totalItems} products
+            </div>
+            <nav className={classes.pagination_container} aria-label="Page navigation">
+                <ul className={classes.pagination_list}>
                     <li className={classes.page_item}>
                         <button
                             className={classes.page_button}
-                            onClick={() => onPageChange(currentPage + 1)}
+                            onClick={() => onPageChange(currentPage - 1)}
+                            disabled={currentPage === 1}
                         >
-                            <span aria-hidden="true">&raquo;</span>
+                            <span aria-hidden="true">&laquo;</span>
                         </button>
                     </li>
-                )}
-            </ul>
-        </nav>
+                    {getPageNumbers().map((pageNumber) => (
+                        <li key={pageNumber} className={classes.page_item}>
+                            <button
+                                className={`${classes.page_button} ${currentPage === pageNumber ? classes.active : ''}`}
+                                onClick={() => onPageChange(pageNumber)}
+                            >
+                                {pageNumber}
+                            </button>
+                        </li>
+                    ))}
+                    {currentPage < totalPages && (
+                        <li className={classes.page_item}>
+                            <button
+                                className={classes.page_button}
+                                onClick={() => onPageChange(currentPage + 1)}
+                            >
+                                <span aria-hidden="true">&raquo;</span>
+                            </button>
+                        </li>
+                    )}
+                </ul>
+            </nav>
+        </div>
     );
 };
 
