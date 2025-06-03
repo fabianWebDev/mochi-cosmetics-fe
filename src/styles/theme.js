@@ -48,7 +48,7 @@ const theme = createTheme({
           margin: '0',
         },
         // '*': {
-        //   outline: '1px dashed blue',
+        //   outline: '1px dotted gray',
         // },
       },
     },
