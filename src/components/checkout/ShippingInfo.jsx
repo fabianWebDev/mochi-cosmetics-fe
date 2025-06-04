@@ -182,7 +182,7 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
                         type="submit"
                         disabled={isButtonDisabled}
                     >
-                        Order Summary
+                        Review Order
                     </Button>
                 </div>
             </form>

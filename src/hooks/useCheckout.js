@@ -6,8 +6,9 @@ import { cartService } from '../services/cartService';
 import { orderService } from '../services/orderService';
 import { Checkout } from '../components';
 const { ORDER_STATUS, INITIAL_SHIPPING_INFO } = Checkout;
-const { validateShippingInfo, validateCart } = Checkout;
+const { validateCart } = Checkout;
 const { handleCheckoutError } = Checkout;
+import { shippingValidationSchema } from '../components/checkout/utils/shippingValidationSchema';
 
 // Update INITIAL_SHIPPING_INFO to include shipping_method
 const updatedInitialShippingInfo = {
@@ -80,11 +81,12 @@ export const useCheckout = () => {
 
     const handleNextStep = () => {
         if (currentStep === 1) {
-            const errors = validateShippingInfo(shippingInfo);
-            if (errors.length > 0) {
-                errors.forEach(error => {
+            try {
+                shippingValidationSchema.validateSync(shippingInfo, { abortEarly: false });
+            } catch (error) {
+                error.inner.forEach(err => {
                     toast.dismiss();
-                    toast.error(error);
+                    toast.error(err.message);
                 });
                 return;
             }
@@ -116,11 +118,12 @@ export const useCheckout = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const shippingErrors = validateShippingInfo(shippingInfo);
-        if (shippingErrors.length > 0) {
-            shippingErrors.forEach(error => {
+        try {
+            await shippingValidationSchema.validate(shippingInfo, { abortEarly: false });
+        } catch (error) {
+            error.inner.forEach(err => {
                 toast.dismiss();
-                toast.error(error);
+                toast.error(err.message);
             });
             return;
         }
