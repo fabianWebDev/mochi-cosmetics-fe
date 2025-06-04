@@ -20,13 +20,6 @@ const parsePrice = (price) => {
     return parseFloat(price) || 0;
 };
 
-// Shipping cost constants
-const SHIPPING_COSTS = {
-    '1': 0, // Store Pickup
-    '2': 5, // Standard Shipping
-    '3': 10 // Express Shipping
-};
-
 export const useCheckout = () => {
     const navigate = useNavigate();
     const [cart, setCart] = useState(null);
