@@ -11,7 +11,7 @@ const OrderSummary = ({ cart, onBack, onNext }) => {
 
     return (
         <div className={classes.order_summary}>
-            <h1 className="custom_h1 mb-3">Order Summary</h1>
+            <h1 className="custom_h1 mb-3">Products Summary</h1>
             <div className={classes.order_items}>
                 {cart?.items.map((item) => (
                     <div key={item.product.id} className={classes.order_item}>
