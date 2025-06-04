@@ -5,12 +5,9 @@
 }
 
 .error_message {
-    color: #dc3545;
-    margin-bottom: 1rem;
-    padding: 0.5rem;
-    background-color: #f8d7da;
-    border-radius: 4px;
-    font-size: 0.9rem;
+    color: var(--red-color);
+    font-size: var(--font-size-xsmall);
+    padding-left: 8px;
 }
 
 .radio_label {
@@ -39,6 +36,7 @@
 }
 
 .textarea {
+    width: 100%;
     border: 1px solid var(--tertiary-color);
     border-radius: 8px;
     padding: 8px 16px;
@@ -46,3 +44,7 @@
     margin: 0px;
 }
 
+.textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
