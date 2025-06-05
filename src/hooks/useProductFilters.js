@@ -1,14 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
-const useProductFilters = (products) => {
+const useProductFilters = (products = []) => {
     const [sortOrder, setSortOrder] = useState("");
     const [showInStockOnly, setShowInStockOnly] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalProducts, setTotalProducts] = useState(0);
     const productsPerPage = 6;
 
-    const sortedProducts = () => {
-        let filteredProducts = [...products];
+    // Ensure products is an array and handle null/undefined cases
+    const productsArray = useMemo(() => {
+        if (!products) return [];
+        return Array.isArray(products) ? products : [];
+    }, [products]);
+
+    const sortedProducts = useMemo(() => {
+        let filteredProducts = [...productsArray];
 
         if (showInStockOnly) {
             filteredProducts = filteredProducts.filter((product) => product.stock > 0);
@@ -32,16 +38,18 @@ const useProductFilters = (products) => {
         }
 
         return filteredProducts;
-    };
+    }, [productsArray, sortOrder, showInStockOnly]);
 
-    const paginatedProducts = sortedProducts().slice(
-        (currentPage - 1) * productsPerPage,
-        currentPage * productsPerPage
-    );
+    const paginatedProducts = useMemo(() => {
+        return sortedProducts.slice(
+            (currentPage - 1) * productsPerPage,
+            currentPage * productsPerPage
+        );
+    }, [sortedProducts, currentPage, productsPerPage]);
 
     useEffect(() => {
-        setTotalProducts(sortedProducts().length);
-    }, [products, sortOrder, showInStockOnly]);
+        setTotalProducts(sortedProducts.length);
+    }, [sortedProducts]);
 
     return {
         sortOrder,

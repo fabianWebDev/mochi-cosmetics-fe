@@ -1,16 +1,20 @@
 import axiosInstance from './axios';
+import { toast } from 'react-toastify';
 
 export const productService = {
-    async getProducts() {
+    async getProducts(page = 1, pageSize = 10, search = '') {
         try {
-            const response = await axiosInstance.get('/products/');
+            const response = await axiosInstance.get('/products/', {
+                params: {
+                    page,
+                    page_size: pageSize,
+                    search
+                }
+            });
             return response.data;
         } catch (error) {
-            if (error.response?.status === 401) {
-                // Si no está autenticado, intentar obtener productos sin autenticación
-                const response = await axiosInstance.get('/products/public/');
-                return response.data;
-            }
+            console.error('Error fetching products:', error);
+            toast.error('Error loading products. Please try again later.');
             throw error;
         }
     },
@@ -20,11 +24,8 @@ export const productService = {
             const response = await axiosInstance.get(`/products/${id}/`);
             return response.data;
         } catch (error) {
-            if (error.response?.status === 401) {
-                // Si no está autenticado, intentar obtener producto sin autenticación
-                const response = await axiosInstance.get(`/products/${id}/public/`);
-                return response.data;
-            }
+            console.error('Error fetching product:', error);
+            toast.error('Error loading product details. Please try again later.');
             throw error;
         }
     },
@@ -32,22 +33,48 @@ export const productService = {
     async searchProducts(filters) {
         try {
             const response = await axiosInstance.get('/products/', {
-                params: filters
+                params: {
+                    ...filters,
+                    page: filters.page || 1,
+                    page_size: filters.pageSize || 10
+                }
             });
             return response.data;
         } catch (error) {
-            if (error.response?.status === 401) {
-                console.error('Unauthorized: No JWT token available.');
-            }
+            console.error('Error searching products:', error);
+            toast.error('Error searching products. Please try again later.');
             throw error;
         }
     },
 
-    async getCategories() {
+    async getCategories(page = 1, pageSize = 10) {
         try {
-            const response = await axiosInstance.get('/categories/');
+            const response = await axiosInstance.get('/categories/', {
+                params: {
+                    page,
+                    page_size: pageSize
+                }
+            });
             return response.data;
         } catch (error) {
+            if (error.response?.status === 401) {
+                try {
+                    // Try to fetch public categories if authenticated request fails
+                    const response = await axiosInstance.get('/categories/public/', {
+                        params: {
+                            page,
+                            page_size: pageSize
+                        }
+                    });
+                    return response.data;
+                } catch (publicError) {
+                    console.error('Error fetching public categories:', publicError);
+                    toast.error('Error loading categories. Please try again later.');
+                    throw publicError;
+                }
+            }
+            console.error('Error fetching categories:', error);
+            toast.error('Error loading categories. Please try again later.');
             throw error;
         }
     },
@@ -60,11 +87,19 @@ export const productService = {
             return response.data;
         } catch (error) {
             if (error.response?.status === 401) {
-                const response = await axiosInstance.get('/products/latest/public/', {
-                    params: { limit }
-                });
-                return response.data;
+                try {
+                    const response = await axiosInstance.get('/products/latest/public/', {
+                        params: { limit }
+                    });
+                    return response.data;
+                } catch (publicError) {
+                    console.error('Error fetching latest public products:', publicError);
+                    toast.error('Error loading latest products. Please try again later.');
+                    throw publicError;
+                }
             }
+            console.error('Error fetching latest products:', error);
+            toast.error('Error loading latest products. Please try again later.');
             throw error;
         }
     }

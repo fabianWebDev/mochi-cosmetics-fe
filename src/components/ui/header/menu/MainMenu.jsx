@@ -18,10 +18,13 @@ const MainMenu = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const categoriesData = await productService.getCategories();
-                setCategories(categoriesData);
+                const response = await productService.getCategories();
+                // Handle paginated response
+                setCategories(response.results || []);
             } catch (error) {
                 console.error('Error fetching categories:', error);
+                // Don't show error toast for categories, just log it
+                setCategories([]);
             }
         };
 
@@ -62,14 +65,6 @@ const MainMenu = () => {
         }, 100);
     };
 
-    useEffect(() => {
-        return () => {
-            if (closeTimeoutRef.current) {
-                clearTimeout(closeTimeoutRef.current);
-            }
-        };
-    }, []);
-
     return (
         <div className={`${classes.main_menu_container} bg_primary_color p-2`}>
             <nav className={`${classes.main_menu} navbar`}>
@@ -103,7 +98,7 @@ const MainMenu = () => {
                             Products
                             <FaChevronDown className={`${classes.arrow_icon} ${showSubMenu ? classes.arrow_icon_rotated : ''}`} />
                         </Link>
-                        {showSubMenu && (
+                        {showSubMenu && categories.length > 0 && (
                             <div className={`${classes.sub_menu}`}>
                                 {categories.map(category => (
                                     <Link

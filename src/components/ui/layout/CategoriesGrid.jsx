@@ -8,11 +8,20 @@ const CategoriesGrid = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    productService
-      .getCategories()
-      .then(setCategories)
-      .catch(() => setError('Error al cargar las categorías'))
-      .finally(() => setLoading(false));
+    const fetchCategories = async () => {
+      try {
+        const response = await productService.getCategories();
+        // Handle paginated response
+        setCategories(response.results || []);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+        setError('Error al cargar las categorías');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
   }, []);
 
   const isPrime = (num) => {
@@ -45,6 +54,9 @@ const CategoriesGrid = () => {
 
   if (loading) return <div className="text-center p-4">Cargando categorías...</div>;
   if (error) return <div className="text-center text-danger p-4">{error}</div>;
+  if (!Array.isArray(categories) || categories.length === 0) {
+    return <div className="text-center p-4">No hay categorías disponibles</div>;
+  }
 
   const { columns } = getGridConfig(categories.length);
 
