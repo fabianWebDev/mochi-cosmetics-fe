@@ -6,6 +6,7 @@
 
 import axios from 'axios';
 import { API_BASE_URL, STORAGE_KEYS } from '../constants';
+import { toast } from 'react-toastify';
 
 // Create a custom axios instance with default configuration
 const axiosInstance = axios.create({
@@ -17,20 +18,41 @@ const axiosInstance = axios.create({
   timeout: 10000, // 10 second timeout
 });
 
+// List of public endpoints that don't require authentication
+const PUBLIC_ENDPOINTS = [
+  '/users/login/',
+  '/users/register/',
+  '/users/token/refresh/',
+  '/products/latest/public/',
+  '/categories/public/',
+  '/products/public/'
+];
+
 /**
  * Request Interceptor
  * Automatically adds the authentication token to all outgoing requests
- * if a token exists in localStorage
+ * if a token exists in localStorage and the endpoint is not public
  */
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem(STORAGE_KEYS.TOKEN);
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    // Check if the endpoint is public
+    const isPublicEndpoint = PUBLIC_ENDPOINTS.some(endpoint => 
+      config.url.endsWith(endpoint)
+    );
+
+    // Only add token for non-public endpoints
+    if (!isPublicEndpoint) {
+      const token = localStorage.getItem(STORAGE_KEYS.TOKEN);
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    console.error('Request interceptor error:', error);
+    return Promise.reject(error);
+  }
 );
 
 /**
@@ -43,8 +65,33 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    // Check if the error is a 401 and we haven't retried this request yet
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    // Handle 401 Unauthorized errors
+    if (error.response?.status === 401) {
+      // Check if this is a public endpoint
+      const isPublicEndpoint = PUBLIC_ENDPOINTS.some(endpoint => 
+        originalRequest.url.endsWith(endpoint)
+      );
+
+      // If it's a public endpoint, just reject the error
+      if (isPublicEndpoint) {
+        return Promise.reject(error);
+      }
+
+      // If this is a retry attempt, don't try again
+      if (originalRequest._retry) {
+        // Clear auth data and redirect to login
+        localStorage.removeItem(STORAGE_KEYS.TOKEN);
+        localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
+        localStorage.removeItem(STORAGE_KEYS.USER);
+        delete axiosInstance.defaults.headers.common['Authorization'];
+        
+        // Show error message
+        toast.error('Session expired. Please login again.');
+        window.location.href = '/login';
+        return Promise.reject(error);
+      }
+
+      // Mark this request as retried
       originalRequest._retry = true;
 
       try {
@@ -55,7 +102,7 @@ axiosInstance.interceptors.response.use(
         }
 
         // Make request to refresh the token
-        const response = await axiosInstance.post('/users/token/refresh/', {
+        const response = await axios.post(`${API_BASE_URL}/users/token/refresh/`, {
           refresh: refreshToken
         });
 
@@ -73,9 +120,24 @@ axiosInstance.interceptors.response.use(
         localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
         localStorage.removeItem(STORAGE_KEYS.USER);
         delete axiosInstance.defaults.headers.common['Authorization'];
+        
+        // Show error message
+        toast.error('Session expired. Please login again.');
         window.location.href = '/login';
         return Promise.reject(refreshError);
       }
+    }
+
+    // Handle 500 Internal Server Error
+    if (error.response?.status === 500) {
+      toast.error('Server error. Please try again later.');
+    }
+
+    // Handle other errors
+    if (error.response?.data?.detail) {
+      toast.error(error.response.data.detail);
+    } else if (error.message) {
+      toast.error(error.message);
     }
 
     return Promise.reject(error);

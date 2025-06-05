@@ -22,47 +22,57 @@ const Pagination = ({ currentPage, totalItems, itemsPerPage, onPageChange }) => 
         return pageNumbers;
     };
 
-    const startItem = (currentPage - 1) * itemsPerPage + 1;
+    // Calculate start and end items based on current page and items per page
+    const startItem = totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
     const endItem = Math.min(currentPage * itemsPerPage, totalItems);
 
     return (
         <div className={classes.pagination_wrapper}>
             <div className={classes.showing_text}>
-                Showing {startItem}-{endItem} of {totalItems} products
+                {totalItems > 0 ? (
+                    `Showing ${startItem}-${endItem} of ${totalItems} products`
+                ) : (
+                    'No products found'
+                )}
             </div>
-            <nav className={classes.pagination_container} aria-label="Page navigation">
-                <ul className={classes.pagination_list}>
-                    <li className={classes.page_item}>
-                        <button
-                            className={classes.page_button}
-                            onClick={() => onPageChange(currentPage - 1)}
-                            disabled={currentPage === 1}
-                        >
-                            <span aria-hidden="true">&laquo;</span>
-                        </button>
-                    </li>
-                    {getPageNumbers().map((pageNumber) => (
-                        <li key={pageNumber} className={classes.page_item}>
+            {totalPages > 1 && (
+                <nav className={classes.pagination_container} aria-label="Page navigation">
+                    <ul className={classes.pagination_list}>
+                        <li className={classes.page_item}>
                             <button
-                                className={`${classes.page_button} ${currentPage === pageNumber ? classes.active : ''}`}
-                                onClick={() => onPageChange(pageNumber)}
+                                className={classes.page_button}
+                                onClick={() => onPageChange(currentPage - 1)}
+                                disabled={currentPage === 1}
+                                aria-label="Previous page"
                             >
-                                {pageNumber}
+                                <span aria-hidden="true">&laquo;</span>
                             </button>
                         </li>
-                    ))}
-                    {currentPage < totalPages && (
+                        {getPageNumbers().map((pageNumber) => (
+                            <li key={pageNumber} className={classes.page_item}>
+                                <button
+                                    className={`${classes.page_button} ${currentPage === pageNumber ? classes.active : ''}`}
+                                    onClick={() => onPageChange(pageNumber)}
+                                    aria-label={`Page ${pageNumber}`}
+                                    aria-current={currentPage === pageNumber ? 'page' : undefined}
+                                >
+                                    {pageNumber}
+                                </button>
+                            </li>
+                        ))}
                         <li className={classes.page_item}>
                             <button
                                 className={classes.page_button}
                                 onClick={() => onPageChange(currentPage + 1)}
+                                disabled={currentPage === totalPages}
+                                aria-label="Next page"
                             >
                                 <span aria-hidden="true">&raquo;</span>
                             </button>
                         </li>
-                    )}
-                </ul>
-            </nav>
+                    </ul>
+                </nav>
+            )}
         </div>
     );
 };
