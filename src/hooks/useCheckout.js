@@ -17,7 +17,13 @@ const updatedInitialShippingInfo = {
 
 const parsePrice = (price) => {
     if (typeof price === 'number') return price;
-    return parseFloat(price) || 0;
+    if (typeof price === 'string') {
+        // Remove any currency symbols and commas
+        const cleanPrice = price.replace(/[^0-9.-]+/g, '');
+        const parsed = parseFloat(cleanPrice);
+        return isNaN(parsed) ? 0 : parsed;
+    }
+    return 0;
 };
 
 export const useCheckout = () => {
@@ -151,11 +157,17 @@ export const useCheckout = () => {
                     ? 'Store Pickup'
                     : `${shippingInfo.full_name}\n${shippingInfo.exact_address}\n${shippingInfo.district}, ${shippingInfo.canton}, ${shippingInfo.province}\nPhone: ${shippingInfo.shipping_phone}`,
                 shipping_method: shippingInfo.shipping_method,
-                items: cart.items.map(item => ({
-                    product: item.product.id,
-                    quantity: item.quantity,
-                    price_at_time: parsePrice(item.product.price)
-                }))
+                order_items: cart.items.map(item => {
+                    const price = parsePrice(item.product.price);
+                    if (isNaN(price) || price === null) {
+                        throw new Error(`Invalid price for product ${item.product.name}`);
+                    }
+                    return {
+                        product: item.product.id,
+                        quantity: item.quantity,
+                        price_at_time: price
+                    };
+                })
             };
 
             console.log('Sending order data:', JSON.stringify(orderData, null, 2));
