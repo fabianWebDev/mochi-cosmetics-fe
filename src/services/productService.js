@@ -81,25 +81,11 @@ export const productService = {
 
     async getLatestProducts(limit = 3) {
         try {
-            const response = await axiosInstance.get('/products/latest/', {
+            const response = await axiosInstance.get('products/latest/', {
                 params: { limit }
             });
             return response.data;
         } catch (error) {
-            if (error.response?.status === 401) {
-                try {
-                    const response = await axiosInstance.get('/products/latest/public/', {
-                        params: { limit }
-                    });
-                    return response.data;
-                } catch (publicError) {
-                    console.error('Error fetching latest public products:', publicError);
-                    toast.error('Error loading latest products. Please try again later.');
-                    throw publicError;
-                }
-            }
-            console.error('Error fetching latest products:', error);
-            toast.error('Error loading latest products. Please try again later.');
             throw error;
         }
     }
