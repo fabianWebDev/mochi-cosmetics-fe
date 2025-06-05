@@ -22,10 +22,20 @@ const Orders = () => {
         }
 
         const data = await orderService.getOrders();
+        
+        // Ensure data is an array before sorting
+        if (!Array.isArray(data)) {
+          console.error('Invalid orders data:', data);
+          toast.error('Error loading orders. Invalid data format.');
+          setOrders([]);
+          return;
+        }
+
         // Sort orders by date, newest first
         const sortedOrders = data.sort((a, b) => 
           new Date(b.created_at) - new Date(a.created_at)
         );
+        
         console.log('Fetched orders:', sortedOrders);
         setOrders(sortedOrders);
       } catch (error) {
@@ -38,6 +48,7 @@ const Orders = () => {
         }
         toast.dismiss();
         toast.error('Error loading orders. Please try again.');
+        setOrders([]);
       } finally {
         setLoading(false);
       }

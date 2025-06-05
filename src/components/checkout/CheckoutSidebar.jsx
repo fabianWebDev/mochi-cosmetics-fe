@@ -9,7 +9,10 @@ const formatPrice = (price) => {
 };
 
 const getShippingMethodName = (methodId, shippingMethods) => {
-    const method = shippingMethods.find(m => m.id.toString() === methodId);
+    if (!Array.isArray(shippingMethods) || !methodId) {
+        return 'Select shipping method';
+    }
+    const method = shippingMethods.find(m => m.id.toString() === methodId.toString());
     return method ? method.name : 'Select shipping method';
 };
 

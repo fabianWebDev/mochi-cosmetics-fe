@@ -23,7 +23,19 @@ const OrderConfirmation = () => {
                     return;
                 }
 
+                if (!orderId) {
+                    toast.error('Invalid order ID');
+                    navigate('/orders');
+                    return;
+                }
+
                 const orderData = await orderService.getOrderById(orderId);
+                if (!orderData) {
+                    toast.error('Order not found');
+                    navigate('/orders');
+                    return;
+                }
+
                 setOrder(orderData);
                 setLoading(false);
             } catch (error) {
@@ -32,6 +44,12 @@ const OrderConfirmation = () => {
                     toast.dismiss();
                     toast.error('Session expired. Please login again.');
                     navigate('/login');
+                    return;
+                }
+                if (error.response?.status === 404) {
+                    toast.dismiss();
+                    toast.error('Order not found');
+                    navigate('/orders');
                     return;
                 }
                 toast.dismiss();

@@ -10,7 +10,6 @@
 
 .table_row:hover {
   background-color: var(--secondary-color);
-  color: var(--white-background-color);
 }
 
 .table_cell {
@@ -42,5 +41,5 @@
 }
 
 .order_link:hover {
-  text-decoration: underline;
+  text-decoration: none;
 } 

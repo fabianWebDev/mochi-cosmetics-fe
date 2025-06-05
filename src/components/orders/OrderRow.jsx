@@ -6,22 +6,22 @@ const OrderRow = ({ order }) => {
   return (
     <tr className={styles.table_row}>
       <td className={styles.table_cell}>
-        <Link to={`/orders/${order.order_id}`} className={styles.order_link}>
-          {order.order_id}
+        <Link to={`/orders/${order.id}`} className={styles.order_link}>
+          {order.order_number}
         </Link>
       </td>
       <td className={styles.table_cell}>
-        <Link to={`/orders/${order.order_id}`} className={styles.order_link}>
+        <Link to={`/orders/${order.id}`} className={styles.order_link}>
           {new Date(order.created_at).toLocaleDateString()}
         </Link>
       </td>
       <td className={styles.table_cell}>
-        <Link to={`/orders/${order.order_id}`} className={styles.order_link}>
+        <Link to={`/orders/${order.id}`} className={styles.order_link}>
           ${order.total_price}
         </Link>
       </td>
       <td className={styles.table_cell}>
-        <Link to={`/orders/${order.order_id}`} className={styles.order_link}>
+        <Link to={`/orders/${order.id}`} className={styles.order_link}>
           {order.status}
         </Link>
       </td>

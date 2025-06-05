@@ -7,7 +7,7 @@ const OrderInfo = ({ orderDetails, onCancelClick, canCancelOrder }) => {
     return (
         <div className={styles.order_info_container}>
             <h1 className={`${styles.order_detail_title} custom_h1 mb-3`}>
-                Order Details - ID: {orderDetails.order_id}
+                Order Details - ID: {orderDetails.order_number}
             </h1>
             <div className="row">
                 <div className="col-3">

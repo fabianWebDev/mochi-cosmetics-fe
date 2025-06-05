@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { orderService } from '../../services/orderService';
 import OrderInfo from '../../components/orders/detail/OrderInfo';
 import CancelOrderModal from '../../components/orders/detail/CancelOrderModal';
@@ -8,6 +9,7 @@ import NotFoundState from '../../components/orders/detail/NotFoundState';
 
 const OrderDetail = () => {
     const { orderId } = useParams();
+    const navigate = useNavigate();
     const [orderDetails, setOrderDetails] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -16,17 +18,33 @@ const OrderDetail = () => {
     useEffect(() => {
         const fetchOrderDetails = async () => {
             try {
+                if (!orderId) {
+                    toast.error('Invalid order ID');
+                    navigate('/orders');
+                    return;
+                }
+
                 const data = await orderService.getOrderById(orderId);
                 setOrderDetails(data);
             } catch (error) {
                 console.error('Error fetching order details:', error);
+                if (error.response?.status === 404) {
+                    toast.error('Order not found');
+                    navigate('/orders');
+                    return;
+                }
+                if (error.response?.status === 401) {
+                    toast.error('Session expired. Please login again.');
+                    navigate('/login');
+                    return;
+                }
                 setError('Error loading order details');
             } finally {
                 setLoading(false);
             }
         };
         fetchOrderDetails();
-    }, [orderId]);
+    }, [orderId, navigate]);
 
     const handleCancelOrder = async () => {
         try {
@@ -46,9 +64,10 @@ const OrderDetail = () => {
             const updatedOrder = await orderService.getOrderById(orderId);
             setOrderDetails(updatedOrder);
             setShowCancelModal(false);
+            toast.success('Order cancelled successfully');
         } catch (error) {
             console.error('Error canceling order:', error);
-            setError('Error canceling order');
+            toast.error('Error canceling order');
         }
     };
 

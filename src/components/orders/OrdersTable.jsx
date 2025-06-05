@@ -17,14 +17,17 @@ const OrdersTable = ({ orders }) => {
                 </thead>
                 <tbody>
                     {orders.length === 0 ? (
-                        <tr>
-                            <td colSpan="1" className={styles.empty_orders}>
+                        <tr key="no-orders">
+                            <td colSpan="4" className={styles.empty_orders}>
                                 No orders to display
                             </td>
                         </tr>
                     ) : (
                         orders.map((order) => (
-                            <OrderRow key={order.order_id} order={order} />
+                            <OrderRow 
+                                key={order.id} 
+                                order={order} 
+                            />
                         ))
                     )}
                 </tbody>

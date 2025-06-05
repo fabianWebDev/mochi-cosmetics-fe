@@ -12,7 +12,8 @@ const logError = (error, operation) => {
 export const orderService = {
     async createOrder(orderData) {
         try {
-            const response = await axiosInstance.post('/orders/', orderData);
+            const response = await axiosInstance.post('/my-orders/', orderData);
+            console.log('Order creation response:', response.data);
             return response.data;
         } catch (error) {
             logError(error, 'createOrder');
@@ -23,7 +24,8 @@ export const orderService = {
     async getOrders() {
         try {
             const response = await axiosInstance.get('/my-orders/');
-            return response.data;
+            // Handle paginated response
+            return response.data.results || [];
         } catch (error) {
             logError(error, 'getOrders');
             throw error;
@@ -32,6 +34,10 @@ export const orderService = {
 
     async getOrderById(orderId) {
         try {
+            if (!orderId) {
+                throw new Error('Order ID is required');
+            }
+            console.log('Fetching order with ID:', orderId);
             const response = await axiosInstance.get(`/orders/${orderId}/`);
             return response.data;
         } catch (error) {
@@ -78,7 +84,7 @@ export const orderService = {
     async getShippingMethods() {
         try {
             const response = await axiosInstance.get('/shipping-methods/');
-            return response.data;
+            return response.data.results || [];
         } catch (error) {
             logError(error, 'getShippingMethods');
             throw error;

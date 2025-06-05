@@ -6,9 +6,8 @@ import { cartService } from '../services/cartService';
 import { orderService } from '../services/orderService';
 import { Checkout } from '../components';
 const { ORDER_STATUS, INITIAL_SHIPPING_INFO } = Checkout;
-const { validateCart } = Checkout;
 const { handleCheckoutError } = Checkout;
-import { shippingValidationSchema } from '../components/checkout/utils/shippingValidationSchema';
+import { shippingValidationSchema, validateCart } from '../components/checkout/utils';
 
 // Update INITIAL_SHIPPING_INFO to include shipping_method
 const updatedInitialShippingInfo = {
@@ -159,11 +158,15 @@ export const useCheckout = () => {
                 }))
             };
 
+            console.log('Sending order data:', JSON.stringify(orderData, null, 2));
+
             const order = await orderService.createOrder(orderData);
 
-            if (!order || !order.order_id) {
+            if (!order || (!order.order_id && !order.id)) {
                 throw new Error('Invalid order response from server');
             }
+
+            const orderId = order.order_id || order.id;
 
             for (const item of cart.items) {
                 try {
@@ -175,7 +178,7 @@ export const useCheckout = () => {
                 } catch (error) {
                     toast.dismiss();
                     toast.error(`Error updating stock for ${item.product.name}`);
-                    await orderService.deleteOrder(order.order_id);
+                    await orderService.deleteOrder(orderId);
                     return;
                 }
             }
@@ -183,7 +186,7 @@ export const useCheckout = () => {
             await cartService.clearCart();
             toast.dismiss();
             toast.success('Order placed successfully!');
-            navigate(`/order-confirmation/${order.order_id}`);
+            navigate(`/order-confirmation/${orderId}`);
 
         } catch (error) {
             handleCheckoutError(error, navigate);
