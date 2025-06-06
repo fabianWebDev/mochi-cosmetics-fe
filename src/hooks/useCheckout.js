@@ -114,10 +114,18 @@ export const useCheckout = () => {
         }, 0);
     };
 
+    const calculateTotalTax = (items) => {
+        return items.reduce((total, item) => {
+            const itemTax = item.product.price * item.quantity * ((item.product.tax?.rate || 0) / 100);
+            return total + itemTax;
+        }, 0);
+    };
+
     const calculateTotal = () => {
         const subtotal = calculateSubtotal();
         const shipping = calculateShippingCost();
-        return subtotal + shipping;
+        const tax = calculateTotalTax(cart.items);
+        return subtotal + shipping + tax;
     };
 
     const handleSubmit = async (e) => {
