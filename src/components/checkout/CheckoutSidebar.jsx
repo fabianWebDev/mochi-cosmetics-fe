@@ -16,12 +16,20 @@ const getShippingMethodName = (methodId, shippingMethods) => {
     return method ? method.name : 'Select shipping method';
 };
 
+const calculateTotalTax = (items) => {
+    return items.reduce((total, item) => {
+        const itemTax = item.product.price * item.quantity * ((item.product.tax?.rate || 0) / 100);
+        return total + itemTax;
+    }, 0);
+};
+
 const CheckoutSidebar = ({ cart, calculateTotal, calculateSubtotal, calculateShippingCost, shippingInfo, shippingMethods }) => {
     if (!cart || !cart.items) return null;
 
     const totalItems = cart.items.reduce((sum, item) => sum + item.quantity, 0);
     const shippingCost = calculateShippingCost();
     const subtotal = calculateSubtotal();
+    const totalTax = calculateTotalTax(cart.items);
 
     return (
         <div className={classes.sidebar}>
@@ -49,6 +57,10 @@ const CheckoutSidebar = ({ cart, calculateTotal, calculateSubtotal, calculateShi
                         </small>
                     </div>
                     <span>${formatPrice(shippingCost)}</span>
+                </div>
+                <div className={classes.price_row}>
+                    <span>Taxes</span>
+                    <span>${formatPrice(totalTax)}</span>
                 </div>
                 <hr className={classes.divider} />
                 <div className={classes.total_row}>

@@ -31,7 +31,8 @@ class CartService {
                         name: item.product.name,
                         price: item.product.price,
                         image: item.product.image,
-                        stock: item.product.stock
+                        stock: item.product.stock,
+                        tax: item.product.tax
                     },
                     quantity: item.quantity,
                     cartItemId: item.id
