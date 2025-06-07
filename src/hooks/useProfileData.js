@@ -56,7 +56,6 @@ export const useProfileData = () => {
             }));
         } catch (err) {
             setError('Error loading profile data');
-            console.error('Profile fetch error:', err);
         } finally {
             setIsLoading(false);
         }
