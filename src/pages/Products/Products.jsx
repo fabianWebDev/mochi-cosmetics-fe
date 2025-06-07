@@ -19,6 +19,7 @@ const Products = () => {
         setCurrentPage,
         productsPerPage,
         setProductsPerPage,
+        sortedProducts,
     } = useProductFilters(products);
 
     const [addingToCart, setAddingToCart] = useState({});
@@ -87,7 +88,7 @@ const Products = () => {
             </div>
             <div className="col-md-9">
                 <ProductList
-                    products={products}
+                    products={sortedProducts}
                     handleViewDetails={handleViewDetails}
                     handleAddToCart={handleAddToCart}
                     addingToCart={addingToCart}
