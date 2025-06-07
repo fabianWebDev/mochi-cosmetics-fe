@@ -1,43 +1,36 @@
 import { useState, useEffect, useMemo } from "react";
+import { productService } from "../services/productService";
 
-const useProductFilters = (products = []) => {
+const useProductFilters = (initialProducts = []) => {
     const [sortOrder, setSortOrder] = useState("");
     const [showInStockOnly, setShowInStockOnly] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [productsPerPage, setProductsPerPage] = useState(20);
+    const [products, setProducts] = useState(initialProducts);
+    const [loading, setLoading] = useState(false);
 
-    // Ensure products is an array and handle null/undefined cases
-    const productsArray = useMemo(() => {
-        if (!products) return [];
-        return Array.isArray(products) ? products : [];
-    }, [products]);
+    useEffect(() => {
+        const fetchProducts = async () => {
+            setLoading(true);
+            try {
+                const data = await productService.getProducts(currentPage, productsPerPage, '', sortOrder);
+                setProducts(data.results || []);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    const sortedProducts = useMemo(() => {
-        let filteredProducts = [...productsArray];
+        fetchProducts();
+    }, [currentPage, productsPerPage, sortOrder]);
 
+    const filteredProducts = useMemo(() => {
         if (showInStockOnly) {
-            filteredProducts = filteredProducts.filter((product) => product.stock > 0);
+            return products.filter((product) => product.stock > 0);
         }
-
-        switch (sortOrder) {
-            case "a-z":
-                filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
-                break;
-            case "z-a":
-                filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
-                break;
-            case "price_asc":
-                filteredProducts.sort((a, b) => a.price - b.price);
-                break;
-            case "price_desc":
-                filteredProducts.sort((a, b) => b.price - a.price);
-                break;
-            default:
-                break;
-        }
-
-        return filteredProducts;
-    }, [productsArray, sortOrder, showInStockOnly]);
+        return products;
+    }, [products, showInStockOnly]);
 
     return {
         sortOrder,
@@ -48,7 +41,8 @@ const useProductFilters = (products = []) => {
         setCurrentPage,
         productsPerPage,
         setProductsPerPage,
-        sortedProducts,
+        sortedProducts: filteredProducts,
+        loading
     };
 };
 
