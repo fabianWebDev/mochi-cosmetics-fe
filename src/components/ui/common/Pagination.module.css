@@ -65,3 +65,37 @@
         margin-bottom: 16px;
     }
 }
+
+.pagination_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem 0;
+    gap: 1rem;
+}
+
+.pagination_controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.page_size_selector {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.page_size_select {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.page_size_select:hover {
+    border-color: #999;
+}

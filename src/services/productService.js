@@ -1,13 +1,18 @@
 import axiosInstance from './axios';
 import { toast } from 'react-toastify';
 
+const MAX_PAGE_SIZE = 100;
+
 export const productService = {
-    async getProducts(page = 1, pageSize = 10, search = '') {
+    async getProducts(page = 1, pageSize = 20, search = '') {
         try {
+            // Ensure pageSize doesn't exceed the maximum
+            const validPageSize = Math.min(pageSize, MAX_PAGE_SIZE);
+            
             const response = await axiosInstance.get('/products/', {
                 params: {
                     page,
-                    page_size: pageSize,
+                    page_size: validPageSize,
                     search
                 }
             });
@@ -32,11 +37,14 @@ export const productService = {
 
     async searchProducts(filters) {
         try {
+            // Ensure pageSize doesn't exceed the maximum
+            const validPageSize = Math.min(filters.pageSize || 20, MAX_PAGE_SIZE);
+            
             const response = await axiosInstance.get('/products/', {
                 params: {
                     ...filters,
                     page: filters.page || 1,
-                    page_size: filters.pageSize || 10
+                    page_size: validPageSize
                 }
             });
             return response.data;

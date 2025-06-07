@@ -4,8 +4,7 @@ const useProductFilters = (products = []) => {
     const [sortOrder, setSortOrder] = useState("");
     const [showInStockOnly, setShowInStockOnly] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalProducts, setTotalProducts] = useState(0);
-    const productsPerPage = 6;
+    const [productsPerPage, setProductsPerPage] = useState(20);
 
     // Ensure products is an array and handle null/undefined cases
     const productsArray = useMemo(() => {
@@ -40,17 +39,6 @@ const useProductFilters = (products = []) => {
         return filteredProducts;
     }, [productsArray, sortOrder, showInStockOnly]);
 
-    const paginatedProducts = useMemo(() => {
-        return sortedProducts.slice(
-            (currentPage - 1) * productsPerPage,
-            currentPage * productsPerPage
-        );
-    }, [sortedProducts, currentPage, productsPerPage]);
-
-    useEffect(() => {
-        setTotalProducts(sortedProducts.length);
-    }, [sortedProducts]);
-
     return {
         sortOrder,
         setSortOrder,
@@ -58,9 +46,9 @@ const useProductFilters = (products = []) => {
         setShowInStockOnly,
         currentPage,
         setCurrentPage,
-        totalProducts,
         productsPerPage,
-        paginatedProducts,
+        setProductsPerPage,
+        sortedProducts,
     };
 };
 
