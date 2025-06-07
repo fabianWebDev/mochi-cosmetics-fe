@@ -41,15 +41,8 @@ const Pagination = ({ currentPage, totalItems, itemsPerPage, onPageChange, onPag
     return (
         <div className={classes.pagination_wrapper}>
             <div className={classes.pagination_controls}>
-                <div className={classes.showing_text}>
-                    {totalItems > 0 ? (
-                        `Showing ${startItem}-${endItem} of ${totalItems} products`
-                    ) : (
-                        'No products found'
-                    )}
-                </div>
                 <div className={classes.page_size_selector}>
-                    <label htmlFor="pageSize">Products per page:</label>
+                    <label htmlFor="pageSize" className={classes.page_size_label}>Products per page:</label>
                     <select
                         id="pageSize"
                         value={itemsPerPage}
@@ -63,6 +56,14 @@ const Pagination = ({ currentPage, totalItems, itemsPerPage, onPageChange, onPag
                         ))}
                     </select>
                 </div>
+                <div className={classes.showing_text}>
+                    {totalItems > 0 ? (
+                        `Showing ${startItem}-${endItem} of ${totalItems} products`
+                    ) : (
+                        'No products found'
+                    )}
+                </div>
+
             </div>
             {totalPages > 1 && (
                 <nav className={classes.pagination_container} aria-label="Page navigation">
