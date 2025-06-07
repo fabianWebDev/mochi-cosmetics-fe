@@ -6,27 +6,46 @@ import useProductFilters from "../../hooks/useProductFilters";
 import { UI, Layout } from '../../components';
 const { Common: { Pagination }, Product: { ProductList } } = UI;
 const { SideBar } = Layout;
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 const Products = () => {
     const navigate = useNavigate();
-    const { products, loading, error } = useProducts();
+    const { products, loading, error, pagination } = useProducts();
     const {
         setSortOrder,
         showInStockOnly,
         setShowInStockOnly,
         currentPage,
         setCurrentPage,
-        totalProducts,
         productsPerPage,
-        paginatedProducts,
+        setProductsPerPage,
     } = useProductFilters(products);
 
     const [addingToCart, setAddingToCart] = useState({});
 
-    const handleViewDetails = (productId) => navigate(`/product/${productId}`);
+    const handleViewDetails = useCallback((productId) => {
+        navigate(`/product/${productId}`);
+    }, [navigate]);
 
-    const handleAddToCart = async (product) => {
+    const handlePageSizeChange = useCallback((newSize) => {
+        setProductsPerPage(newSize);
+        setCurrentPage(1); // Reset to first page when changing page size
+        // Update URL with new page size
+        const searchParams = new URLSearchParams(window.location.search);
+        searchParams.set('page_size', newSize);
+        searchParams.set('page', '1');
+        navigate(`?${searchParams.toString()}`);
+    }, [setProductsPerPage, setCurrentPage, navigate]);
+
+    const handlePageChange = useCallback((newPage) => {
+        setCurrentPage(newPage);
+        // Update URL with new page
+        const searchParams = new URLSearchParams(window.location.search);
+        searchParams.set('page', newPage);
+        navigate(`?${searchParams.toString()}`);
+    }, [setCurrentPage, navigate]);
+
+    const handleAddToCart = useCallback(async (product) => {
         if (addingToCart[product.id]) return;
 
         setAddingToCart(prev => ({ ...prev, [product.id]: true }));
@@ -52,7 +71,7 @@ const Products = () => {
         } finally {
             setAddingToCart(prev => ({ ...prev, [product.id]: false }));
         }
-    };
+    }, [addingToCart]);
 
     if (loading) return <div className="mt-4">Loading...</div>;
     if (error) return <div className="mt-4">{error}</div>;
@@ -68,16 +87,17 @@ const Products = () => {
             </div>
             <div className="col-md-9">
                 <ProductList
-                    products={paginatedProducts}
+                    products={products}
                     handleViewDetails={handleViewDetails}
                     handleAddToCart={handleAddToCart}
                     addingToCart={addingToCart}
                 />
                 <Pagination
                     currentPage={currentPage}
-                    totalItems={totalProducts}
+                    totalItems={pagination.count}
                     itemsPerPage={productsPerPage}
-                    onPageChange={setCurrentPage}
+                    onPageChange={handlePageChange}
+                    onPageSizeChange={handlePageSizeChange}
                 />
             </div>
         </div>

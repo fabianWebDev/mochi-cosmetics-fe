@@ -1,8 +1,20 @@
 import classes from './Pagination.module.css';
 
-const Pagination = ({ currentPage, totalItems, itemsPerPage, onPageChange }) => {
+const Pagination = ({ currentPage, totalItems, itemsPerPage, onPageChange, onPageSizeChange }) => {
     const totalPages = Math.ceil(totalItems / itemsPerPage);
     const maxVisibleButtons = 8;
+
+    // Calculate available page size options based on total items
+    const getPageSizeOptions = () => {
+        const options = [10, 20, 50];
+        // Only add 100 if total items is greater than 50
+        if (totalItems > 50) {
+            options.push(100);
+        }
+        return options;
+    };
+
+    const pageSizeOptions = getPageSizeOptions();
 
     const getPageNumbers = () => {
         const pageNumbers = [];
@@ -28,12 +40,29 @@ const Pagination = ({ currentPage, totalItems, itemsPerPage, onPageChange }) => 
 
     return (
         <div className={classes.pagination_wrapper}>
-            <div className={classes.showing_text}>
-                {totalItems > 0 ? (
-                    `Showing ${startItem}-${endItem} of ${totalItems} products`
-                ) : (
-                    'No products found'
-                )}
+            <div className={classes.pagination_controls}>
+                <div className={classes.showing_text}>
+                    {totalItems > 0 ? (
+                        `Showing ${startItem}-${endItem} of ${totalItems} products`
+                    ) : (
+                        'No products found'
+                    )}
+                </div>
+                <div className={classes.page_size_selector}>
+                    <label htmlFor="pageSize">Products per page:</label>
+                    <select
+                        id="pageSize"
+                        value={itemsPerPage}
+                        onChange={(e) => onPageSizeChange(Number(e.target.value))}
+                        className={classes.page_size_select}
+                    >
+                        {pageSizeOptions.map(size => (
+                            <option key={size} value={size}>
+                                {size}
+                            </option>
+                        ))}
+                    </select>
+                </div>
             </div>
             {totalPages > 1 && (
                 <nav className={classes.pagination_container} aria-label="Page navigation">
