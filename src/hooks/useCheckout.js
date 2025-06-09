@@ -178,8 +178,6 @@ export const useCheckout = () => {
                 })
             };
 
-            console.log('Sending order data:', JSON.stringify(orderData, null, 2));
-
             const order = await orderService.createOrder(orderData);
 
             if (!order || (!order.order_id && !order.id)) {
