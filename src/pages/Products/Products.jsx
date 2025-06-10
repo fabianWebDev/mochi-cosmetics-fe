@@ -46,6 +46,16 @@ const Products = () => {
         navigate(`?${searchParams.toString()}`);
     }, [setCurrentPage, navigate]);
 
+    const handleSortChange = useCallback((e) => {
+        const newSortOrder = e.target.value;
+        setSortOrder(newSortOrder);
+        // Update URL with new sort order
+        const searchParams = new URLSearchParams(window.location.search);
+        searchParams.set('ordering', newSortOrder);
+        searchParams.set('page', '1'); // Reset to first page when changing sort
+        navigate(`?${searchParams.toString()}`);
+    }, [setSortOrder, navigate]);
+
     const handleAddToCart = useCallback(async (product) => {
         if (addingToCart[product.id]) return;
 
@@ -81,7 +91,7 @@ const Products = () => {
         <div className="row">
             <div className="col-md-3 mt-3 px-1">
                 <SideBar
-                    onSortChange={(e) => setSortOrder(e.target.value)}
+                    onSortChange={handleSortChange}
                     onStockFilterChange={(e) => setShowInStockOnly(e.target.checked)}
                     showInStockOnly={showInStockOnly}
                 />

@@ -20,15 +20,19 @@ const useProducts = () => {
             const searchTerm = searchParams.get("search");
             const page = parseInt(searchParams.get("page")) || 1;
             const pageSize = parseInt(searchParams.get("page_size")) || 20;
+            const sortOrder = searchParams.get("ordering") || "";
+
+            console.log('Search params:', {
+                searchTerm,
+                page,
+                pageSize,
+                sortOrder,
+                fullUrl: location.search
+            });
 
             try {
-                const data = searchTerm
-                    ? await productService.searchProducts({ 
-                        search: searchTerm,
-                        page,
-                        pageSize
-                    })
-                    : await productService.getProducts(page, pageSize);
+                const data = await productService.getProducts(page, pageSize, searchTerm, sortOrder);
+                console.log('API Response:', data);
 
                 // Handle the paginated response from Django
                 setProducts(data.results || []);

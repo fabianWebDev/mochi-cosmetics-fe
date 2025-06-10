@@ -27,6 +27,13 @@ export const productService = {
                 default:
                     ordering = '';
             }
+
+            console.log('Making API request with params:', {
+                page,
+                page_size: validPageSize,
+                search,
+                ordering
+            });
             
             const response = await axiosInstance.get('/products/', {
                 params: {
@@ -36,9 +43,14 @@ export const productService = {
                     ordering
                 }
             });
+
+            console.log('API Response status:', response.status);
             return response.data;
         } catch (error) {
             console.error('Error fetching products:', error);
+            if (error.response) {
+                console.error('Error response:', error.response.data);
+            }
             toast.error('Error loading products. Please try again later.');
             throw error;
         }

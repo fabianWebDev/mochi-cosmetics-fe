@@ -4,15 +4,20 @@ import classes from './SearchBar.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
-
 const SearchBar = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const navigate = useNavigate();
 
     const handleSearch = (e) => {
         e.preventDefault();
-        if (searchTerm) {
-            navigate(`/products?search=${encodeURIComponent(searchTerm)}`);
+        if (searchTerm.trim()) {
+            // Create URLSearchParams to properly handle the search parameter
+            const searchParams = new URLSearchParams();
+            searchParams.set('search', searchTerm.trim());
+            searchParams.set('page', '1');
+            
+            // Navigate to products page with search parameter
+            navigate(`/products?${searchParams.toString()}`);
         }
     };
 
@@ -22,7 +27,7 @@ const SearchBar = () => {
                 <form onSubmit={handleSearch}>
                     <input
                         type="text"
-                        placeholder=""
+                        placeholder="Search products..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className={`${classes.search_input}`}
