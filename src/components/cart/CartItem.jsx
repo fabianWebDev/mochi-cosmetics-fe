@@ -6,7 +6,7 @@ const CartItem = ({ item, onUpdateQuantity, onRemove }) => {
     return (
         <div className="row mb-2 align-items-center">
             <div className="col-4 col-md-2 d-flex justify-content-center">
-                <img src={`${item.product.image}`} alt={item.product.name} className={`${classes.cart_item_image}`} />
+                <img src={`${MEDIA_BASE_URL}${item.product.image}`} alt={item.product.name} className={`${classes.cart_item_image}`} />
             </div>
             <div className="col-8 col-md-4 col-lg-4 text-center">
                 <h5>{item.product.name}</h5>
