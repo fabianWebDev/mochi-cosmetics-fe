@@ -14,7 +14,7 @@ const ProductCarousel = () => {
     const [addingToCart, setAddingToCart] = useState({});
     const navigate = useNavigate();
 
-    const handleViewDetails = (productId) => navigate(`/product/${productId}`);
+    const handleViewDetails = (slug) => navigate(`/product/${slug}`);
 
     const handleAddToCart = async (product) => {
         if (addingToCart[product.id]) return;

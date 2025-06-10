@@ -1,6 +1,5 @@
 import React from 'react';
 import Card from './ProductCard';
-import { MEDIA_BASE_URL } from '../../constants';
 
 const ProductList = ({ products, handleViewDetails, handleAddToCart, addingToCart }) => {
     return (
@@ -13,7 +12,7 @@ const ProductList = ({ products, handleViewDetails, handleAddToCart, addingToCar
                         image={product.image ? `${product.image}` : ''}
                         price={product.price}
                         stock={product.stock}
-                        onClick={() => handleViewDetails(product.id)}
+                        onClick={() => handleViewDetails(product.slug)}
                         onAddToCart={() => handleAddToCart(product)}
                         isAdding={addingToCart[product.id]}
                     />

@@ -24,8 +24,8 @@ const Products = () => {
 
     const [addingToCart, setAddingToCart] = useState({});
 
-    const handleViewDetails = useCallback((productId) => {
-        navigate(`/product/${productId}`);
+    const handleViewDetails = useCallback((slug) => {
+        navigate(`/product/${slug}`);
     }, [navigate]);
 
     const handlePageSizeChange = useCallback((newSize) => {

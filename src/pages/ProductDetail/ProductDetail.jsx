@@ -4,7 +4,7 @@ import { productService } from '../../services/productService';
 import { ProductImage, ProductInfo, ProductActionsContainer } from '../../components/product/detail';
 
 const ProductDetail = () => {
-    const { id } = useParams();
+    const { slug } = useParams();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -12,7 +12,7 @@ const ProductDetail = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const data = await productService.getProductById(id);
+                const data = await productService.getProductBySlug(slug);
                 setProduct(data);
                 setLoading(false);
             } catch (err) {
@@ -22,7 +22,7 @@ const ProductDetail = () => {
         };
 
         fetchProduct();
-    }, [id]);
+    }, [slug]);
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>{error}</div>;

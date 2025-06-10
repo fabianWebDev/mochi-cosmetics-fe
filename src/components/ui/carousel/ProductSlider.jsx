@@ -15,7 +15,7 @@ const ProductSlider = ({ products, onViewDetails, onAddToCart, addingToCart }) =
                         image={product.image ? `${product.image}` : ''}
                         price={product.price}
                         stock={product.stock}
-                        onClick={() => onViewDetails(product.id)}
+                        onClick={() => onViewDetails(product.slug)}
                         onAddToCart={() => onAddToCart(product)}
                         isAdding={addingToCart[product.id]}
                     />
