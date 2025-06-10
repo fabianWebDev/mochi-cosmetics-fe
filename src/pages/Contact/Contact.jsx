@@ -4,9 +4,7 @@ import ContactForm from '../../components/contact/ContactForm';
 const Contact = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Here you can add the logic to handle the form submission
-        // For example, sending the data to an API endpoint
-        console.log('Form submitted');
+        // TODO: Send the form data to the server
     };
 
     return (
