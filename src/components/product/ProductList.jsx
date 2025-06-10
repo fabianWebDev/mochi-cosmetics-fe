@@ -10,7 +10,7 @@ const ProductList = ({ products, handleViewDetails, handleAddToCart, addingToCar
                     <Card
                         name={product.name}
                         description={product.description}
-                        image={product.image ? `${MEDIA_BASE_URL}${product.image}` : ''}
+                        image={product.image ? `${product.image}` : ''}
                         price={product.price}
                         stock={product.stock}
                         onClick={() => handleViewDetails(product.id)}
