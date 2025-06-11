@@ -100,16 +100,18 @@ const MainMenu = () => {
                         </Link>
                         {showSubMenu && categories.length > 0 && (
                             <div className={`${classes.sub_menu}`}>
-                                {categories.map(category => (
-                                    <Link
-                                        key={category.id}
-                                        to={`/products?search=${category.name}`}
-                                        className={`${classes.nav_item} ${classes.sub_menu_item}`}
-                                        onClick={handleLinkClick}
-                                    >
-                                        {category.name}
-                                    </Link>
-                                ))}
+                                {categories.map(category => {
+                                    return (
+                                        <Link
+                                            key={category.id}
+                                            to={`/products?category=${category.slug || category.name.toLowerCase().replace(/\s+/g, '-')}`}
+                                            className={`${classes.nav_item} ${classes.sub_menu_item}`}
+                                            onClick={handleLinkClick}
+                                        >
+                                            {category.name}
+                                        </Link>
+                                    );
+                                })}
                             </div>
                         )}
                     </div>
