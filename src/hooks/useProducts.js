@@ -18,12 +18,14 @@ const useProducts = () => {
         const fetchProducts = async () => {
             const searchParams = new URLSearchParams(location.search);
             const searchTerm = searchParams.get("search");
+            const categorySlug = searchParams.get("category");
             const page = parseInt(searchParams.get("page")) || 1;
             const pageSize = parseInt(searchParams.get("page_size")) || 20;
             const sortOrder = searchParams.get("ordering") || "";
 
             console.log('Search params:', {
                 searchTerm,
+                categorySlug,
                 page,
                 pageSize,
                 sortOrder,
@@ -31,8 +33,15 @@ const useProducts = () => {
             });
 
             try {
-                const data = await productService.getProducts(page, pageSize, searchTerm, sortOrder);
-                console.log('API Response:', data);
+                let data;
+                if (categorySlug) {
+                    // If category is specified, use searchProductsByCategory
+                    data = await productService.searchProductsByCategory(categorySlug, page, pageSize, sortOrder);
+                    console.log('Category search response:', data);
+                } else {
+                    // Otherwise use regular product search
+                    data = await productService.getProducts(page, pageSize, searchTerm, sortOrder);
+                }
 
                 // Handle the paginated response from Django
                 setProducts(data.results || []);

@@ -8,7 +8,7 @@ export const productService = {
         try {
             // Ensure pageSize doesn't exceed the maximum
             const validPageSize = Math.min(pageSize, MAX_PAGE_SIZE);
-            
+
             // Map frontend sort values to Django ordering
             let ordering = '';
             switch (sortOrder) {
@@ -34,7 +34,7 @@ export const productService = {
                 search,
                 ordering
             });
-            
+
             const response = await axiosInstance.get('/products/', {
                 params: {
                     page,
@@ -71,7 +71,7 @@ export const productService = {
         try {
             // Ensure pageSize doesn't exceed the maximum
             const validPageSize = Math.min(filters.pageSize || 20, MAX_PAGE_SIZE);
-            
+
             // Map frontend sort values to Django ordering
             let ordering = '';
             switch (filters.sortOrder) {
@@ -90,7 +90,7 @@ export const productService = {
                 default:
                     ordering = '';
             }
-            
+
             const response = await axiosInstance.get('/products/', {
                 params: {
                     ...filters,
@@ -101,7 +101,6 @@ export const productService = {
             });
             return response.data;
         } catch (error) {
-            console.error('Error searching products:', error);
             toast.error('Error searching products. Please try again later.');
             throw error;
         }
@@ -146,6 +145,57 @@ export const productService = {
             });
             return response.data;
         } catch (error) {
+            throw error;
+        }
+    },
+
+    async searchProductsByCategory(categorySlug, page = 1, pageSize = 20, sortOrder = '') {
+        try {
+            // Ensure pageSize doesn't exceed the maximum
+            const validPageSize = Math.min(pageSize, MAX_PAGE_SIZE);
+
+            // Map frontend sort values to Django ordering
+            let ordering = '';
+            switch (sortOrder) {
+                case 'a-z':
+                    ordering = 'name';
+                    break;
+                case 'z-a':
+                    ordering = '-name';
+                    break;
+                case 'price_asc':
+                    ordering = 'price';
+                    break;
+                case 'price_desc':
+                    ordering = '-price';
+                    break;
+                default:
+                    ordering = '';
+            }
+
+            console.log('Making category search request with params:', {
+                category: categorySlug,
+                page,
+                page_size: validPageSize,
+                ordering
+            });
+
+            const response = await axiosInstance.get('/products/', {
+                params: {
+                    category: categorySlug,
+                    page,
+                    page_size: validPageSize,
+                    ordering
+                }
+            });
+
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching products by category:', error);
+            if (error.response) {
+                console.error('Error response:', error.response.data);
+            }
+            toast.error('Error loading products. Please try again later.');
             throw error;
         }
     }
