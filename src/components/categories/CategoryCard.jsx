@@ -6,7 +6,8 @@ const CategoryCard = ({ category }) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(`/products?search=${encodeURIComponent(category.name)}`);
+        const categorySlug = category.slug || category.name.toLowerCase().replace(/\s+/g, '-');
+        navigate(`/products?category=${categorySlug}`);
     };
 
     return (
