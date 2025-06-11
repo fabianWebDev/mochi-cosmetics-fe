@@ -26,9 +26,9 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
         fetchShippingMethods();
     }, []);
 
-    const isCorreosMethod = (methodId) => {
+    const isPickUpInStore = (methodId) => {
         const method = shippingMethods.find(m => m.id.toString() === methodId);
-        return method?.name === 'Correos de Costa Rica';
+        return method?.name === 'Pick up in store';
     };
 
     const handleSubmit = async (e) => {
@@ -124,8 +124,8 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
                     />
                 </div>
 
-                {/* Address fields for Correos */}
-                <div className={`${classes.form_group} ${!isCorreosMethod(shippingInfo.shipping_method) ? classes.hidden : ''}`}>
+                {/* Address fields - hidden only for Pick up in store */}
+                <div className={`${classes.form_group} ${isPickUpInStore(shippingInfo.shipping_method) ? classes.hidden : ''}`}>
                     <Input
                         type="text"
                         className={`${classes.form_control} ${errors.province ? classes.error : ''}`}
@@ -138,7 +138,7 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
                     />
                 </div>
 
-                <div className={`${classes.form_group} ${!isCorreosMethod(shippingInfo.shipping_method) ? classes.hidden : ''}`}>
+                <div className={`${classes.form_group} ${isPickUpInStore(shippingInfo.shipping_method) ? classes.hidden : ''}`}>
                     <Input
                         type="text"
                         className={`${classes.form_control} ${errors.canton ? classes.error : ''}`}
@@ -151,7 +151,7 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
                     />
                 </div>
 
-                <div className={`${classes.form_group} ${!isCorreosMethod(shippingInfo.shipping_method) ? classes.hidden : ''}`}>
+                <div className={`${classes.form_group} ${isPickUpInStore(shippingInfo.shipping_method) ? classes.hidden : ''}`}>
                     <Input
                         type="text"
                         className={`${classes.form_control} ${errors.district ? classes.error : ''}`}
@@ -164,7 +164,7 @@ const ShippingInfo = ({ shippingInfo, onInputChange, onSubmit }) => {
                     />
                 </div>
 
-                <div className={`${classes.form_group} ${!isCorreosMethod(shippingInfo.shipping_method) ? classes.hidden : ''}`}>
+                <div className={`${classes.form_group} ${isPickUpInStore(shippingInfo.shipping_method) ? classes.hidden : ''}`}>
                     <Input
                         type="text"
                         className={`${classes.form_control} ${errors.exact_address ? classes.error : ''}`}
