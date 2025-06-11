@@ -95,14 +95,14 @@ export const orderService = {
         }
     },
 
-    async updateProductStock(productId, quantity, operation) {
+    async updateProductStock(productId, newStock) {
         try {
             if (!authService.isAuthenticated()) {
                 throw new Error('User must be authenticated to update product stock');
             }
             const response = await axiosInstance.put(
-                `/products/${productId}/update-stock/`,
-                { quantity, operation }
+                `/products/${productId}/update_stock/`,
+                { stock: newStock }
             );
             return response.data;
         } catch (error) {
@@ -138,5 +138,5 @@ export const orderService = {
             }
             throw error;
         }
-    }
+    },
 }; 

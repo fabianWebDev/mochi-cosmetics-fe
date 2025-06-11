@@ -56,9 +56,9 @@ export const productService = {
         }
     },
 
-    async getProductBySlug(slug) {
+    async getProduct(identifier) {
         try {
-            const response = await axiosInstance.get(`/products/${slug}/`);
+            const response = await axiosInstance.get(`/products/${identifier}/`);
             return response.data;
         } catch (error) {
             console.error('Error fetching product:', error);
