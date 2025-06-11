@@ -4,15 +4,15 @@ import { productService } from '../../services/productService';
 import { ProductImage, ProductInfo, ProductActionsContainer } from '../../components/product/detail';
 
 const ProductDetail = () => {
-    const { slug } = useParams();
+    const { identifier } = useParams();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchProduct = async () => {
-            try {
-                const data = await productService.getProductBySlug(slug);
+            try {   
+                const data = await productService.getProduct(identifier);
                 setProduct(data);
                 setLoading(false);
             } catch (err) {
@@ -22,7 +22,7 @@ const ProductDetail = () => {
         };
 
         fetchProduct();
-    }, [slug]);
+    }, [identifier]);
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>{error}</div>;
