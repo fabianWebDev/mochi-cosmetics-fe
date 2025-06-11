@@ -11,7 +11,7 @@ const ProductDetail = () => {
 
     useEffect(() => {
         const fetchProduct = async () => {
-            try {   
+            try {
                 const data = await productService.getProduct(identifier);
                 setProduct(data);
                 setLoading(false);
