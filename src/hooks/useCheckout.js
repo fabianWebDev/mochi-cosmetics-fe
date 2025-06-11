@@ -190,8 +190,7 @@ export const useCheckout = () => {
                 try {
                     await orderService.updateProductStock(
                         item.product.id,
-                        item.quantity,
-                        'decrease'
+                        item.product.stock - item.quantity
                     );
                 } catch (error) {
                     toast.dismiss();

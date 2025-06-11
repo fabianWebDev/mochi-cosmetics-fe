@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { orderService } from '../../services/orderService';
+import { productService } from '../../services/productService';
 import OrderInfo from '../../components/orders/detail/OrderInfo';
 import CancelOrderModal from '../../components/orders/detail/CancelOrderModal';
 import LoadingState from '../../components/orders/detail/LoadingState';
@@ -50,10 +51,14 @@ const OrderDetail = () => {
         try {
             // First update the stock for each product
             for (const item of orderDetails.items) {
+                // Get current product details to know the current stock
+                const productDetails = await productService.getProduct(item.product);
+                const currentStock = productDetails.stock;
+                // Add the cancelled order quantity back to stock
+                const newStock = currentStock + item.quantity;
                 await orderService.updateProductStock(
                     item.product,
-                    item.quantity,
-                    'increase'
+                    newStock
                 );
             }
 
