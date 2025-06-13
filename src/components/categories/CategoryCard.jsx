@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import classes from './CaregoryCard.module.css';
-import { MEDIA_BASE_URL } from '../../constants';
 
 const CategoryCard = ({ category }) => {
     const navigate = useNavigate();
@@ -10,8 +9,8 @@ const CategoryCard = ({ category }) => {
     };
 
     return (
-        <div 
-            className={`${classes.card_container} card mb-2`} 
+        <div
+            className={`${classes.card_container} card mb-2`}
             onClick={handleClick}
             style={{
                 backgroundImage: `url(${category.image})`
