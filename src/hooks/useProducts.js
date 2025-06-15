@@ -37,7 +37,6 @@ const useProducts = () => {
                 if (categorySlug) {
                     // If category is specified, use searchProductsByCategory
                     data = await productService.searchProductsByCategory(categorySlug, page, pageSize, sortOrder);
-                    console.log('Category search response:', data);
                 } else {
                     // Otherwise use regular product search
                     data = await productService.getProducts(page, pageSize, searchTerm, sortOrder);
