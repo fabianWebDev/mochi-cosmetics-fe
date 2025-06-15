@@ -52,7 +52,6 @@ const useProducts = () => {
                 });
                 setLoading(false);
             } catch (err) {
-                console.error('Error fetching products:', err);
                 setError("Error al cargar los productos");
                 setLoading(false);
             }
