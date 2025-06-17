@@ -23,15 +23,6 @@ const useProducts = () => {
             const pageSize = parseInt(searchParams.get("page_size")) || 20;
             const sortOrder = searchParams.get("ordering") || "";
 
-            console.log('Search params:', {
-                searchTerm,
-                categorySlug,
-                page,
-                pageSize,
-                sortOrder,
-                fullUrl: location.search
-            });
-
             try {
                 let data;
                 if (categorySlug) {
