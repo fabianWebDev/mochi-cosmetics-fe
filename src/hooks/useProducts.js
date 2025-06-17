@@ -52,7 +52,7 @@ const useProducts = () => {
                 });
                 setLoading(false);
             } catch (err) {
-                setError("Error al cargar los productos");
+                setError("Error fetching products");
                 setLoading(false);
             }
         };
