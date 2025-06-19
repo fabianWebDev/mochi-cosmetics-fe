@@ -36,7 +36,6 @@ const Orders = () => {
           new Date(b.created_at) - new Date(a.created_at)
         );
         
-        console.log('Fetched orders:', sortedOrders);
         setOrders(sortedOrders);
       } catch (error) {
         console.error('Error loading orders:', error);
@@ -56,10 +55,6 @@ const Orders = () => {
 
     fetchOrders();
   }, [navigate]);
-
-  useEffect(() => {
-    console.log('Orders state updated:', orders);
-  }, [orders]);
 
   if (loading) {
     return <LoadingOrders />;
