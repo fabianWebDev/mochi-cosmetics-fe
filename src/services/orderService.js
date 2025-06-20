@@ -17,7 +17,6 @@ export const orderService = {
                 throw new Error('User must be authenticated to create an order');
             }
             const response = await axiosInstance.post('/my-orders/', orderData);
-            console.log('Order creation response:', response.data);
             return response.data;
         } catch (error) {
             logError(error, 'createOrder');
