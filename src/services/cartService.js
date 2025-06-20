@@ -315,7 +315,6 @@ class CartService {
 
     clearLocalCart() {
         localStorage.removeItem('cart');
-        console.log('Local cart has been cleared.');
     }
 
     getCartCount() {
