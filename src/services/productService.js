@@ -37,7 +37,6 @@ export const productService = {
                 }
             });
 
-            console.log('API Response status:', response.status);
             return response.data;
         } catch (error) {
             console.error('Error fetching products:', error);
