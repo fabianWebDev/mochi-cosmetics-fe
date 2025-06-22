@@ -28,13 +28,6 @@ export const productService = {
                     ordering = '';
             }
 
-            console.log('Making API request with params:', {
-                page,
-                page_size: validPageSize,
-                search,
-                ordering
-            });
-
             const response = await axiosInstance.get('/products/', {
                 params: {
                     page,
