@@ -39,7 +39,6 @@ export const productService = {
 
             return response.data;
         } catch (error) {
-            console.error('Error fetching products:', error);
             if (error.response) {
                 console.error('Error response:', error.response.data);
             }
