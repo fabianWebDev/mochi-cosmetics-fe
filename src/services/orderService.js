@@ -48,7 +48,6 @@ export const orderService = {
             if (!orderId) {
                 throw new Error('Order ID is required');
             }
-            console.log('Fetching order with ID:', orderId);
             const response = await axiosInstance.get(`/orders/${orderId}/`);
             return response.data;
         } catch (error) {
