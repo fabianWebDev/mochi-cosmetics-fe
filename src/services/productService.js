@@ -163,14 +163,6 @@ export const productService = {
                 default:
                     ordering = '';
             }
-
-            console.log('Making category search request with params:', {
-                category: categorySlug,
-                page,
-                page_size: validPageSize,
-                ordering
-            });
-
             const response = await axiosInstance.get('/products/', {
                 params: {
                     category: categorySlug,
