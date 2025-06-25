@@ -5,7 +5,7 @@
 }
 
 .error_message {
-    color: var(--red-color);
+    color: var(--danger-red);
     font-size: var(--font-size-xsmall);
     padding-left: 8px;
 }
