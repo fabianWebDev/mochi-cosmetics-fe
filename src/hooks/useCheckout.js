@@ -18,7 +18,6 @@ const updatedInitialShippingInfo = {
 const parsePrice = (price) => {
     if (typeof price === 'number') return price;
     if (typeof price === 'string') {
-        // Remove any currency symbols and commas
         const cleanPrice = price.replace(/[^0-9.-]+/g, '');
         const parsed = parseFloat(cleanPrice);
         return isNaN(parsed) ? 0 : parsed;
