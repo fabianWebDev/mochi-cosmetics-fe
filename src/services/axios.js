@@ -26,7 +26,7 @@ const PUBLIC_ENDPOINTS = [
   '/products/latest/public/',
   '/categories/public/',
   '/products/public/',
-  '/products/'  // Add the main products endpoint
+  '/products/'
 ];
 
 /**
