@@ -15,7 +15,7 @@ const axiosInstance = axios.create({
     'Content-Type': 'application/json', // Default content type
   },
   crossDomain: true,
-  timeout: 10000, // 10 second timeout
+  timeout: 10000,
 });
 
 // List of public endpoints that don't require authentication
