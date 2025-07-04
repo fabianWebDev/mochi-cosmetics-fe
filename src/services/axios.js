@@ -12,7 +12,7 @@ import { toast } from 'react-toastify';
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL, // Base URL for all requests
   headers: {
-    'Content-Type': 'application/json', // Default content type
+    'Content-Type': 'application/json',
   },
   crossDomain: true,
   timeout: 10000,
