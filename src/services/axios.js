@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 
 // Create a custom axios instance with default configuration
 const axiosInstance = axios.create({
-  baseURL: API_BASE_URL, // Base URL for all requests
+  baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
