@@ -168,7 +168,7 @@ class CartService {
                 }
 
                 try {
-                    // Eliminar del backend usando el cartItemId
+                    // Delete from the backend using the cartItemID
                     await axiosInstance.delete(`/cart/item/${cartItem.cartItemId}/`);
                 } catch (error) {
                     if (error.response?.status === 404) {
