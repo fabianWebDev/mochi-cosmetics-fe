@@ -160,7 +160,7 @@ class CartService {
 
         try {
             if (authService.isAuthenticated()) {
-                // Encontrar el cartItemId correspondiente al productId
+                // Find the cartItemId corresponding to the productId
                 const cartItem = cart.items.find(item => item.product.id === productId);
                 if (!cartItem) {
                     console.warn('Item not found in cart');
