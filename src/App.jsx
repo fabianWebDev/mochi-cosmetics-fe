@@ -18,8 +18,16 @@ import OrderDetail from './pages/OrderDetail/OrderDetail'
 import PasswordResetRequestPage from './pages/PasswordReset/PasswordResetRequestPage'
 import PasswordResetConfirmPage from './pages/PasswordReset/PasswordResetComfirmPage'
 import Profile from './pages/Profile/Profile'
+import { storeConfig } from './config/storeConfig'
+import { useEffect } from 'react'
+
 
 function App() {
+
+  useEffect(() => {
+    document.title = storeConfig.name
+  }, [])
+
   return (
     <AuthProvider>
       <div className='page-container'>
