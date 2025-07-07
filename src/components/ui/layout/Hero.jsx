@@ -1,6 +1,7 @@
 import classes from "./Hero.module.css";
 import Button from "../common/Button";
 import { Link } from "react-router-dom";
+
 const Hero = () => {
     return (
         <div className="container px-1">
