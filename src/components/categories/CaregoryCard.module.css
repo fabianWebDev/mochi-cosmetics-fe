@@ -6,6 +6,7 @@
     color: white;
     border-radius: 8px;
     cursor: pointer;
+    background: var(--footer-gradient);
 }
 
 .overlay_container {
