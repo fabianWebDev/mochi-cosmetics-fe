@@ -10,7 +10,7 @@ const FooterMenu = ({ className }) => {
                     <Link to="/" className={styles.footer_link}>Home</Link>
                 </li>
                 <li>
-                    <Link to="/products?search=mtg" className={styles.footer_link}>Magic the Gathering</Link>
+                    <Link to="/products?search=mtg" className={styles.footer_link}>Main Category</Link>
                 </li>
                 <li>
                     <Link to="/products" className={styles.footer_link}>Products</Link>
