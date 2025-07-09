@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Creepster&family=UnifrakturMaguntia&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
 :root {
   /* Typography */
@@ -9,34 +9,37 @@
   --font-size-xsmall: 12px;
 
   /* Color Palette */
-  --primary-color: #5a1588;
-  --secondary-color: #9F9F9F;
-  --tertiary-color: #ECECEC;
-  --highlight-color: #8426c5;
-  --highlight-btn-color: #3b0e57;
+  --primary-color: #3E4E5E; /* Azul petróleo suave */
+  --secondary-color: #9F9F9F; /* Gris medio */
+  --tertiary-color: #ECECEC; /* Gris claro */
+  --highlight-color: #5A6A75; /* Gris azulado */
+  --highlight-btn-color: #2E3A43; /* Azul oscuro */
   --soft-charcoal: #4F4F4F;
   --background-color: #F5F5F5;
-  --white-background-color: #FAFAFA;
+  --white-background-color: #FFFFFF;
 
   /* Status Colors */
-  --danger-red: #ef4444;
-  --danger-red-hover: #dc2626;
-  --green-color: #008000;
+  --danger-red: #D14343;
+  --danger-red-hover: #B12B2B;
+  --green-color: #4CAF50;
 
   /* Toast Colors */
-  --toastify-icon-color-success: #5a1588 !important;
-  --toastify-icon-color-error: #ff1744;
-  --toastify-icon-color-info: #00b0ff;
+  --toastify-icon-color-success: #3E4E5E !important;
+  --toastify-icon-color-error: #D14343;
+  --toastify-icon-color-info: #4A90E2;
 
   /* Gradients */
-  --footer-gradient: linear-gradient(135deg, #2b0038 0%, #6e1aa3 40%, #1b5e57 70%, #64f5a1 100%);
+  --footer-gradient: linear-gradient(135deg, #4A5A66 0%, #7D8B96 40%, #B1BCC5 100%);
+
+
 }
 
 /* Base Styles */
 body {
+  font-family: 'Inter', sans-serif;
   background-color: var(--background-color) !important;
+  color: var(--soft-charcoal);
 }
-
 
 /* Typography Classes */
 .custom_h1 {
@@ -87,6 +90,7 @@ body {
 /* Button Styles */
 .hero_button_color {
   background: var(--primary-color) !important;
+  color: white;
 }
 
 .hero_button_color:hover {
@@ -94,5 +98,5 @@ body {
 }
 
 .bg_primary_color {
-  background-color: #0f1114;
+  background-color: var(--highlight-btn-color);
 }

@@ -14,7 +14,7 @@ const Hero = () => {
                 />
                 <div className={classes.hero_content}>
                     <div className="row">
-                        <h1 className={classes.hero_title}>Minas Morgul Cards — Where Legends Linger in Shadow, and Power Lies in Every Draw.</h1>
+                        <h1 className={classes.hero_title}>My E-commerce — Where you can find everything you need!</h1>
                     </div>
                     <div className="row mt-3">
                         <div className="col"></div>

@@ -83,7 +83,7 @@ const MainMenu = () => {
                         Home
                     </Link>
                     <Link to="/products?search=mtg" className={classes.nav_item} onClick={handleLinkClick}>
-                        Magic The Gathering
+                        Main Category
                     </Link>
                     <div
                         className={classes.sub_menu_container}
