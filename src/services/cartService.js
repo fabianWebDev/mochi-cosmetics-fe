@@ -1,23 +1,106 @@
+/**
+ * Cart Service
+ * 
+ * This service manages the shopping cart functionality, handling both local storage
+ * and backend synchronization. It provides a unified interface for cart operations
+ * regardless of user authentication status, with automatic fallback to local storage
+ * when backend operations fail.
+ * 
+ * Key Features:
+ * - Dual storage: Local storage for guest users, backend sync for authenticated users
+ * - Automatic cart merging when users log in
+ * - Stock validation and quantity management
+ * - Real-time cart updates with event emission
+ * - Error handling with graceful fallbacks
+ * 
+ * @module cartService
+ * @requires axiosInstance - Configured axios instance for API calls
+ * @requires authService - Authentication service for user status checks
+ * @requires STORAGE_KEYS - Constants for localStorage keys
+ * @requires eventService - Event service for cart update notifications
+ */
+
 import axiosInstance from './axios';
 import { authService } from './authService';
 import { STORAGE_KEYS } from '../constants';
 import { eventService } from './eventService';
 
+/**
+ * Cart Service Class
+ * 
+ * Manages shopping cart operations with support for both local storage and backend
+ * synchronization. Handles cart persistence, quantity updates, and stock validation.
+ * 
+ * @class CartService
+ */
 class CartService {
+    /**
+     * Creates a new CartService instance
+     * 
+     * Initializes the service by loading the current cart from localStorage
+     * and setting up the internal cart state.
+     * 
+     * @constructor
+     * @example
+     * const cartService = new CartService();
+     */
     constructor() {
         this.cart = this.loadCartFromLocalStorage();
     }
 
+    /**
+     * Loads cart data from localStorage
+     * 
+     * Retrieves the saved cart from browser storage and parses it as JSON.
+     * Returns an empty cart structure if no data exists.
+     * 
+     * @returns {Object} Cart object with items array
+     * @example
+     * const cart = cartService.loadCartFromLocalStorage();
+     * console.log('Cart items:', cart.items);
+     */
     loadCartFromLocalStorage() {
         const savedCart = localStorage.getItem(STORAGE_KEYS.CART);
         return savedCart ? JSON.parse(savedCart) : { items: [] };
     }
 
+    /**
+     * Saves cart data to localStorage and emits update event
+     * 
+     * Persists the cart data to browser storage and notifies other components
+     * about the cart update through the event service.
+     * 
+     * @param {Object} cart - Cart object to save
+     * @param {Array} cart.items - Array of cart items
+     * 
+     * @example
+     * const cart = { items: [{ product: {...}, quantity: 2 }] };
+     * cartService.saveCartToLocalStorage(cart);
+     */
     saveCartToLocalStorage(cart) {
         localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
         eventService.emit('cartUpdated', this.getCartCount());
     }
 
+    /**
+     * Synchronizes local cart with backend data
+     * 
+     * Fetches the current cart from the backend for authenticated users and
+     * updates the local storage. Handles cases where the backend cart doesn't exist
+     * by creating a new one with local items.
+     * 
+     * @async
+     * @returns {Promise<Array>} Array of cart items from backend
+     * @throws {Error} When backend communication fails
+     * 
+     * @example
+     * try {
+     *   const items = await cartService.syncWithBackend();
+     *   console.log('Synced cart items:', items);
+     * } catch (error) {
+     *   console.error('Sync failed:', error);
+     * }
+     */
     async syncWithBackend() {
         if (!authService.isAuthenticated()) {
             return this.loadCartFromLocalStorage().items;
@@ -65,6 +148,28 @@ class CartService {
         }
     }
 
+    /**
+     * Adds a product to the cart
+     * 
+     * Adds a product to the cart with the specified quantity. For authenticated users,
+     * the item is added to the backend; for guest users, it's stored locally.
+     * Automatically handles authentication failures by falling back to local storage.
+     * 
+     * @async
+     * @param {number} productId - ID of the product to add
+     * @param {number} quantity - Quantity to add (default: 1)
+     * @param {boolean} updateLocal - Whether to update local storage after backend operation (default: true)
+     * @returns {Promise<Object>} Updated cart data
+     * @throws {Error} When product cannot be added to cart
+     * 
+     * @example
+     * try {
+     *   const result = await cartService.addToCart(123, 2);
+     *   console.log('Product added to cart:', result);
+     * } catch (error) {
+     *   console.error('Failed to add product:', error);
+     * }
+     */
     async addToCart(productId, quantity = 1, updateLocal = true) {
         try {
             if (authService.isAuthenticated()) {
@@ -92,6 +197,26 @@ class CartService {
         }
     }
 
+    /**
+     * Adds a product to the local cart storage
+     * 
+     * Fetches product details from the backend and adds them to the local cart.
+     * If the product already exists, the quantity is increased.
+     * 
+     * @async
+     * @param {number} productId - ID of the product to add
+     * @param {number} quantity - Quantity to add
+     * @returns {Promise<Object>} Updated cart data
+     * @throws {Error} When product details cannot be fetched or cart cannot be updated
+     * 
+     * @example
+     * try {
+     *   const cart = await cartService.addToLocalCart(123, 1);
+     *   console.log('Local cart updated:', cart);
+     * } catch (error) {
+     *   console.error('Failed to update local cart:', error);
+     * }
+     */
     async addToLocalCart(productId, quantity) {
         try {
             const cart = this.loadCartFromLocalStorage();
@@ -115,6 +240,26 @@ class CartService {
         }
     }
 
+    /**
+     * Updates the quantity of a product in the cart
+     * 
+     * Updates the quantity of a specific product in the cart. For authenticated users,
+     * the update is performed on the backend; for guest users, it's updated locally.
+     * 
+     * @async
+     * @param {number} productId - ID of the product to update
+     * @param {number} newQuantity - New quantity for the product
+     * @returns {Promise<Object>} Updated cart data
+     * @throws {Error} When product cannot be found or quantity cannot be updated
+     * 
+     * @example
+     * try {
+     *   const result = await cartService.updateQuantity(123, 5);
+     *   console.log('Quantity updated:', result);
+     * } catch (error) {
+     *   console.error('Failed to update quantity:', error);
+     * }
+     */
     async updateQuantity(productId, newQuantity) {
         const cart = this.loadCartFromLocalStorage();
 
@@ -155,6 +300,26 @@ class CartService {
         }
     }
 
+    /**
+     * Removes a product from the cart
+     * 
+     * Removes a specific product from the cart. For authenticated users, the item
+     * is removed from the backend; for guest users, it's removed from local storage.
+     * Handles cases where the backend item doesn't exist by proceeding with local removal.
+     * 
+     * @async
+     * @param {number} productId - ID of the product to remove
+     * @returns {Promise<void>}
+     * @throws {Error} When removal operation fails
+     * 
+     * @example
+     * try {
+     *   await cartService.removeFromCart(123);
+     *   console.log('Product removed from cart');
+     * } catch (error) {
+     *   console.error('Failed to remove product:', error);
+     * }
+     */
     async removeFromCart(productId) {
         const cart = this.loadCartFromLocalStorage();
 
@@ -214,6 +379,23 @@ class CartService {
         }
     }
 
+    /**
+     * Clears all items from the cart
+     * 
+     * Removes all items from both the backend (for authenticated users) and local storage.
+     * Ensures the cart is cleared even if backend operations fail.
+     * 
+     * @async
+     * @returns {Promise<void>}
+     * 
+     * @example
+     * try {
+     *   await cartService.clearCart();
+     *   console.log('Cart cleared successfully');
+     * } catch (error) {
+     *   console.error('Error clearing cart:', error);
+     * }
+     */
     async clearCart() {
         try {
             if (authService.isAuthenticated()) {
@@ -241,10 +423,33 @@ class CartService {
         }
     }
 
+    /**
+     * Gets all items in the current cart
+     * 
+     * Returns an array of all items currently in the cart from local storage.
+     * 
+     * @returns {Array} Array of cart items
+     * 
+     * @example
+     * const items = cartService.getCartItems();
+     * console.log('Cart items:', items);
+     */
     getCartItems() {
         return this.loadCartFromLocalStorage().items;
     }
 
+    /**
+     * Calculates the total price of all items in the cart
+     * 
+     * Sums up the total cost of all items in the cart by multiplying
+     * each item's price by its quantity.
+     * 
+     * @returns {number} Total cart value
+     * 
+     * @example
+     * const total = cartService.getCartTotal();
+     * console.log('Cart total: $', total);
+     */
     getCartTotal() {
         const cart = this.loadCartFromLocalStorage();
         return cart.items.reduce((total, item) => {
@@ -252,6 +457,20 @@ class CartService {
         }, 0);
     }
 
+    /**
+     * Merges local cart with backend cart when user logs in
+     * 
+     * When a user authenticates, this method merges any items in the local cart
+     * with the backend cart. It handles stock validation and quantity conflicts
+     * by taking the maximum quantity for each product.
+     * 
+     * @async
+     * @returns {Promise<void>}
+     * 
+     * @example
+     * // Called automatically when user logs in
+     * await cartService.mergeLocalCartWithBackend();
+     */
     async mergeLocalCartWithBackend() {
         if (!authService.isAuthenticated()) {
             return;
@@ -313,14 +532,54 @@ class CartService {
         }
     }
 
+    /**
+     * Clears only the local cart storage
+     * 
+     * Removes the cart data from localStorage without affecting the backend.
+     * Used during cart merging operations.
+     * 
+     * @example
+     * cartService.clearLocalCart();
+     */
     clearLocalCart() {
         localStorage.removeItem('cart');
     }
 
+    /**
+     * Gets the total number of items in the cart
+     * 
+     * Calculates the sum of all item quantities in the cart.
+     * 
+     * @returns {number} Total number of items in cart
+     * 
+     * @example
+     * const count = cartService.getCartCount();
+     * console.log('Items in cart:', count);
+     */
     getCartCount() {
         const cart = this.loadCartFromLocalStorage();
         return cart.items.reduce((count, item) => count + item.quantity, 0);
     }
 }
 
+/**
+ * Cart service instance
+ * 
+ * Singleton instance of the CartService class that provides cart management
+ * functionality throughout the application.
+ * 
+ * @type {CartService}
+ * 
+ * @example
+ * import { cartService } from './services/cartService';
+ * 
+ * // Add item to cart
+ * await cartService.addToCart(123, 2);
+ * 
+ * // Get cart items
+ * const items = cartService.getCartItems();
+ * 
+ * // Get cart total
+ * const total = cartService.getCartTotal();
+ */
 export const cartService = new CartService(); 
