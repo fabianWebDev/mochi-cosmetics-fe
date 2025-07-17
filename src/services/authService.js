@@ -5,6 +5,15 @@
  * registration, and token management. It provides a centralized interface for
  * user authentication state and token storage.
  * 
+ * Key Features:
+ * - User login and logout functionality
+ * - User registration with validation
+ * - JWT token management and storage
+ * - Authentication state checking
+ * - Admin role verification
+ * - Automatic token refresh handling
+ * - Secure data storage in localStorage
+ * 
  * @module authService
  * @requires axiosInstance - Configured axios instance for API calls
  * @requires STORAGE_KEYS - Constants for localStorage keys

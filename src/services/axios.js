@@ -5,6 +5,15 @@
  * authentication, token refresh, and error management. It provides centralized
  * HTTP request handling with automatic token management and user-friendly error messages.
  * 
+ * Key Features:
+ * - Automatic JWT token injection in requests
+ * - Token refresh on 401 errors
+ * - Public endpoint handling
+ * - Comprehensive error handling
+ * - User-friendly error notifications
+ * - Request/response interceptors
+ * - Automatic session management
+ * 
  * @module axiosInstance
  * @requires axios - HTTP client library
  * @requires API_BASE_URL - Base URL for API endpoints
