@@ -396,10 +396,11 @@ export const useCheckout = () => {
      * 
      * // Submit order form
      * // <form onSubmit={handleSubmit}>
-     * //   {/* form fields */}
-     * //   <button type="submit">Place Order</button>
+     * //    // form fields
+     * //    <button type="submit">Place Order</button>
      * // </form>
      */
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
