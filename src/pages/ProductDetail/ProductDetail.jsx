@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { productService } from '../../services/productService';
 import { ProductImage, ProductInfo, ProductActionsContainer } from '../../components/product/detail';
+import Loading from '../../components/ui/common/Loading';
 
 const ProductDetail = () => {
     const { identifier } = useParams();
@@ -24,7 +25,7 @@ const ProductDetail = () => {
         fetchProduct();
     }, [identifier]);
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <Loading />;
     if (error) return <div>{error}</div>;
     if (!product) return <div>Product not found</div>;
 

@@ -3,6 +3,7 @@ import { UI, Checkout } from '../../components';
 const { Common: { ProgressBar } } = UI;
 const { ShippingInfo, OrderSummary, PaymentMethod, CheckoutSidebar } = Checkout;
 import { useCheckout } from '../../hooks/useCheckout';
+import Loading from '../../components/ui/common/Loading';
 
 const CheckoutPage = () => {
     const {
@@ -20,7 +21,7 @@ const CheckoutPage = () => {
         calculateShippingCost
     } = useCheckout();
 
-    if (loading) return <div className="mt-4">Loading...</div>;
+    if (loading) return <Loading />;
 
     return (
         <div className="container mt-3">
@@ -49,7 +50,7 @@ const CheckoutPage = () => {
                     )}
                 </div>
                 <div className="col-12 col-md-4 col-lg-3 box_padding">
-                    <CheckoutSidebar 
+                    <CheckoutSidebar
                         cart={cart}
                         calculateTotal={calculateTotal}
                         calculateSubtotal={calculateSubtotal}

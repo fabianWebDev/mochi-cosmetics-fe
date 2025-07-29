@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useCart } from '../../hooks/useCart';
 import { Cart } from '../../components';
 const { CartItem, CartSummary } = Cart;
+import Loading from '../../components/ui/common/Loading';
 
 const CartPage = () => {
     const {
@@ -15,7 +16,7 @@ const CartPage = () => {
         isAuthenticated
     } = useCart();
 
-    if (loading) return <div className="mt-4">Loading...</div>;
+    if (loading) return <Loading />;
 
     if (!cart || !cart.items || cart.items.length === 0) {
         return (

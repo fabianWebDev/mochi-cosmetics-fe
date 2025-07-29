@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { authService } from '../../services/authService';
 import { orderService } from '../../services/orderService';
-import LoadingOrders from '../../components/orders/LoadingOrders';
 import OrdersTable from '../../components/orders/OrdersTable';
+import Loading from '../../components/ui/common/Loading';
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     const fetchOrders = async () => {
       try {
@@ -22,7 +22,7 @@ const Orders = () => {
         }
 
         const data = await orderService.getOrders();
-        
+
         // Ensure data is an array before sorting
         if (!Array.isArray(data)) {
           console.error('Invalid orders data:', data);
@@ -32,10 +32,10 @@ const Orders = () => {
         }
 
         // Sort orders by date, newest first
-        const sortedOrders = data.sort((a, b) => 
+        const sortedOrders = data.sort((a, b) =>
           new Date(b.created_at) - new Date(a.created_at)
         );
-        
+
         setOrders(sortedOrders);
       } catch (error) {
         console.error('Error loading orders:', error);
@@ -57,7 +57,7 @@ const Orders = () => {
   }, [navigate]);
 
   if (loading) {
-    return <LoadingOrders />;
+    return <Loading />;
   }
 
   return (

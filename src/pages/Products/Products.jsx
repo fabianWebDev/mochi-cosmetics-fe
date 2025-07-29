@@ -7,10 +7,11 @@ import { UI, Layout } from '../../components';
 const { Common: { Pagination }, Product: { ProductList } } = UI;
 const { SideBar } = Layout;
 import { useState, useCallback } from "react";
+import Loading from "../../components/ui/common/Loading";
 
 const Products = () => {
     const navigate = useNavigate();
-    const { products, loading, error, pagination } = useProducts();
+    const { products, error, pagination, loading } = useProducts();
     const {
         setSortOrder,
         showInStockOnly,
@@ -84,7 +85,7 @@ const Products = () => {
         }
     }, [addingToCart]);
 
-    if (loading) return <div className="mt-4">Loading...</div>;
+    if (loading) return <Loading />;
     if (error) return <div className="mt-4">{error}</div>;
 
     return (

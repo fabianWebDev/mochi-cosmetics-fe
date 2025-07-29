@@ -11,10 +11,9 @@ import classes from './ProductCarousel.module.css';
 import Loading from '../common/Loading';
 
 const ProductCarousel = () => {
-    const { products, error } = useLatestProducts();
+    const { products, error, loading } = useLatestProducts();
     const [addingToCart, setAddingToCart] = useState({});
     const navigate = useNavigate();
-    const loading = true;
 
     const handleViewDetails = (slug) => navigate(`/product/${slug}`);
 
