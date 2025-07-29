@@ -8,11 +8,13 @@ import { toast } from 'react-toastify';
 import { cartService } from '../../../services/cartService';
 import { useNavigate } from 'react-router-dom';
 import classes from './ProductCarousel.module.css';
+import Loading from '../common/Loading';
 
 const ProductCarousel = () => {
-    const { products, loading, error } = useLatestProducts();
+    const { products, error } = useLatestProducts();
     const [addingToCart, setAddingToCart] = useState({});
     const navigate = useNavigate();
+    const loading = true;
 
     const handleViewDetails = (slug) => navigate(`/product/${slug}`);
 
@@ -45,7 +47,7 @@ const ProductCarousel = () => {
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <Loading />;
     }
 
     if (error) {
@@ -53,7 +55,7 @@ const ProductCarousel = () => {
     }
 
     return (
-        <div className={`${classes.carousel_container} mt-3`}>
+        <div className={`${classes.carousel_container} mt-3 mb-5`}>
             <h2 className="mb-3 px-1">Latest Products</h2>
             <ProductSlider
                 products={products}
