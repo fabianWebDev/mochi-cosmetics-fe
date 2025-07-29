@@ -61,7 +61,7 @@ const CategoriesGrid = () => {
   const { columns } = getGridConfig(categories.length);
 
   return (
-    <div className="container mt-5">
+    <div className="container">
       <div className="row">
         {categories.map((cat, idx) => (
           <div key={cat.id} className={columns[idx]}>
