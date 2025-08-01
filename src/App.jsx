@@ -18,6 +18,7 @@ import OrderDetail from './pages/OrderDetail/OrderDetail'
 import PasswordResetRequestPage from './pages/PasswordReset/PasswordResetRequestPage'
 import PasswordResetConfirmPage from './pages/PasswordReset/PasswordResetComfirmPage'
 import Profile from './pages/Profile/Profile'
+import NotFound from './pages/404/NotFound'
 import { storeConfig } from './config/storeConfig'
 import { useEffect } from 'react'
 
@@ -49,6 +50,7 @@ function App() {
             <Route path="/password-reset" element={<PasswordResetRequestPage />} />
             <Route path="/reset-password" element={<PasswordResetConfirmPage />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
         <Footer />
