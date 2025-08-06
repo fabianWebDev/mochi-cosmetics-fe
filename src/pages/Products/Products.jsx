@@ -89,28 +89,30 @@ const Products = () => {
     if (error) return <div className="mt-4">{error}</div>;
 
     return (
-        <div className="row">
-            <div className="col-md-3 mt-3 px-1">
-                <SideBar
-                    onSortChange={handleSortChange}
-                    onStockFilterChange={(e) => setShowInStockOnly(e.target.checked)}
-                    showInStockOnly={showInStockOnly}
-                />
-            </div>
-            <div className="col-md-9">
-                <ProductList
-                    products={sortedProducts}
-                    handleViewDetails={handleViewDetails}
-                    handleAddToCart={handleAddToCart}
-                    addingToCart={addingToCart}
-                />
-                <Pagination
-                    currentPage={currentPage}
-                    totalItems={pagination.count}
-                    itemsPerPage={productsPerPage}
-                    onPageChange={handlePageChange}
-                    onPageSizeChange={handlePageSizeChange}
-                />
+        <div className="container">
+            <div className="row">
+                <div className="col-md-3 mt-3 px-1">
+                    <SideBar
+                        onSortChange={handleSortChange}
+                        onStockFilterChange={(e) => setShowInStockOnly(e.target.checked)}
+                        showInStockOnly={showInStockOnly}
+                    />
+                </div>
+                <div className="col-md-9">
+                    <ProductList
+                        products={sortedProducts}
+                        handleViewDetails={handleViewDetails}
+                        handleAddToCart={handleAddToCart}
+                        addingToCart={addingToCart}
+                    />
+                    <Pagination
+                        currentPage={currentPage}
+                        totalItems={pagination.count}
+                        itemsPerPage={productsPerPage}
+                        onPageChange={handlePageChange}
+                        onPageSizeChange={handlePageSizeChange}
+                    />
+                </div>
             </div>
         </div>
     );
