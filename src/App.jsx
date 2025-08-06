@@ -33,7 +33,7 @@ function App() {
     <AuthProvider>
       <div className='page-container'>
         <Navbar />
-        <div className=''>
+        <div className='content-wrap'>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<Products />} />

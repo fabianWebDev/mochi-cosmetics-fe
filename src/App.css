@@ -9,11 +9,16 @@
   --font-size-xsmall: 12px;
 
   /* Color Palette */
-  --primary-color: #3E4E5E; /* Azul petróleo suave */
-  --secondary-color: #9F9F9F; /* Gris medio */
-  --tertiary-color: #ECECEC; /* Gris claro */
-  --highlight-color: #5A6A75; /* Gris azulado */
-  --highlight-btn-color: #2E3A43; /* Azul oscuro */
+  --primary-color: #3E4E5E;
+  /* Azul petróleo suave */
+  --secondary-color: #9F9F9F;
+  /* Gris medio */
+  --tertiary-color: #ECECEC;
+  /* Gris claro */
+  --highlight-color: #5A6A75;
+  /* Gris azulado */
+  --highlight-btn-color: #2E3A43;
+  /* Azul oscuro */
   --soft-charcoal: #4F4F4F;
   --background-color: #F5F5F5;
   --white-background-color: #FFFFFF;
@@ -39,7 +44,10 @@ body {
   font-family: 'Inter', sans-serif;
   background-color: var(--background-color) !important;
   color: var(--soft-charcoal);
+  margin: 0;
+  min-height: 100vh;
 }
+
 
 /* Typography Classes */
 .custom_h1 {
