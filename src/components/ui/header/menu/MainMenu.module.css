@@ -3,6 +3,13 @@
     position: relative;
 }
 
+.main_menu_container {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: var(--primary-color);
+}
+
 .nav_items {
     display: flex;
     align-items: center;
