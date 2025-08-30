@@ -1,7 +1,7 @@
 import classes from "./Hero.module.css";
-import Button from "../common/Button";
+import Button from "../../common/Button";
 import { Link } from "react-router-dom";
-import { storeConfig } from "../../../config/storeConfig";
+import { storeConfig } from "../../../../config/storeConfig";
 
 const Hero = () => {
     return (
