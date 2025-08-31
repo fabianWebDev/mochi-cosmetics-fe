@@ -4,7 +4,7 @@ import Home from './pages/Home/Home'
 import Products from './pages/Products/Products'
 import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
-import { Layout } from './components'
+import { Layout, WhatsAppButton } from './components'
 import Contact from './pages/Contact/Contact'
 import ProductDetail from './pages/ProductDetail/ProductDetail'
 import Cart from './pages/Cart/Cart'
@@ -54,6 +54,7 @@ function App() {
           </Routes>
         </div>
         <Footer />
+        <WhatsAppButton />
       </div>
     </AuthProvider>
   )
