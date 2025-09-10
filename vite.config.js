@@ -18,4 +18,23 @@ export default defineConfig({
       interval: 100, // milisegundos entre cada chequeo
     },
   },
+  build: {
+    outDir: 'dist',
+    sourcemap: false,
+    minify: 'terser',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          router: ['react-router-dom'],
+          ui: ['@mui/material', '@mui/icons-material'],
+          forms: ['react-hook-form', '@hookform/resolvers', 'yup'],
+        },
+      },
+    },
+  },
+  preview: {
+    port: 4173,
+    host: true,
+  },
 })
