@@ -14,10 +14,8 @@ const CategoryCard = ({ category }) => {
         <div
             className={`${classes.card_container} card mb-2`}
             onClick={handleClick}
-            style={{
-                backgroundImage: `url(${MEDIA_BASE_URL}${category.image})`
-            }}
         >
+            <img className={classes.card_image} src={MEDIA_BASE_URL + category.image} alt={category.name} />
             <div className={classes.overlay_container}>
                 <h3 className={classes.card_title}>{category.name}</h3>
             </div>
