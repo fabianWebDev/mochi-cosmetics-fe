@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import CategoryCard from '../../categories/CategoryCard';
 import { productService } from '../../../services/productService';
+import Loading from '../common/Loading';
 
 const CategoriesGrid = () => {
   const [categories, setCategories] = useState([]);
@@ -52,7 +53,7 @@ const CategoriesGrid = () => {
     };
   };
 
-  if (loading) return <div className="text-center p-4">Cargando categorías...</div>;
+  if (loading) return <Loading />;
   if (error) return <div className="text-center text-danger p-4">{error}</div>;
   if (!Array.isArray(categories) || categories.length === 0) {
     return <div className="text-center p-4">No hay categorías disponibles</div>;

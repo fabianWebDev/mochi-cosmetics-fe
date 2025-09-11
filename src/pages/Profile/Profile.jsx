@@ -3,6 +3,7 @@ import { useProfileData } from '../../hooks/useProfileData';
 import { useProfileForm } from '../../hooks/useProfileForm';
 import ProfileView from '../../components/profile/ProfileView';
 import ProfileEditForm from '../../components/profile/ProfileEditForm';
+import Loading from '../../components/ui/common/Loading';
 
 const Profile = () => {
     const { profileData, setProfileData, isLoading, error: fetchError, fetchUserData } = useProfileData();
@@ -17,7 +18,7 @@ const Profile = () => {
     } = useProfileForm(profileData, setProfileData);
 
     if (isLoading) {
-        return <div className={classes.loading}>Loading...</div>;
+        return <Loading />;
     }
 
     return (
