@@ -62,14 +62,6 @@
     z-index: 1000;
 }
 
-.hamburger_line {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background-color: var(--primary-color);
-    margin: 5px 0;
-    transition: 0.3s;
-}
 
 .cart_icon_container {
     display: none;
@@ -91,6 +83,16 @@
         display: block;
     }
 
+    .hamburger_line {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: var(--white-background-color);
+        margin: 5px 0;
+        transition: 0.3s;
+    }
+
+
     .nav_items {
         position: fixed;
         top: 0;
@@ -98,7 +100,7 @@
         width: 100%;
         height: 100vh;
         background-color: var(--white-background-color);
-       
+
         flex-direction: column;
         padding: 80px 20px;
         transition: 0.3s;
@@ -142,7 +144,7 @@
 
     .user_icon {
         font-size: 24px;
-        color: var(--primary-color);
+        color: var(--white-background-color);
     }
 
     .arrow_icon {

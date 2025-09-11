@@ -1,12 +1,14 @@
 .card_container {
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     position: relative;
     min-height: 200px;
     color: white;
     border-radius: 8px;
     cursor: pointer;
     background: var(--footer-gradient);
+    overflow: hidden;
 }
 
 .overlay_container {
