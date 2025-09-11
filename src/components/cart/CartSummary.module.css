@@ -15,4 +15,10 @@
 
 .cart_summary_button:hover {
     background-color: var(--highlight-color);
-} 
+}
+
+@media (max-width: 768px) {
+    .cart_summary_button {
+        font-size: var(--font-size-xsmall);
+    }
+}

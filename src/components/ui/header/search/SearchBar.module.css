@@ -33,3 +33,9 @@
 .search_button:hover {
     color: var(--highlight-color);
 }
+
+@media (max-width: 768px) {
+    .search_input {
+        font-size: var(--font-size-xsmall);
+    }
+}
