@@ -11,6 +11,7 @@
     cursor: pointer;
     background-color: var(--white-background-color);
     padding: 0px 0px 0px 16px;
+    font-family: var(--base-font-family);
 }
 
 .search_input:focus {

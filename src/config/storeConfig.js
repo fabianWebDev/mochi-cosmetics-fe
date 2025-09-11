@@ -1,4 +1,4 @@
-import logo from '../assets/genericlogo.png';
+import logo from '../assets/shopping-cart.png';
 
 export const storeConfig = {
     name: "My E-commerce",

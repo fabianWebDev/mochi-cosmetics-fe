@@ -27,10 +27,9 @@
 }
 
 .footer_menu h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: #ffffff;
+    font-size: var(--font-size-medium);
+    margin-bottom: 0.5rem;
+    color: var(--white-background-color);
 }
 
 .footer_col ul {
@@ -46,6 +45,7 @@
 .footer_col ul li a {
     text-decoration: none;
     color: #ffffff;
+    font-family: var(--base-font-family);
     font-size: var(--font-size-small);
     transition: color 0.2s;
 }
@@ -63,6 +63,22 @@
     margin-bottom: 0.5rem;
 }
 
+.footer_copyright a {
+    text-decoration: none;
+}
+
+.footer_copyright_link {
+    color: var(--white-background-color);
+    font-weight: bold;
+    transition: all 0.1s ease;
+}
+
+.footer_copyright_link:hover {
+    color: var(--highlight-color);
+    font-weight: bold;
+}
+
+
 /* Responsive layout */
 @media (max-width: 768px) {
     .footer_menu {
@@ -73,4 +89,5 @@
     .footer_col {
         justify-content: center;
     }
+
 }

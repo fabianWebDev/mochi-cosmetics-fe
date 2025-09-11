@@ -6,10 +6,10 @@
     padding: 8px;
     font-size: var(--font-size-base);
     cursor: pointer;
-    font-weight: bold;
     transition: all 0.1s ease;
     border: none;
     display: flex;
+    font-family: var(--base-font-family);
 }
 
 .button_primary {

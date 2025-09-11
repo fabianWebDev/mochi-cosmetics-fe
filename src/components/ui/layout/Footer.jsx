@@ -23,8 +23,10 @@ const Footer = () => {
             </div>
             <hr className={`${classes.footer_hr} mt-3`} />
             <p className={`${classes.footer_copyright} text-center`}>
-                &copy; {new Date().getFullYear()} Todos los derechos reservados.
+                &copy; {new Date().getFullYear()} All rights reserved - 
+                Created by <a href="https://wizardofcode.net" target="_blank" rel="noopener noreferrer"> <span className={classes.footer_copyright_link}>WizardOfCode</span></a>
             </p>
+           
         </footer>
     );
 };

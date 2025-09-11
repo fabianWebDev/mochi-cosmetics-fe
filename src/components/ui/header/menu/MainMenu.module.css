@@ -15,7 +15,6 @@
     align-items: center;
     gap: 36px;
     margin: 0 auto;
-    font-weight: bold;
 }
 
 .sub_menu {
@@ -36,6 +35,7 @@
     text-decoration: none;
     color: var(--white-background-color);
     font-size: var(--font-size-base);
+    font-family: var(--base-font-family);
     letter-spacing: 0.05em;
 }
 

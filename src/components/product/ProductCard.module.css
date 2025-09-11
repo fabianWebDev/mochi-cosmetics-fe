@@ -45,7 +45,7 @@
 }
 
 .product_card_name {
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-medium);
     font-weight: 600;
     cursor: pointer;
     display: inline-block;
