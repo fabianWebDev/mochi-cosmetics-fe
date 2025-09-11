@@ -15,7 +15,7 @@ export const shippingValidationSchema = Yup.object().shape({
     province: Yup.string().when('shipping_method', {
         is: (method) => {   
             const methodName = method?.toString();
-            return methodName === 'fea343d1-e469-4afc-9bf0-7723c2e0dbb9';
+            return methodName === '515f8552-2b89-405e-815c-d3368b48c00a';
         },
         then: (schema) => schema.notRequired(),
         otherwise: (schema) => schema.required('Province is required'),
@@ -23,7 +23,7 @@ export const shippingValidationSchema = Yup.object().shape({
     canton: Yup.string().when('shipping_method', {
         is: (method) => {
             const methodName = method?.toString();
-            return methodName === 'fea343d1-e469-4afc-9bf0-7723c2e0dbb9';
+            return methodName === '515f8552-2b89-405e-815c-d3368b48c00a';
         },
         then: (schema) => schema.notRequired(),
         otherwise: (schema) => schema.required('Canton is required'),
@@ -31,7 +31,7 @@ export const shippingValidationSchema = Yup.object().shape({
     district: Yup.string().when('shipping_method', {
         is: (method) => {
             const methodName = method?.toString();
-            return methodName === 'fea343d1-e469-4afc-9bf0-7723c2e0dbb9';
+            return methodName === '515f8552-2b89-405e-815c-d3368b48c00a';
         },
         then: (schema) => schema.notRequired(),
         otherwise: (schema) => schema.required('District is required'),
@@ -39,7 +39,7 @@ export const shippingValidationSchema = Yup.object().shape({
     exact_address: Yup.string().when('shipping_method', {
         is: (method) => {
             const methodName = method?.toString();
-            return methodName === 'fea343d1-e469-4afc-9bf0-7723c2e0dbb9';
+            return methodName === '515f8552-2b89-405e-815c-d3368b48c00a';
         },
         then: (schema) => schema.notRequired(),
         otherwise: (schema) => schema.required('Exact address is required'),
