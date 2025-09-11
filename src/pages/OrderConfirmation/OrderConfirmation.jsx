@@ -6,6 +6,7 @@ import { orderService } from '../../services/orderService';
 
 // Import modular components
 import OrderConfimationLayout from '../../components/orders/confirmation/OrderConfimationLayout';
+import Loading from '../../components/ui/common/Loading';
 
 const OrderConfirmation = () => {
     const { orderId } = useParams();
@@ -65,7 +66,7 @@ const OrderConfirmation = () => {
         fetchOrder();
     }, [orderId, navigate]);
 
-    if (loading) return <div className="mt-4">Loading...</div>;
+    if (loading) return <div className="mt-4"><Loading /></div>;
     if (!order) return <div className="mt-4">Order not found</div>;
 
     return (

@@ -5,7 +5,7 @@ import { orderService } from '../../services/orderService';
 import { productService } from '../../services/productService';
 import OrderInfo from '../../components/orders/detail/OrderInfo';
 import CancelOrderModal from '../../components/orders/detail/CancelOrderModal';
-import LoadingState from '../../components/orders/detail/LoadingState';
+import Loading from '../../components/ui/common/Loading';
 import NotFoundState from '../../components/orders/detail/NotFoundState';
 
 const OrderDetail = () => {
@@ -77,7 +77,7 @@ const OrderDetail = () => {
     };
 
     if (loading) {
-        return <LoadingState />;
+        return <Loading />;
     }
 
     if (!orderDetails) {

@@ -1,10 +1,11 @@
 import React from 'react';
 import styles from './WhatsAppButton.module.css';
+export const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER;
 
 const WhatsAppButton = () => {
     const handleWhatsAppClick = () => {
         // Número de WhatsApp (puedes cambiarlo por el tuyo)
-        const phoneNumber = '50683751695';
+        const phoneNumber = whatsappNumber;
         const message = 'Hola! Me gustaría obtener más información sobre sus productos.';
         const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');
