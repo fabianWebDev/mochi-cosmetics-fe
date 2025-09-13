@@ -94,7 +94,7 @@ const Products = () => {
         <MainFrame>
             <SecondaryFrame>
                 <div className="row">
-                    <div className="col-md-3 mt-3 px-1">
+                    <div className="col-md-3">
                         <SideBar
                             onSortChange={handleSortChange}
                             onStockFilterChange={(e) => setShowInStockOnly(e.target.checked)}
@@ -102,19 +102,23 @@ const Products = () => {
                         />
                     </div>
                     <div className="col-md-9">
-                        <ProductList
-                            products={sortedProducts}
-                            handleViewDetails={handleViewDetails}
-                            handleAddToCart={handleAddToCart}
-                            addingToCart={addingToCart}
-                        />
-                        <Pagination
-                            currentPage={currentPage}
-                            totalItems={pagination.count}
-                            itemsPerPage={productsPerPage}
-                            onPageChange={handlePageChange}
-                            onPageSizeChange={handlePageSizeChange}
-                        />
+                        <div className="d-flex flex-column h-100">
+                            <ProductList
+                                products={sortedProducts}
+                                handleViewDetails={handleViewDetails}
+                                handleAddToCart={handleAddToCart}
+                                addingToCart={addingToCart}
+                            />
+                            <div className="mt-4">
+                                <Pagination
+                                    currentPage={currentPage}
+                                    totalItems={pagination.count}
+                                    itemsPerPage={productsPerPage}
+                                    onPageChange={handlePageChange}
+                                    onPageSizeChange={handlePageSizeChange}
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </SecondaryFrame>

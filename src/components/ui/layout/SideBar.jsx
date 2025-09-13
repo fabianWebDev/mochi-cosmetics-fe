@@ -2,13 +2,11 @@ import ProductFilter from '../../product/ProductFilter';
 
 const SideBar = ({ onSortChange, onStockFilterChange, showInStockOnly }) => {
     return (
-        <div>
-            <ProductFilter
-                onSortChange={onSortChange}
-                onStockFilterChange={onStockFilterChange}
-                showInStockOnly={showInStockOnly}
-            />
-        </div>
+        <ProductFilter
+            onSortChange={onSortChange}
+            onStockFilterChange={onStockFilterChange}
+            showInStockOnly={showInStockOnly}
+        />
     )
 }
 

@@ -3,7 +3,7 @@ import styles from './ProductFilter.module.css';
 
 const ProductFilter = ({ onSortChange, onStockFilterChange, showInStockOnly }) => {
     return (
-        <div className={styles.sidebar}>
+        <div className={styles.sidebar + ' mb-2'}>
             <div className="mb-2">
                 <label htmlFor="sort" className={styles.form_label}>Sort By</label>
                 <select id="sort" className={styles.form_select} onChange={onSortChange}>
