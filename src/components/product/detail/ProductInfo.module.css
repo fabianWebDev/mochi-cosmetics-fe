@@ -10,7 +10,7 @@
 .degradado {
     border: none;
     border-top: 1px solid var(--secondary-color);
-    margin: 1.5rem 0;
+    margin: 1rem 0;
 }
 
 @media (max-width: 768px) {
