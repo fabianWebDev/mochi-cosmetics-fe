@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { productService } from '../../services/productService';
 import { ProductImage, ProductInfo, ProductActionsContainer } from '../../components/product/detail';
 import Loading from '../../components/ui/common/Loading';
+import MainFrame from '../../components/ui/layout/MainFrame';
+import SecondaryFrame from '../../components/ui/layout/SecondaryFrame';
 
 const ProductDetail = () => {
     const { identifier } = useParams();
@@ -30,17 +32,21 @@ const ProductDetail = () => {
     if (!product) return <div>Product not found</div>;
 
     return (
-        <div className="row mt-3 justify-content-center">
-            <div className="col-12 col-md-4 col-lg-3">
-                <ProductImage image={product.image} name={product.name} />
-            </div>
-            <div className="col-12 col-md-4 col-lg-3">
-                <ProductInfo name={product.name} description={product.description} />
-            </div>
-            <div className="col-12 col-md-6 col-lg-2">
-                <ProductActionsContainer product={product} />
-            </div>
-        </div>
+        <MainFrame>
+            <SecondaryFrame>
+                <div className="row justify-content-center">
+                    <div className="col-12 col-md-4     p-0">
+                        <ProductImage image={product.image} name={product.name} />
+                    </div>
+                    <div className="col-12 col-md-4 p-0">
+                        <ProductInfo name={product.name} description={product.description} />
+                    </div>
+                    <div className="col-12 col-md-6 col-lg-2 p-0">
+                        <ProductActionsContainer product={product} />
+                    </div>
+                </div>
+            </SecondaryFrame>
+        </MainFrame>
     );
 };
 

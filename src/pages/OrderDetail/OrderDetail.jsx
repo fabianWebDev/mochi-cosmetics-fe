@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { orderService } from '../../services/orderService';
 import { productService } from '../../services/productService';
-import OrderInfo from '../../components/orders/detail/OrderInfo';
+import OrderDetailLayout from '../../components/orders/detail/OrderDetailLayout';
 import CancelOrderModal from '../../components/orders/detail/CancelOrderModal';
 import Loading from '../../components/ui/common/Loading';
 import NotFoundState from '../../components/orders/detail/NotFoundState';
@@ -97,8 +97,8 @@ const OrderDetail = () => {
                             {error}
                         </div>
                     )}
-                    <OrderInfo
-                        orderDetails={orderDetails}
+                    <OrderDetailLayout
+                        order={orderDetails}
                         onCancelClick={() => setShowCancelModal(true)}
                         canCancelOrder={canCancelOrder}
                     />

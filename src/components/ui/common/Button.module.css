@@ -13,12 +13,12 @@
 }
 
 .button_primary {
-    background-color: var(--primary-color);
+    background-color: var(--highlight-color);
     color: var(--white-background-color);
 }
 
 .button_primary:hover:not(:disabled) {
-    background-color: var(--highlight-color);
+    background-color: var(--highlight-color-hover);
 }
 
 .button_secondary {

@@ -1,16 +1,16 @@
-import { Link } from 'react-router-dom';
+
 import Button from '../../ui/common/Button';
 import styles from './OrderActionButtons.module.css';
+import { useNavigate } from 'react-router-dom';
 
-const OrderActionButtons = () => (
-    <div className={`${styles.action_buttons} mt-3`}>
-        <Link to="/products" className={styles.continue_button}>
-            <Button>Continue Shopping</Button>
-        </Link>
-        <Link to="/orders" className={styles.view_orders_button}>
-            <Button variant="secondary">View All Orders</Button>
-        </Link>
-    </div>
-);
+const OrderActionButtons = () => {
+    const navigate = useNavigate();
+    return (
+        <div className={`${styles.action_buttons} col-12 col-md-8 col-lg-6 col-xl-6`}>
+            <Button onClick={() => navigate('/products')}>Continue Shopping</Button>
+            <Button variant="secondary" onClick={() => navigate('/orders')}>View All Orders</Button>
+        </div>
+    );
+};
 
 export default OrderActionButtons; 
