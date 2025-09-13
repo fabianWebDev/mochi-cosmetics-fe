@@ -4,6 +4,7 @@
     border: 1px solid var(--tertiary-color);
     position: sticky;
     top: 16px;
+    margin-left: 8px;
 }
 
 .body {
@@ -71,6 +72,6 @@
     .sidebar {
         position: relative;
         top: 0;
-        margin-top: 16px;
+        margin-left: 0;
     }
 }

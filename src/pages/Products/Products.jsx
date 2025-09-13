@@ -94,14 +94,14 @@ const Products = () => {
         <MainFrame>
             <SecondaryFrame>
                 <div className="row">
-                    <div className="col-md-3">
+                    <div className="col-md-3 p-0">
                         <SideBar
                             onSortChange={handleSortChange}
                             onStockFilterChange={(e) => setShowInStockOnly(e.target.checked)}
                             showInStockOnly={showInStockOnly}
                         />
                     </div>
-                    <div className="col-md-9">
+                    <div className="col-md-9 p-0">
                         <div className="d-flex flex-column h-100">
                             <ProductList
                                 products={sortedProducts}

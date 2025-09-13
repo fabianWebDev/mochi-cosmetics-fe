@@ -5,9 +5,9 @@ import classes from './ProductList.module.css';
 const ProductList = ({ products, handleViewDetails, handleAddToCart, addingToCart }) => {
     return (
         <div className={classes.product_list_container}>
-            <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-3">
+            <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3">
                 {products.map((product) => (
-                    <div key={product.id} className="col">
+                    <div key={product.id} className="col p-0">
                         <Card
                             name={product.name}
                             description={product.description}

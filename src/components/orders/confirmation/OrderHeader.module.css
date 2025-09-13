@@ -9,12 +9,6 @@
     margin-bottom: 1rem;
 }
 
-.order_header h1 {
-    margin-bottom: 0.5rem;
-    color: #333;
-}
-
 .order_header p {
-    color: #666;
-    font-size: 1.1rem;
-} 
+    font-size: var(--font-size-base);
+}

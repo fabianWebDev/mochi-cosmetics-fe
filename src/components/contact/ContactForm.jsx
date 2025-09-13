@@ -62,7 +62,7 @@ const ContactForm = ({ handleSubmit }) => {
     return (
         <form onSubmit={onSubmit} className={`${classes.contact_form}`}>
             <h1 className="custom_h1 mb-3">Contact</h1>
-            <p className="custom_p box_padding">We'd love to hear from you! Please fill out the form below to get in touch with us.</p>
+            <p className="custom_p">We'd love to hear from you! Please fill out the form below to get in touch with us.</p>
 
             <div className={classes.form_field}>
                 <Input

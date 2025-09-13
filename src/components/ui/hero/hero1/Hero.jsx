@@ -5,7 +5,7 @@ import { storeConfig } from "../../../../config/storeConfig";
 
 const Hero = () => {
     return (
-        <div className={`${classes.hero_container} mt-3`}>
+        <div className={`${classes.hero_container}`}>
             <img
                 src={storeConfig.hero_background}
                 alt="Hero background"
