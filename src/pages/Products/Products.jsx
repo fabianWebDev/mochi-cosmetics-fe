@@ -8,6 +8,8 @@ const { Common: { Pagination }, Product: { ProductList } } = UI;
 const { SideBar } = Layout;
 import { useState, useCallback } from "react";
 import Loading from "../../components/ui/common/Loading";
+import MainFrame from "../../components/ui/layout/MainFrame";
+import SecondaryFrame from "../../components/ui/layout/SecondaryFrame";
 
 const Products = () => {
     const navigate = useNavigate();
@@ -89,32 +91,34 @@ const Products = () => {
     if (error) return <div className="mt-4">{error}</div>;
 
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col-md-3 mt-3 px-1">
-                    <SideBar
-                        onSortChange={handleSortChange}
-                        onStockFilterChange={(e) => setShowInStockOnly(e.target.checked)}
-                        showInStockOnly={showInStockOnly}
-                    />
+        <MainFrame>
+            <SecondaryFrame>
+                <div className="row">
+                    <div className="col-md-3 mt-3 px-1">
+                        <SideBar
+                            onSortChange={handleSortChange}
+                            onStockFilterChange={(e) => setShowInStockOnly(e.target.checked)}
+                            showInStockOnly={showInStockOnly}
+                        />
+                    </div>
+                    <div className="col-md-9">
+                        <ProductList
+                            products={sortedProducts}
+                            handleViewDetails={handleViewDetails}
+                            handleAddToCart={handleAddToCart}
+                            addingToCart={addingToCart}
+                        />
+                        <Pagination
+                            currentPage={currentPage}
+                            totalItems={pagination.count}
+                            itemsPerPage={productsPerPage}
+                            onPageChange={handlePageChange}
+                            onPageSizeChange={handlePageSizeChange}
+                        />
+                    </div>
                 </div>
-                <div className="col-md-9">
-                    <ProductList
-                        products={sortedProducts}
-                        handleViewDetails={handleViewDetails}
-                        handleAddToCart={handleAddToCart}
-                        addingToCart={addingToCart}
-                    />
-                    <Pagination
-                        currentPage={currentPage}
-                        totalItems={pagination.count}
-                        itemsPerPage={productsPerPage}
-                        onPageChange={handlePageChange}
-                        onPageSizeChange={handlePageSizeChange}
-                    />
-                </div>
-            </div>
-        </div>
+            </SecondaryFrame>
+        </MainFrame>
     );
 };
 

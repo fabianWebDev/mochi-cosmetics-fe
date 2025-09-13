@@ -1,0 +1,10 @@
+.secondary_frame {
+    padding: 16px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .secondary_frame {
+        padding: 0px;
+    }
+}

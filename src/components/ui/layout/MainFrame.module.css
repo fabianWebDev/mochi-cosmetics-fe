@@ -1,0 +1,9 @@
+.main_frame {
+    padding: 16px;
+}
+
+@media (max-width: 768px) {
+    .main_frame {
+        padding: 8px;
+    }
+}

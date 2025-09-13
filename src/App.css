@@ -123,3 +123,7 @@ p {
 .bg_primary_color {
   background-color: var(--highlight-btn-color);
 }
+
+.margin_auto {
+  margin: 0 auto;
+}
