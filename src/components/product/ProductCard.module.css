@@ -1,7 +1,7 @@
 .product_card_container {
     width: 100%;
     border: 1px solid var(--tertiary-color);
-    border-radius: 8px;
+    border-radius: var(--border-radius-medium);
 }
 
 .product_card_image_container {
@@ -9,8 +9,8 @@
     justify-content: center;
     align-items: center;
     background-color: var(--white-background-color);
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    border-top-left-radius: var(--border-radius-medium);
+    border-top-right-radius: var(--border-radius-medium);
     aspect-ratio: 1;
     padding: 10px;
     overflow: hidden;
@@ -39,9 +39,10 @@
 .product_card_details {
     background-color: transparent;
     padding: 16px;
-    border-bottom-right-radius: 6px;
-    border-bottom-left-radius: 6px;
-    background-color: var(--tertiary-color);
+    border-bottom-right-radius: var(--border-radius-medium);
+    border-bottom-left-radius: var(--border-radius-medium);
+    background-color: var(--white-background-color);
+    border-top: 2px solid var(--tertiary-color);
 }
 
 .product_card_name {
@@ -75,7 +76,6 @@
 .product_card_description {
     font-size: var(--font-size-small);
     font-weight: 400;
-    height: 64px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -84,11 +84,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--white-background-color);
-    padding: 8px;
     font-size: var(--font-size-small);
     border-bottom: 0px solid var(--secondary-color);
-    border-radius: 8px;
+    border-radius: var(--border-radius-medium);
 }
 
 .product_card_button_container {
@@ -101,7 +99,7 @@
     font-weight: 400;
     background-color: var(--tertiary-color);
     padding: 2px 8px;
-    border-radius: 8px;
+    border-radius: var(--border-radius-medium);
 }
 
 .product_card_price {

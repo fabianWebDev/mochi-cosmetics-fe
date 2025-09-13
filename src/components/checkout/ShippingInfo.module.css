@@ -86,7 +86,7 @@
 /* Responsive styles */
 @media (max-width: 768px) {
     .shipping_info {
-        padding: 15px;
+        padding: 16px;
     }
 
     .shipping_methods_container {

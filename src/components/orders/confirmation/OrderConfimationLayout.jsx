@@ -12,13 +12,13 @@ const OrderConfimationLayout = ({ order }) => {
             <div className={classes.order_confirmation}>
                 <OrderHeader orderId={order.order_id} />
                 <div className="row">
-                    <div className="col-md-8">
+                    <div className="col-12 col-md-8 p-0">
                         <ShippingInfo
                             shippingAddress={order.shipping_address}
                             isPickup={order.pickup}
                         />
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-12 col-md-4 p-0">
                         <OrderDetails order={order} />
                     </div>
                 </div>
