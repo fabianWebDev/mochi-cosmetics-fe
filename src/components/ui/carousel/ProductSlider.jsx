@@ -8,7 +8,7 @@ const ProductSlider = ({ products, onViewDetails, onAddToCart, addingToCart }) =
     return (
         <Slider {...carouselSettings}>
             {products.map((product) => (
-                <div key={product.id} className="px-1">
+                <div key={product.id} className="">
                     <Card 
                         name={product.name}
                         description={product.description}

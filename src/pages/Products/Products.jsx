@@ -87,7 +87,7 @@ const Products = () => {
         }
     }, [addingToCart]);
 
-    if (loading) return <Loading />;
+    if (loading) return <Loading/>;
     if (error) return <div className="mt-4">{error}</div>;
 
     return (

@@ -9,7 +9,7 @@
     border-radius: 8px;
     align-items: center;
     overflow: hidden;
-    background: var(--footer-gradient);
+    background: var(--primary-color);
 }
 
 .hero_background_image {

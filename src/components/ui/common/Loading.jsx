@@ -32,7 +32,7 @@ const Loading = ({
     return (
         <div className={`${styles.loading} ${getVariantClass()} ${className}`}>
             <FadeLoader
-                color="var(--primary-color)"
+                color="var(--highlight-color)"
                 size={getSpinnerSize()}
                 className={styles.loadingSpinner}
             />
