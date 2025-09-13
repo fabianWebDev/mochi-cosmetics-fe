@@ -11,4 +11,13 @@
     border: none;
     border-top: 1px solid var(--secondary-color);
     margin: 1.5rem 0;
-  }
+}
+
+@media (max-width: 768px) {
+    .product_info {
+        padding: 0.5rem;
+    }
+    .degradado {
+        margin: 0.5rem 0;
+    }
+}
