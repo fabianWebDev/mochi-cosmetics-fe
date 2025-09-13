@@ -12,7 +12,7 @@ const CategoryCard = ({ category }) => {
 
     return (
         <div
-            className={`${classes.card_container} card mb-2`}
+            className={`${classes.card_container} card`}
             onClick={handleClick}
         >
             <img className={classes.card_image} src={MEDIA_BASE_URL + category.image} alt={category.name} />

@@ -7,6 +7,8 @@ import OrderInfo from '../../components/orders/detail/OrderInfo';
 import CancelOrderModal from '../../components/orders/detail/CancelOrderModal';
 import Loading from '../../components/ui/common/Loading';
 import NotFoundState from '../../components/orders/detail/NotFoundState';
+import MainFrame from '../../components/ui/layout/MainFrame';
+import SecondaryFrame from '../../components/ui/layout/SecondaryFrame';
 
 const OrderDetail = () => {
     const { orderId } = useParams();
@@ -87,25 +89,27 @@ const OrderDetail = () => {
     const canCancelOrder = orderDetails.status === 'pending';
 
     return (
-        <div className="row justify-content-center mt-3">
-            <div className={`col-12 col-md-8 col-lg-8 col-xl-8`}>
-                {error && (
-                    <div className="alert alert-danger" role="alert">
-                        {error}
-                    </div>
-                )}
-                <OrderInfo
-                    orderDetails={orderDetails}
-                    onCancelClick={() => setShowCancelModal(true)}
-                    canCancelOrder={canCancelOrder}
+        <MainFrame>
+            <SecondaryFrame>
+                <div className={`col-12 col-md-8 col-lg-8 col-xl-8 margin_auto`}>
+                    {error && (
+                        <div className="alert alert-danger" role="alert">
+                            {error}
+                        </div>
+                    )}
+                    <OrderInfo
+                        orderDetails={orderDetails}
+                        onCancelClick={() => setShowCancelModal(true)}
+                        canCancelOrder={canCancelOrder}
+                    />
+                </div>
+                <CancelOrderModal
+                    show={showCancelModal}
+                    onClose={() => setShowCancelModal(false)}
+                    onConfirm={handleCancelOrder}
                 />
-            </div>
-            <CancelOrderModal
-                show={showCancelModal}
-                onClose={() => setShowCancelModal(false)}
-                onConfirm={handleCancelOrder}
-            />
-        </div>
+            </SecondaryFrame>
+        </MainFrame>
     );
 };
 

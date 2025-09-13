@@ -5,26 +5,24 @@ import { storeConfig } from "../../../../config/storeConfig";
 
 const Hero = () => {
     return (
-        <div className="container px-1">
-            <div className={`${classes.hero_container} mt-3`}>
-                <img 
-                    src={storeConfig.hero_background} 
-                    alt="Hero background" 
-                    className={classes.hero_background_image}
-                />
-                <div className={classes.hero_content}>
-                    <div className="row">
-                        <h1 className={classes.hero_title}>My E-commerce — Where you can find everything you need!</h1>
-                    </div>
-                    <div className="row mt-3">
-                        <div className="col"></div>
-                        <div className={`${classes.hero_button_container} col-md-6`}>
-                            <Link to="/products">
-                                <Button className="hero_button_color">
-                                    See more
-                                </Button>
-                            </Link>
-                        </div>
+        <div className={`${classes.hero_container} mt-3`}>
+            <img
+                src={storeConfig.hero_background}
+                alt="Hero background"
+                className={classes.hero_background_image}
+            />
+            <div className={classes.hero_content}>
+                <div className="row">
+                    <h1 className={classes.hero_title}>My E-commerce — Where you can find everything you need!</h1>
+                </div>
+                <div className="row mt-3">
+                    <div className="col"></div>
+                    <div className={`${classes.hero_button_container} col-md-6`}>
+                        <Link to="/products">
+                            <Button className="hero_button_color">
+                                See more
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </div>

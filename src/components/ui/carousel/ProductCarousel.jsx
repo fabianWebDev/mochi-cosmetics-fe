@@ -54,8 +54,8 @@ const ProductCarousel = () => {
     }
 
     return (
-        <div className={`${classes.carousel_container} mt-3 mb-5 container p-0`}>
-            <h2 className="mb-3 px-1">Latest Products</h2>
+        <div className={`${classes.carousel_container} mt-3 mb-5`}>
+            <h2 className="mb-3">Latest Products</h2>
             <ProductSlider
                 products={products}
                 onViewDetails={handleViewDetails}

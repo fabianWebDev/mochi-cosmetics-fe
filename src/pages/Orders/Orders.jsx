@@ -5,12 +5,14 @@ import { authService } from '../../services/authService';
 import { orderService } from '../../services/orderService';
 import OrdersTable from '../../components/orders/OrdersTable';
 import Loading from '../../components/ui/common/Loading';
+import MainFrame from '../../components/ui/layout/MainFrame';
+import SecondaryFrame from '../../components/ui/layout/SecondaryFrame';
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const fetchOrders = async () => {
       try {
@@ -61,11 +63,13 @@ const Orders = () => {
   }
 
   return (
-    <div className="row justify-content-center mt-3">
-      <div className="col-12 col-md-8 col-lg-8 col-xl-8">
-        <OrdersTable orders={orders} />
-      </div>
-    </div>
+    <MainFrame>
+      <SecondaryFrame>
+        <div className="col-12 col-md-8 col-lg-8 col-xl-8 margin_auto">
+          <OrdersTable orders={orders} />
+        </div>
+      </SecondaryFrame>
+    </MainFrame>
   );
 };
 

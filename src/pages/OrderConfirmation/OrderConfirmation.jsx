@@ -7,6 +7,8 @@ import { orderService } from '../../services/orderService';
 // Import modular components
 import OrderConfimationLayout from '../../components/orders/confirmation/OrderConfimationLayout';
 import Loading from '../../components/ui/common/Loading';
+import MainFrame from '../../components/ui/layout/MainFrame';
+import SecondaryFrame from '../../components/ui/layout/SecondaryFrame';
 
 const OrderConfirmation = () => {
     const { orderId } = useParams();
@@ -70,11 +72,13 @@ const OrderConfirmation = () => {
     if (!order) return <div className="mt-4">Order not found</div>;
 
     return (
-        <div className="row justify-content-center mt-3">
-            <div className={`col-12 col-md-8 col-lg-8 col-xl-8`}>
+        <MainFrame>
+            <SecondaryFrame>
+            <div className={`col-12 col-md-8 col-lg-8 col-xl-8 margin_auto`}>
                 <OrderConfimationLayout order={order} />
             </div>
-        </div>
+            </SecondaryFrame>
+        </MainFrame>
     );
 };
 
