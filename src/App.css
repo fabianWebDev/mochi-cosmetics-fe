@@ -11,16 +11,12 @@
   --font-size-xsmall: 12px;
 
   /* Color Palette */
-  --primary-color: #3E4E5E;
-  /* Azul petróleo suave */
+  --primary-color: #718AAD;
   --secondary-color: #9F9F9F;
-  /* Gris medio */
   --tertiary-color: #ECECEC;
-  /* Gris claro */
-  --highlight-color: #7d8a92;
-  /* Gris azulado */
-  --highlight-btn-color: #2E3A43;
-  /* Azul oscuro */
+  --highlight-color: #FE4134;
+  --highlight-color-hover: #B70D01;
+  --highlight-btn-color: #F4B942;
   --soft-charcoal: #4F4F4F;
   --background-color: #F5F5F5;
   --white-background-color: #FFFFFF;
@@ -36,7 +32,7 @@
   --toastify-icon-color-info: #4A90E2;
 
   /* Gradients */
-  --footer-gradient: linear-gradient(135deg, #4A5A66 0%, #7D8B96 40%, #B1BCC5 100%);
+  --footer-gradient: linear-gradient(135deg, #2A333C 0%, #3E4C59 100%);
   --base-font-family: 'Inter', sans-serif;
 
   /* Border Radius */
@@ -120,12 +116,12 @@ p {
 
 /* Button Styles */
 .hero_button_color {
-  background: var(--primary-color) !important;
+  background: var(--highlight-color) !important;
   color: white;
 }
 
 .hero_button_color:hover {
-  background: var(--highlight-color) !important;
+  background: var(--highlight-color-hover) !important;
 }
 
 .bg_primary_color {

@@ -4,6 +4,7 @@ const ProductInfo = ({ name, description }) => {
     return (
         <div className={`${classes.product_info}`}>
             <h1 className="custom_h1 mb-2">{name}</h1>
+            <hr className={classes.degradado} />
             <p>{description}</p>
         </div>
     );

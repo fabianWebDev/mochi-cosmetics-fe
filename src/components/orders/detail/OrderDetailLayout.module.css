@@ -1,0 +1,15 @@
+.order_detail_content {
+    background: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .order_detail {
+        padding: 0.5rem;
+    }
+
+    .order_detail_content {
+        padding: 1rem;
+    }
+}
