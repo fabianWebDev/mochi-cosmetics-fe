@@ -10,6 +10,7 @@ import { useState, useCallback } from "react";
 import Loading from "../../components/ui/common/Loading";
 import MainFrame from "../../components/ui/layout/MainFrame";
 import SecondaryFrame from "../../components/ui/layout/SecondaryFrame";
+import ProductsSkeleton from "./ProductsSkeleton";
 
 const Products = () => {
     const navigate = useNavigate();
@@ -87,7 +88,7 @@ const Products = () => {
         }
     }, [addingToCart]);
 
-    if (loading) return <Loading/>;
+    if (loading) return <ProductsSkeleton />;
     if (error) return <div className="mt-4">{error}</div>;
 
     return (
