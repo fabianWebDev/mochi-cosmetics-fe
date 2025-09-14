@@ -8,13 +8,13 @@ import { toast } from 'react-toastify';
 import { cartService } from '../../../services/cartService';
 import { useNavigate } from 'react-router-dom';
 import classes from './ProductCarousel.module.css';
-import Loading from '../common/Loading';
+import ProductCarouselSkeleton from './ProductCarouselSkeleton';
+import Error from '../common/Error';
 
 const ProductCarousel = () => {
     const { products, error, loading } = useLatestProducts();
     const [addingToCart, setAddingToCart] = useState({});
     const navigate = useNavigate();
-
     const handleViewDetails = (slug) => navigate(`/product/${slug}`);
 
     const handleAddToCart = async (product) => {
@@ -46,11 +46,11 @@ const ProductCarousel = () => {
     };
 
     if (loading) {
-        return <Loading />;
+        return <ProductCarouselSkeleton />;
     }
 
     if (error) {
-        return <div>Error loading products</div>;
+        return <Error message="Error loading products" variant="danger" size="large" />;
     }
 
     return (
