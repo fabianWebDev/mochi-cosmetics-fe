@@ -24,7 +24,7 @@ const ProductsSkeleton = () => {
                                 <Skeleton height={16} width="60px" style={{ marginBottom: '8px' }} />
                                 <Skeleton height={40} width="100%" />
                             </div>
-                            
+
                             {/* Checkbox section */}
                             <div>
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -34,13 +34,13 @@ const ProductsSkeleton = () => {
                             </div>
                         </div>
                     </div>
-                    
+
                     {/* Main Content Skeleton */}
                     <div className="col-md-9 p-0">
                         <div className="d-flex flex-column h-100">
                             {/* Product List Skeleton */}
                             <ProductListSkeleton count={6} />
-                            
+
                             {/* Pagination Skeleton */}
                             <div className="mt-4" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                 <Skeleton height={40} width={300} />
