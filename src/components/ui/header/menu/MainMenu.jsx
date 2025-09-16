@@ -73,9 +73,9 @@ const MainMenu = () => {
                     onClick={toggleMobileMenu}
                     aria-label="Toggle menu"
                 >
-                    <span className={classes.hamburger_line}></span>
-                    <span className={classes.hamburger_line}></span>
-                    <span className={classes.hamburger_line}></span>
+                    <span className={`${classes.hamburger_line} ${isMobileMenuOpen ? classes.hamburger_line_open : ''}`}></span>
+                    <span className={`${classes.hamburger_line} ${isMobileMenuOpen ? classes.hamburger_line_open : ''}`}></span>
+                    <span className={`${classes.hamburger_line} ${isMobileMenuOpen ? classes.hamburger_line_open : ''}`}></span>
                 </button>
 
                 <div className={`${classes.nav_items} ${isMobileMenuOpen ? classes.nav_items_open : ''}`}>

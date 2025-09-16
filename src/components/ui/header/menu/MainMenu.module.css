@@ -93,6 +93,10 @@
         transition: 0.3s;
     }
 
+    .hamburger_line_open {
+        background-color: var(--primary-color);
+    }
+
 
     .nav_items {
         position: fixed;
