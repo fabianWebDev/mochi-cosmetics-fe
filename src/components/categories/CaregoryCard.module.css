@@ -41,3 +41,11 @@
     margin: 0;
     text-align: center;
 }
+
+.card_container_skeleton {
+   background-color: var(--white-background-color);
+   height: 200px;
+   border-radius: 8px;
+   cursor: pointer;
+   overflow: hidden;
+}
