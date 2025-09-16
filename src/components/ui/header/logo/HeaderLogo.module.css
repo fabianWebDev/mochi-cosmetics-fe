@@ -18,11 +18,16 @@
 
 @media (max-width: 768px) {
     .logo {
-        display: none;
+        display: flex;
+        width: 48px;
+        height: 48px;
+        margin-left: 4px;
     }
 
     .logo_title {
         font-size: 24px;
         margin: 0px;
+        justify-content: center;
+        margin-left: 4px;
     }
 }
