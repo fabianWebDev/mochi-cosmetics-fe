@@ -1,0 +1,6 @@
+.tertiary_frame {
+    padding: 16px;
+    background-color: var(--white-background-color);
+    border: 1px solid var(--tertiary-color);
+    border-radius: var(--border-radius-small);
+}

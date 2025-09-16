@@ -1,5 +1,5 @@
 .progress_bar {
-    background-color: var(--primary-color);
+    background-color: var(--highlight-color);
     color: #ffffff;
     text-align: center;
     transition:0.5s ease;

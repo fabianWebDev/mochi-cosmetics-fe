@@ -23,7 +23,7 @@
 
 .logout_button:hover {
     background-color: var(--white-background-color);
-    color: var(--primary-color);
+    color: var(--highlight-color);
 }
 
 .user_icon_container {

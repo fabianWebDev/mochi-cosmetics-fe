@@ -6,6 +6,7 @@ const { CartItem, CartSummary } = Cart;
 import Loading from '../../components/ui/common/Loading';
 import MainFrame from '../../components/ui/layout/MainFrame';
 import SecondaryFrame from '../../components/ui/layout/SecondaryFrame';
+import TertiaryFrame from '../../components/ui/layout/TertiaryFrame';
 const CartPage = () => {
     const {
         cart,
@@ -38,9 +39,10 @@ const CartPage = () => {
         <MainFrame>
             <SecondaryFrame>
                 <div className="col-12 col-md-10 col-lg-8 col-xl-8 margin_auto">
+                    <TertiaryFrame>
                     <h1 className="mb-3 custom_h1">Shopping Cart</h1>
                     {!isAuthenticated && (
-                        <div className="alert alert-warning">
+                        <div className="alert alert-info">
                             <i className="bi bi-info-circle me-2"></i>
                             Please <Link to="/login" className="alert-link">log in</Link> to save your cart and proceed with checkout.
                         </div>
@@ -57,8 +59,9 @@ const CartPage = () => {
                     <CartSummary
                         total={calculateTotal()}
                         onCheckout={handleCheckout}
-                        isAuthenticated={isAuthenticated}
-                    />
+                            isAuthenticated={isAuthenticated}
+                        />
+                    </TertiaryFrame>
                 </div>
             </SecondaryFrame>
         </MainFrame>
