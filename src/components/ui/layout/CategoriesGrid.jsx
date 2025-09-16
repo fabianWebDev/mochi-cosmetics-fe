@@ -3,11 +3,14 @@ import CategoryCard from '../../categories/CategoryCard';
 import { productService } from '../../../services/productService';
 import Loading from '../common/Loading';
 import classes from './CategoriesGrid.module.css';
+import CategoriesGridSkeleton from './CategoriesGridSkeleton';
 
 const CategoriesGrid = () => {
   const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
+  //const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const loading = true;
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -26,7 +29,7 @@ const CategoriesGrid = () => {
     fetchCategories();
   }, []);
 
-  if (loading) return <Loading />;
+  if (loading) return <CategoriesGridSkeleton count={4} />;
   if (error) return <div className="text-center text-danger p-4">{error}</div>;
   if (!Array.isArray(categories) || categories.length === 0) {
     return <div className="text-center p-4">No hay categorías disponibles</div>;
