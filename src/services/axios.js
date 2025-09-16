@@ -40,7 +40,7 @@ const axiosInstance = axios.create({
     'Content-Type': 'application/json',
   },
   crossDomain: true,
-  timeout: 10000, // 10 seconds timeout
+  timeout: 90000, // 30 seconds timeout
 });
 
 /**
