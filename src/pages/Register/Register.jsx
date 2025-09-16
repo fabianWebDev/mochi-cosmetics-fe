@@ -8,6 +8,7 @@ import { useState } from 'react';
 const { RegisterForm } = Auth;
 import MainFrame from '../../components/ui/layout/MainFrame';
 import SecondaryFrame from '../../components/ui/layout/SecondaryFrame';
+import TertiaryFrame from '../../components/ui/layout/TertiaryFrame';
 
 const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -83,13 +84,15 @@ const Register = () => {
             <SecondaryFrame>
                 <div className="row justify-content-center">
                     <div className="col-12 col-md-8 col-lg-6 col-xl-4 col-xxl-3 smooth-col p-0">
-                        <RegisterForm
-                            formData={formData}
-                            onChange={handleChange}
-                            onSubmit={handleSubmit}
-                            error={error}
-                            fieldErrors={fieldErrors}
-                        />
+                        <TertiaryFrame>
+                            <RegisterForm
+                                formData={formData}
+                                onChange={handleChange}
+                                onSubmit={handleSubmit}
+                                error={error}
+                                fieldErrors={fieldErrors}
+                            />
+                        </TertiaryFrame>
                     </div>
                 </div>
             </SecondaryFrame>

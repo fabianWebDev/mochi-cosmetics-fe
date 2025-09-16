@@ -27,7 +27,7 @@
   --green-color: #4CAF50;
 
   /* Toast Colors */
-  --toastify-icon-color-success: #3E4E5E !important;
+  --toastify-icon-color-success: #FE4134 !important;
   --toastify-icon-color-error: #D14343;
   --toastify-icon-color-info: #4A90E2;
 
@@ -37,6 +37,7 @@
 
   /* Border Radius */
   --border-radius-medium: 8px;
+  --border-radius-small: 4px;
 }
 
 /* Base Styles */
