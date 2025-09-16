@@ -276,8 +276,6 @@ export const useCart = () => {
         if (authService.isAuthenticated()) {
             navigate('/checkout');
         } else {
-            toast.dismiss();
-            toast.info('Please log in to proceed with checkout');
             navigate('/login');
         }
     };

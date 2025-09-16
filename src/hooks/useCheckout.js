@@ -182,8 +182,6 @@ export const useCheckout = () => {
         const initializeCheckout = async () => {
             // Verify user authentication
             if (!authService.isAuthenticated()) {
-                toast.dismiss();
-                toast.error('Please login to proceed with checkout');
                 navigate('/login');
                 return;
             }
