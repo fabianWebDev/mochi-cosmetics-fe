@@ -73,7 +73,7 @@ const MainMenu = () => {
                     onClick={toggleMobileMenu}
                     aria-label="Toggle menu"
                 >
-                    <span className={`${classes.hamburger_line} ${isMobileMenuOpen ? classes.hamburger_line_open : ''}`}></span>
+                    <span className={`${classes.hamburger_line} ${isMobileMenuOpen ? classes.hamburger_line_open : ''}`}g></span>
                     <span className={`${classes.hamburger_line} ${isMobileMenuOpen ? classes.hamburger_line_open : ''}`}></span>
                     <span className={`${classes.hamburger_line} ${isMobileMenuOpen ? classes.hamburger_line_open : ''}`}></span>
                 </button>
@@ -82,8 +82,8 @@ const MainMenu = () => {
                     <Link to="/" className={classes.nav_item} onClick={handleLinkClick}>
                         Home
                     </Link>
-                    <Link to="/products?search=mtg" className={classes.nav_item} onClick={handleLinkClick}>
-                        Main Category
+                    <Link to="/products?category=consoles" className={classes.nav_item} onClick={handleLinkClick}>
+                        Consoles
                     </Link>
                     <div
                         className={classes.sub_menu_container}
@@ -116,9 +116,9 @@ const MainMenu = () => {
                             </div>
                         )}
                     </div>
-                    <Link to="/contact" className={classes.nav_item} onClick={handleLinkClick}>
+                    {/* <Link to="/contact" className={classes.nav_item} onClick={handleLinkClick}>
                         Contact
-                    </Link>
+                    </Link> */}
                     {isMobileMenuOpen && (
                         isAuthenticated ? (
                             <Logout />

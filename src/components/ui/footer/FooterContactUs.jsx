@@ -9,9 +9,9 @@ const FooterContactUs = ({ className }) => {
         <div className={className}>
             <ul>
                 <h3>Contact us</h3>
-                <li>
+                {/* <li>
                     <Link to="/contact" className={styles.footer_link}>Contact form</Link>
-                </li>
+                </li> */}
                 
             </ul>
             <Link to={`https://wa.me/${whatsappNumber}`} target="_blank">
