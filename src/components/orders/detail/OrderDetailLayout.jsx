@@ -7,9 +7,8 @@ import classes from './OrderDetailLayout.module.css';
 
 const OrderDetailLayout = ({ order, onCancelClick, canCancelOrder }) => {
     return (
-
         <div className={classes.order_detail_content}>
-            <OrderHeader orderId={order.order_id} isConfirmation={false} />
+            <OrderHeader orderId={order.order_number} isConfirmation={false} />
             <div className="row">
                 <div className="col-12 col-md-8 p-0">
                     <ShippingInfo

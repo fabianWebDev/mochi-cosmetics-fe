@@ -40,6 +40,7 @@ const OrderConfirmation = () => {
                 }
 
                 setOrder(orderData);
+                console.log(orderData);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching order:', error);
@@ -66,6 +67,7 @@ const OrderConfirmation = () => {
         };
 
         fetchOrder();
+        
     }, [orderId, navigate]);
 
     if (loading) return <div className="mt-4"><Loading /></div>;

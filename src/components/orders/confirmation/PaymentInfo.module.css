@@ -1,0 +1,18 @@
+.payment_info {
+    margin-top: 1rem;
+    text-align: left;
+}
+
+.payment_info p {
+    margin-bottom: 0.5rem;
+    font-size: var(--font-size-base)!important;
+}
+
+.payment_info a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.payment_info a:hover {
+    text-decoration: underline;
+}
