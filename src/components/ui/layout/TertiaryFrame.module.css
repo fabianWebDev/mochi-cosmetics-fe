@@ -4,3 +4,9 @@
     border: 1px solid var(--tertiary-color);
     border-radius: var(--border-radius-small);
 }
+
+@media (max-width: 468px) {
+    .tertiary_frame {
+        padding: 8px;
+    }
+}
