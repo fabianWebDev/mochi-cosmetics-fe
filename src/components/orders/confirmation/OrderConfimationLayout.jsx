@@ -6,7 +6,6 @@ import OrderActionButtons from './OrderActionButtons';
 import classes from './OrderConfimationLayout.module.css';
 
 const OrderConfimationLayout = ({ order }) => {
-    console.log(order);
     return (
         <div className={classes.order_confirmation}>
             <OrderHeader orderId={order.order_number} isConfirmation={true} />
