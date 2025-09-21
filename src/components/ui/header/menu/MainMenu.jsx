@@ -101,7 +101,6 @@ const MainMenu = () => {
                         {showSubMenu && categories.length > 0 && (
                             <div className={`${classes.sub_menu}`}>
                                 {categories.map(category => {
-                                    console.log(category);
                                     return (
                                         <Link
                                             key={category.id}
