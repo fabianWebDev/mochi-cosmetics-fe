@@ -26,14 +26,11 @@ const useProducts = () => {
             try {
                 let data;
                 if (categorySlug) {
-                    // If category is specified, use searchProductsByCategory
                     data = await productService.searchProductsByCategory(categorySlug, page, pageSize, sortOrder);
                 } else {
-                    // Otherwise use regular product search
                     data = await productService.getProducts(page, pageSize, searchTerm, sortOrder);
                 }
 
-                // Handle the paginated response from Django
                 setProducts(data.results || []);
                 setPagination({
                     count: data.count || 0,
