@@ -40,7 +40,6 @@ const OrderConfirmation = () => {
                 }
 
                 setOrder(orderData);
-                console.log(orderData);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching order:', error);
