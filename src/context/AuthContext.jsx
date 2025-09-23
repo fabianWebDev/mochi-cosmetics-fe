@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
             console.error('Login error in AuthContext:', error);
             return {
                 success: false,
-                error: error.message || 'Error al iniciar sesión'
+                error: error.message || 'Error logging in'
             };
         }
     };
