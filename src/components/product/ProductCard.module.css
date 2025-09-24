@@ -49,9 +49,14 @@
     font-size: var(--font-size-medium);
     font-weight: 600;
     cursor: pointer;
-    display: inline-block;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
     transition: transform 0.1s ease;
     position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .product_card_name::after {
@@ -78,6 +83,8 @@
     font-weight: 400;
     overflow: hidden;
     text-overflow: ellipsis;
+    height: 40px;
+    margin-bottom: 12px;
 }
 
 .product_card_price_stock {
