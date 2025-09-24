@@ -7,6 +7,7 @@ import { CartIcon } from '../../../cart';
 import useAuth from '../../../../hooks/useAuth';
 import UserIcon from '../user/UserIcon';
 import { FaChevronDown } from 'react-icons/fa';
+import { storeConfig } from '../../../../config/storeConfig';
 
 const MainMenu = () => {
     const [categories, setCategories] = useState([]);
@@ -82,8 +83,8 @@ const MainMenu = () => {
                     <Link to="/" className={classes.nav_item} onClick={handleLinkClick}>
                         Home
                     </Link>
-                    <Link to="/products?category=consoles" className={classes.nav_item} onClick={handleLinkClick}>
-                        Consoles
+                    <Link to={`/products?category=${storeConfig.mainCategory}`} className={classes.nav_item} onClick={handleLinkClick}>
+                        {storeConfig.mainCategoryName}
                     </Link>
                     <div
                         className={classes.sub_menu_container}
