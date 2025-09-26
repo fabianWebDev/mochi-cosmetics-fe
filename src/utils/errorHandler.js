@@ -20,7 +20,7 @@ export const errorHandler = {
     switch (error.status) {
       case 400:
         return {
-          message: 'Datos inválidos',
+          message: 'Invalid data',
           details: error.details,
           type: 'validation'
         };
