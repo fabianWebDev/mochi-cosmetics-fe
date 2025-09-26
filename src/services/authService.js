@@ -71,7 +71,7 @@ export const authService = {
         } catch (error) {
             // Handle specific authentication errors
             if (error.response?.status === 401) {
-                throw new Error('Credenciales inválidas');
+                throw new Error('Invalid credentials');
             }
             throw error;
         }
@@ -119,7 +119,7 @@ export const authService = {
         } catch (error) {
             // Handle specific registration errors
             if (error.response?.status === 400) {
-                throw new Error('Datos de registro inválidos');
+                throw new Error('Invalid registration data');
             }
             throw error;
         }
@@ -143,11 +143,11 @@ export const authService = {
                 // Notify server to invalidate refresh token
                 await axiosInstance.post('/users/logout/', { refresh: refreshToken });
                 toast.dismiss();
-                toast.success('Successfully logged out!');
+                toast.success('Logged out successfully!');
             }
         } catch (error) {
             // Log error but don't throw - ensure auth data is always cleared
-            console.error('Error during logout:', error);
+            console.error('Error during logout:', error.message);
         } finally {
             // Always clear local authentication data regardless of server response
             this.clearAuthData();
