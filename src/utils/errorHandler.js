@@ -26,7 +26,7 @@ export const errorHandler = {
         };
       case 401:
         return {
-          message: 'Sesión expirada',
+          message: 'Session expired',
           type: 'auth'
         };
       case 403:
