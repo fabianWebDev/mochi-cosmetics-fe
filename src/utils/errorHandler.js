@@ -31,7 +31,7 @@ export const errorHandler = {
         };
       case 403:
         return {
-          message: 'No tienes permisos para realizar esta acción',
+          message: 'You do not have permission to perform this action',
           type: 'permission'
         };
       case 404:
