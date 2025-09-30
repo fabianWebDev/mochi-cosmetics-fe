@@ -36,7 +36,7 @@ export const errorHandler = {
         };
       case 404:
         return {
-          message: 'Recurso no encontrado',
+          message: 'Resource not found',
           type: 'not_found'
         };
       case 500:
