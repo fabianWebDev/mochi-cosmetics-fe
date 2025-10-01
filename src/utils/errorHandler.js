@@ -46,7 +46,7 @@ export const errorHandler = {
         };
       default:
         return {
-          message: 'Error desconocido',
+          message: 'Error unknown',
           type: 'unknown'
         };
     }
