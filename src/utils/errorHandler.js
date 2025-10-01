@@ -41,7 +41,7 @@ export const errorHandler = {
         };
       case 500:
         return {
-          message: 'Error en el servidor',
+          message: 'Server error',
           type: 'server'
         };
       default:
