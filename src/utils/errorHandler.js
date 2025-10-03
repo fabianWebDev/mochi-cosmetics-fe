@@ -54,7 +54,7 @@ export const errorHandler = {
 
   handleGenericError(error) {
     return {
-      message: 'Ha ocurrido un error inesperado',
+      message: 'Unexpected error',
       type: 'generic'
     };
   }
