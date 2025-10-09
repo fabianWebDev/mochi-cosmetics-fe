@@ -21,7 +21,3 @@ export const getUser = () => {
   const user = localStorage.getItem('user_data');
   return user ? JSON.parse(user) : null;
 };
-
-export const setUser = (user) => {
-  localStorage.setItem('user_data', JSON.stringify(user));
-};
