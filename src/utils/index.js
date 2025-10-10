@@ -16,8 +16,3 @@ export const setToken = (token) => {
 export const removeToken = () => {
   localStorage.removeItem('auth_token');
 };
-
-export const getUser = () => {
-  const user = localStorage.getItem('user_data');
-  return user ? JSON.parse(user) : null;
-};
