@@ -4,7 +4,3 @@ export const formatPrice = (price) => {
     currency: 'USD',
   }).format(price);
 };
-
-export const getToken = () => {
-  return localStorage.getItem('auth_token');
-};
