@@ -104,7 +104,7 @@ p {
   transition: width 0.3s ease;
 }
 
-/* Component Styles */
+/* Toastify Styles */
 .Toastify__toast--custom {
   background: var(--tertiary-color);
   width: auto !important;
