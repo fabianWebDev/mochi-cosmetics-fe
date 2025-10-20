@@ -27,7 +27,7 @@ const NotFound = () => {
                         variant="primary"
                         className={classes.button}
                     >
-                        Go to Home
+                        Home
                     </Button>
                     <Button 
                         onClick={handleGoBack} 
