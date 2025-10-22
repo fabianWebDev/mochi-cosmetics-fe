@@ -14,11 +14,11 @@
   --primary-color: #E1C1B7;
   --secondary-color: #9F9F9F;
   --tertiary-color: #ECECEC;
-  --highlight-color: #FE4134;
-  --highlight-color-hover: #B70D01;
-  --highlight-btn-color: #F4B942;
+  --highlight-color: #E1C1B7;
+  --highlight-color-hover: #c29e93;
+  --highlight-btn-color: #E1C1B7;
   --soft-charcoal: #4F4F4F;
-  --background-color: #F5F5F5;
+  --background-color: #FFFFFF;
   --white-background-color: #FFFFFF;
 
   /* Status Colors */
@@ -32,7 +32,9 @@
   --toastify-icon-color-info: #4A90E2;
 
   /* Gradients */
-  --footer-gradient: linear-gradient(135deg, #2A333C 0%, #3E4C59 100%);
+  --footer-gradient: linear-gradient(135deg, #232526 0%, #414345 100%);
+  ;
+
   --base-font-family: 'Inter', sans-serif;
 
   /* Border Radius */

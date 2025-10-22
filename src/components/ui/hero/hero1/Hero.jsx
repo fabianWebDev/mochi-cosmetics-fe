@@ -13,7 +13,7 @@ const Hero = () => {
             />
             <div className={classes.hero_content}>
                 <div className="row">
-                    <h1 className={classes.hero_title}>{storeConfig.name} — Where you can find everything you need!</h1>
+                    <h1 className={classes.hero_title}>Todos nuestros productos son certificados Cruelty Free y aprobados por Mochi!</h1>
                 </div>
                 <div className="row mt-3">
                     <div className="col"></div>

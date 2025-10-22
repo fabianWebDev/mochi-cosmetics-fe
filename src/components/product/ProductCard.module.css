@@ -1,6 +1,5 @@
 .product_card_container {
     width: 100%;
-    border: 1px solid var(--tertiary-color);
     border-radius: var(--border-radius-medium);
 }
 
@@ -42,7 +41,6 @@
     border-bottom-right-radius: var(--border-radius-medium);
     border-bottom-left-radius: var(--border-radius-medium);
     background-color: var(--white-background-color);
-    border-top: 2px solid var(--tertiary-color);
 }
 
 .product_card_name {
