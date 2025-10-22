@@ -20,7 +20,7 @@ const Hero = () => {
                     <div className={`${classes.hero_button_container} col-md-6`}>
                         <Link to="/products">
                             <Button className="hero_button_color">
-                                See more
+                                Ver más
                             </Button>
                         </Link>
                     </div>
