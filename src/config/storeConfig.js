@@ -3,7 +3,7 @@ import logo from '../assets/shopping-cart.png';
 export const storeConfig = {
     name: "Mochi Cosmetics",
     logo: logo,
-    whatsappNumber: '639123456789',
+    whatsappNumber: '83751695',
     mainCategory: 'mtg',
     mainCategoryName: 'Magic: The Gathering',
 };
