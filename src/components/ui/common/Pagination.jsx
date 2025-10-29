@@ -7,7 +7,6 @@ const Pagination = ({ currentPage, totalItems, itemsPerPage, onPageChange, onPag
     // Calculate available page size options based on total items
     const getPageSizeOptions = () => {
         const options = [10, 20, 50];
-        // Only add 100 if total items is greater than 50
         if (totalItems > 50) {
             options.push(100);
         }
