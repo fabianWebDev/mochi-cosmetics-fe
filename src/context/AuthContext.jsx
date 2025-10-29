@@ -1,12 +1,15 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { authService } from '../services/authService';
 import { cartService } from '../services/cartService';
+import Loading from '../components/ui/common/Loading';
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [loginLoading, setLoginLoading] = useState(false);
+    const [logoutLoading, setLogoutLoading] = useState(false);
 
     useEffect(() => {
         const initializeAuth = async () => {
@@ -27,6 +30,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const login = async (credentials) => {
+        setLoginLoading(true);
         try {
             const userData = await authService.login(credentials);
             setUser(userData);
@@ -38,10 +42,13 @@ export const AuthProvider = ({ children }) => {
                 success: false,
                 error: error.message || 'Error logging in'
             };
+        } finally {
+            setLoginLoading(false);
         }
     };
 
     const logout = async () => {
+        setLogoutLoading(true);
         try {
             await authService.logout();
             setUser(null);
@@ -49,12 +56,16 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             console.error('Error during logout:', error);
             return { success: false, error: 'Error al cerrar sesión' };
+        } finally {
+            setLogoutLoading(false);
         }
     };
 
     const value = {
         user,
         loading,
+        loginLoading,
+        logoutLoading,
         login,
         logout,
         isAuthenticated: authService.isAuthenticated
@@ -62,7 +73,14 @@ export const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={value}>
-            {!loading && children}
+            {loading ? (
+                <Loading 
+                    text="Initializing authentication..." 
+                    variant="default"
+                />
+            ) : (
+                children
+            )}
         </AuthContext.Provider>
     );
 };
