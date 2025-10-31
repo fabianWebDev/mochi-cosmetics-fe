@@ -33,7 +33,6 @@ const Pagination = ({ currentPage, totalItems, itemsPerPage, onPageChange, onPag
         return pageNumbers;
     };
 
-    // Calculate start and end items based on current page and items per page
     const startItem = totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
     const endItem = Math.min(currentPage * itemsPerPage, totalItems);
 
