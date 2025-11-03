@@ -16,7 +16,6 @@
 }
 
 .loadingSpinner {
-  /* The ClipLoader component will inherit these styles */
   color: var(--highlight-color) !important;
 }
 
