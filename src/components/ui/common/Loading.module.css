@@ -19,7 +19,6 @@
   color: var(--highlight-color) !important;
 }
 
-/* Variant for smaller loading states */
 .loadingSmall {
   padding: 20px;
   min-height: 100px;
