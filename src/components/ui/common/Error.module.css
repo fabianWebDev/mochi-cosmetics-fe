@@ -71,7 +71,6 @@
     transition: opacity 0.2s ease;
 }
 
-/* Responsive */
 @media (max-width: 640px) {
     .error {
         font-size: 0.8125rem;
