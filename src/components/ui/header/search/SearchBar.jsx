@@ -11,7 +11,6 @@ const SearchBar = () => {
     const handleSearch = (e) => {
         e.preventDefault();
         if (searchTerm.trim()) {
-            // Create URLSearchParams to properly handle the search parameter
             const searchParams = new URLSearchParams();
             searchParams.set('search', searchTerm.trim());
             searchParams.set('page', '1');
