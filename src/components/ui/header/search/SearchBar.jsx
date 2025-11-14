@@ -14,8 +14,6 @@ const SearchBar = () => {
             const searchParams = new URLSearchParams();
             searchParams.set('search', searchTerm.trim());
             searchParams.set('page', '1');
-
-            // Navigate to products page with search parameter
             navigate(`/products?${searchParams.toString()}`);
         }
     };
