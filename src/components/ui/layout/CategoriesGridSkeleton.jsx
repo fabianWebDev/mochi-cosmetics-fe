@@ -3,7 +3,6 @@ import CategoryCardSkeleton from '../../categories/CategoryCardSkeleton';
 import classes from './CategoriesGrid.module.css';
 
 const CategoriesGridSkeleton = ({ count = 6 }) => {
-  // Create skeleton data for the specified number of categories
   const skeletonCategories = Array.from({ length: count }, (_, index) => ({ id: index }));
 
   return (
