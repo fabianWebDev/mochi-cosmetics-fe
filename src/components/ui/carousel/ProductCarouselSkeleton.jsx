@@ -5,7 +5,6 @@ import { carouselSettings } from './carouselSettings';
 import classes from './ProductCarousel.module.css';
 
 const ProductCarouselSkeleton = () => {
-    // Create skeleton data for 4 products (matching slidesToShow)
     const skeletonProducts = Array.from({ length: 4 }, (_, index) => ({ id: index }));
 
     return (
