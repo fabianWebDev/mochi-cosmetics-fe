@@ -14,8 +14,6 @@ const ErrorExample = () => {
                     <Error message="Operación exitosa" variant="success" />
                 </div>
             </div>
-
-            {/* Diferentes tamaños */}
             <div>
                 <h4>Tamaños:</h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
