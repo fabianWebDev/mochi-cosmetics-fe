@@ -23,7 +23,6 @@ const ErrorExample = () => {
                 </div>
             </div>
 
-            {/* Sin icono */}
             <div>
                 <h4>Sin icono:</h4>
                 <Error message="Mensaje sin icono" showIcon={false} />
