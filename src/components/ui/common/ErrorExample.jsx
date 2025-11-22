@@ -28,7 +28,6 @@ const ErrorExample = () => {
                 <Error message="Mensaje sin icono" showIcon={false} />
             </div>
 
-            {/* En contexto de formulario */}
             <div>
                 <h4>En contexto de formulario:</h4>
                 <div style={{ maxWidth: '300px' }}>
