@@ -37,7 +37,6 @@ const ErrorExample = () => {
                 </div>
             </div>
 
-            {/* Mensaje largo */}
             <div>
                 <h4>Mensaje largo:</h4>
                 <Error 
