@@ -40,7 +40,7 @@ const ErrorExample = () => {
             <div>
                 <h4>Mensaje largo:</h4>
                 <Error 
-                    message="Este es un mensaje de error muy largo que debería envolverse correctamente en múltiples líneas sin romper el diseño del componente" 
+                    message="Long message" 
                     variant="warning" 
                 />
             </div>
