@@ -6,7 +6,7 @@ const ErrorExample = () => {
         <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <h3>Ejemplos de uso del componente Error</h3>
             <div>
-                <h4>Variantes:</h4>
+                <h4>Variants:</h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                     <Error message="Error por defecto" variant="default" />
                     <Error message="Advertencia importante" variant="warning" />
