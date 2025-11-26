@@ -15,7 +15,7 @@ const ErrorExample = () => {
                 </div>
             </div>
             <div>
-                <h4>Tamaños:</h4>
+                <h4>Sizes:</h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                     <Error message="Error pequeño" variant="danger" size="small" />
                     <Error message="Error mediano" variant="warning" size="medium" />
