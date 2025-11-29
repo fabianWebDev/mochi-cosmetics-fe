@@ -29,7 +29,7 @@ const ErrorExample = () => {
             </div>
 
             <div>
-                <h4>En contexto de formulario:</h4>
+                <h4>field with error</h4>
                 <div style={{ maxWidth: '300px' }}>
                     <label>Email:</label>
                     <input type="email" style={{ width: '100%', padding: '0.5rem', margin: '0.25rem 0' }} />
