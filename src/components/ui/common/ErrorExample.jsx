@@ -38,7 +38,7 @@ const ErrorExample = () => {
             </div>
 
             <div>
-                <h4>Mensaje largo:</h4>
+                <h4>Long message:</h4>
                 <Error 
                     message="Long message" 
                     variant="warning" 
