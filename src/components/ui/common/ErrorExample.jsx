@@ -33,7 +33,7 @@ const ErrorExample = () => {
                 <div style={{ maxWidth: '300px' }}>
                     <label>Email:</label>
                     <input type="email" style={{ width: '100%', padding: '0.5rem', margin: '0.25rem 0' }} />
-                    <Error message="El email es requerido" variant="danger" size="small" />
+                    <Error message="The email is required" variant="danger" size="small" />
                 </div>
             </div>
 
