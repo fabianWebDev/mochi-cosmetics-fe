@@ -25,7 +25,7 @@ const ErrorExample = () => {
 
             <div>
                 <h4>No icon:</h4>
-                <Error message="Mensaje sin icono" showIcon={false} />
+                <Error message="Message without icon" showIcon={false} />
             </div>
 
             <div>
