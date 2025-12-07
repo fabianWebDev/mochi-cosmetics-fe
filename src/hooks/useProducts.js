@@ -139,8 +139,8 @@ const useProducts = () => {
             const searchParams = new URLSearchParams(location.search);
             const searchTerm = searchParams.get("search");           // Search query string
             const categorySlug = searchParams.get("category");       // Category filter slug
-            const page = parseInt(searchParams.get("page")) || 1;     // Page number (default: 1)
-            const pageSize = parseInt(searchParams.get("page_size")) || 20; // Items per page (default: 20)
+            const page = parseInt(searchParams.get("page")) || 1;     // Page number
+            const pageSize = parseInt(searchParams.get("page_size")) || 20; // Items per page
             const sortOrder = searchParams.get("ordering") || "";    // Sort order parameter
 
             try {
