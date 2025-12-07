@@ -126,19 +126,14 @@ const useProductFilters = (initialProducts = []) => {
             filtered.sort((a, b) => {
                 switch (sortOrder) {
                     case 'a-z':
-                        // Sort by name alphabetically (A to Z)
                         return a.name.localeCompare(b.name);
                     case 'z-a':
-                        // Sort by name alphabetically (Z to A)
                         return b.name.localeCompare(a.name);
                     case 'price_asc':
-                        // Sort by price ascending (low to high)
                         return a.price - b.price;
                     case 'price_desc':
-                        // Sort by price descending (high to low)
                         return b.price - a.price;
                     default:
-                        // No sorting applied
                         return 0;
                 }
             });
